@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import Button from './Button';
+import Button from '../Button';
 
 const Header = () => {
   // const router = useRouter();
@@ -28,9 +28,7 @@ const Header = () => {
           </li>
           <li>
             <Link href={'/auth/signin'}>
-              <Button className="bg-[#98FF98] hover:bg-[#73d473]">
-                로그인
-              </Button>
+              <Button>로그인</Button>
             </Link>
           </li>
           {/* <li>

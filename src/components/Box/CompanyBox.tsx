@@ -48,7 +48,7 @@ const CompanyBox: FC<CompanyBoxProps> = ({ onClick, company }) => {
             key={type}
             className={cn(
               `flex size-52 cursor-pointer flex-col items-center justify-center gap-3 rounded-md border`,
-              selectedCompany === type ? 'bg-[#4fff4f]' : 'hover:bg-[#98FF98]'
+              selectedCompany === type ? 'bg-main' : 'hover:bg-hover'
             )}
             onClick={() => handleClick(type)}
           >

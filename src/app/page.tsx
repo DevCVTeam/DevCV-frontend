@@ -1,4 +1,4 @@
-import Banner from '@/components/carousel/Banner';
+import Banner from '@/components/Carousel/Banner';
 import CategoryResume from '@/components/resume/CategoryResume';
 import { images } from '@/utils/dummy';
 

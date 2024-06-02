@@ -56,9 +56,7 @@ const DeploymentBox: FC<DeploymentBoxProps> = ({ onClick, deployment }) => {
             key={type}
             className={cn(
               `flex size-52 cursor-pointer flex-col items-center justify-center gap-4 rounded-md border`,
-              selectedDeployment === type
-                ? 'bg-[#4fff4f]'
-                : 'hover:bg-[#98FF98]'
+              selectedDeployment === type ? 'bg-hover' : 'hover:bg-main'
             )}
             onClick={() => handleClick(type)}
           >

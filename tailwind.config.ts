@@ -8,7 +8,28 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {}
+      backgroundImage: {},
+      backgroundColor: {
+        hover: '#6fff6f',
+        main: '#98FF98',
+        sub: '#63AD63',
+        default: '#ADADAD',
+        subgray: '#F6F6F6'
+      },
+      textColor: {
+        hover: '#6fff6f',
+        main: '#98FF98',
+        sub: '#63AD63',
+        default: '#ADADAD',
+        subgray: '#F6F6F6'
+      },
+      borderColor: {
+        hover: '#6fff6f',
+        main: '#98FF98',
+        sub: '#63AD63',
+        default: '#ADADAD',
+        subgray: '#F6F6F6'
+      }
     }
   },
   plugins: []
