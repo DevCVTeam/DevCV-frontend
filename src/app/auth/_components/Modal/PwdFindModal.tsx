@@ -1,5 +1,7 @@
+'use client';
+
 import { FC } from 'react';
-import Button from '../Button';
+import Button from '../../../../components/Button';
 import Modal from './Modal';
 
 type PwdFindModalProps = {
