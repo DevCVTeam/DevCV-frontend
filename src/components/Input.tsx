@@ -1,17 +1,17 @@
-'use client';
+// components/Input.tsx
 
 import { cn } from '@/utils/style';
 import { ComponentPropsWithRef, forwardRef } from 'react';
 
-type InputPorps = ComponentPropsWithRef<'input'>;
+type InputProps = ComponentPropsWithRef<'input'>;
 
-// 특정 document 에서 useRef를 많이 쓰는데 컴포넌트 별로 전달하는 것을 도움.
-const Input = forwardRef<HTMLInputElement, InputPorps>(
-  ({ className, ...rest }, ref) => {
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ className, id, ...rest }, ref) => {
     return (
       <input
+        id={id}
         className={cn(
-          'rounded-md border border-gray-300 p-2 transition-all hover:border-gray-400',
+          'h-12 rounded-md border border-gray-300 bg-subgray p-2 transition-all focus:bg-white',
           className
         )}
         ref={ref}
