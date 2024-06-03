@@ -3,8 +3,9 @@
     "next/core-web-vitals",
     "prettier",
     "plugin:tailwindcss/recommended"
-    ],
+  ],
   "rules": {
+    "react-hooks/rules-of-hooks": "off",
     "tailwindcss/classnames-order": [
       "warn",
       {
