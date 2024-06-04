@@ -23,8 +23,6 @@ const ProductsPage = () => {
               alt="Product Image"
               width={300}
               height={300}
-              objectFit="cover"
-              className="rounded-lg"
             />
           </div>
           <div className="flex flex-col gap-4">
