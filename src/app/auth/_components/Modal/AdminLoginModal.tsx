@@ -24,7 +24,9 @@ const AdminLoginModal: FC<AdminLoginModalProps> = ({
         <form className="mt-4 flex flex-col gap-4">
           <Input ref={idRef} placeholder="아이디를 입력하세요." />
           <Input ref={pwdRef} placeholder="패스워드를 입력하세요." />
-          <Button type="submit">로그인</Button>
+          <Button type="submit" className="w-full">
+            로그인
+          </Button>
         </form>
       </div>
     </Modal>
