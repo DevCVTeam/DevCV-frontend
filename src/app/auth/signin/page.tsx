@@ -50,13 +50,13 @@ const SigninPage = () => {
         <div className="flex justify-between text-sm">
           <div className="flex gap-2">
             <span
-              className="cursor-pointer text-main underline"
+              className="cursor-pointer text-sub underline"
               onClick={() => setAdminInOpen(true)}
             >
               관리자로그인
             </span>
             <span
-              className="cursor-pointer text-main underline"
+              className="cursor-pointer text-sub underline"
               onClick={() => router.push('/auth/signup')}
             >
               회원가입
@@ -64,13 +64,13 @@ const SigninPage = () => {
           </div>
           <div className="flex gap-2">
             <span
-              className="cursor-pointer text-main underline"
+              className="cursor-pointer text-sub underline"
               onClick={() => setIdFindIsOpen(true)}
             >
               ID 찾기
             </span>
             <span
-              className="cursor-pointer text-main underline"
+              className="cursor-pointer text-sub underline"
               onClick={() => setPwdFindIsOpen(true)}
             >
               비밀번호 찾기
