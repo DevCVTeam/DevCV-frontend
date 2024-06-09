@@ -1,9 +1,9 @@
 'use client';
 
 import { useContext } from 'react';
-import { SignupContext } from './_components/SignupProvider';
 import Agree from './_components/Agree';
 import Begin from './_components/Begin';
+import { SignupContext } from './_components/SignupProvider';
 import Success from './_components/Success';
 
 const SignupPage = () => {

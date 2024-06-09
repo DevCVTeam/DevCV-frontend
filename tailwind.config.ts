@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss';
-
+import defaultTheme from 'tailwindcss/defaultTheme';
 const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -8,6 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        ...defaultTheme.screens,
+        '3xl': '1760px',
+        tablet: '640px'
+        // => @media (min-width: 640px) { ... }
+      },
       backgroundImage: {},
       backgroundColor: {
         hover: '#6fff6f',
@@ -29,6 +35,18 @@ const config: Config = {
         sub: '#63AD63',
         default: '#ADADAD',
         subgray: '#F6F6F6'
+      },
+      animation: {
+        'spin-slower': 'spin 35s ease infinite',
+        'spin-slow': 'spin 25s ease-in-out infinite reverse'
+      },
+      colors: {
+        accent: {
+          1: 'hsl(288 95.8% 90.6%)',
+          2: 'hsl(168 83.8% 78.2%)'
+        },
+        bkg: 'hsl(210 40% 98%)',
+        content: 'hsl(217 32.6% 17.5%)'
       }
     }
   },

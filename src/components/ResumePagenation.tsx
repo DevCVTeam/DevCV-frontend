@@ -23,8 +23,8 @@ const ResumePagenation = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="mb-8 grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-6 xl:grid-cols-5 xl:gap-8">
+    <div className="flex flex-col justify-center">
+      <div className="mb-8 grid grid-cols-1 gap-2  md:grid-cols-2 md:gap-2 xl:grid-cols-3 xl:gap-3 2xl:grid-cols-4 2xl:gap-5 3xl:grid-cols-5 3xl:gap-8">
         {currentItems.map((item, index) => (
           <ResumeBox
             key={item.resumeId}

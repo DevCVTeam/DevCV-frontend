@@ -1,12 +1,12 @@
 import { cn } from '@/utils/style';
 import Image from 'next/image';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { FaCheck, FaPen } from 'react-icons/fa';
 import { LiaCheckSquareSolid } from 'react-icons/lia';
 import { SignupContext } from './SignupProvider';
 
 const Navigation = () => {
-  const { agreements, setAgreements } = useContext(SignupContext);
+  const { agreements } = useContext(SignupContext);
   return (
     <div className="flex flex-col gap-16">
       <div className="mt-12 flex flex-col items-center gap-4">
@@ -20,10 +20,7 @@ const Navigation = () => {
         <h4 className="text-2xl font-semibold">회원가입</h4>
       </div>
       <div className="flex items-center justify-center gap-4">
-        <div
-          className="flex cursor-pointer flex-col items-center"
-          onClick={() => setAgreements(0)}
-        >
+        <div className="flex flex-col items-center">
           <LiaCheckSquareSolid
             className={cn(
               'aspect-square size-12 rounded-full  p-2 text-white ',
@@ -33,10 +30,7 @@ const Navigation = () => {
           <span>약관동의</span>
         </div>
         <hr className="w-6 border-2" />
-        <div
-          className="flex cursor-pointer flex-col items-center"
-          onClick={() => setAgreements(1)}
-        >
+        <div className="flex flex-col items-center">
           <FaPen
             className={cn(
               'aspect-square size-12 rounded-full  p-2 text-white ',
@@ -46,10 +40,7 @@ const Navigation = () => {
           <span>정보입력</span>
         </div>
         <hr className="w-6 border-2" />
-        <div
-          className="flex cursor-pointer flex-col items-center"
-          onClick={() => setAgreements(2)}
-        >
+        <div className="flex flex-col items-center">
           <FaCheck
             className={cn(
               'aspect-square size-12 rounded-full  p-2 text-white ',
