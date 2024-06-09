@@ -11,13 +11,32 @@ type BannerProps = {
 
 const Banner: FC<BannerProps> = ({ images }) => {
   return (
-    <div className="flex ">
-      <Carousel showStatus={false} showThumbs={false} infiniteLoop={true}>
+    <div className="flex items-center justify-center">
+      <Carousel
+        showStatus
+        showArrows
+        showIndicators
+        infiniteLoop
+        showThumbs
+        useKeyboardArrows
+        autoPlay
+        stopOnHover
+        swipeable
+        dynamicHeight
+        emulateTouch
+        autoFocus={false}
+        thumbWidth={100}
+        selectedItem={0}
+        interval={2000}
+        transitionTime={500}
+        swipeScrollTolerance={5}
+        width={800}
+      >
         {images.map((image) => (
           <Image
             src={image.imageUrl}
             alt="slides"
-            width={400}
+            width={800}
             height={400}
             key={image.title}
           />

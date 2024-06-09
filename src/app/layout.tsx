@@ -19,10 +19,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={cn('mx-64', inter.className)}>
-        <Header />
-        {children}
-        <Footer />
+      <body
+        className={cn(
+          'isolate grid place-items-center bg-white text-content ',
+          inter.className
+        )}
+      >
+        <div className="h-screen min-h-screen w-screen">
+          <div className="flex flex-1 flex-col">
+            <div className="mx-40 flex flex-1 flex-col">
+              <Header />
+              <main className="flex flex-1 flex-col">{children}</main>
+              <Footer />
+            </div>
+          </div>
+        </div>
       </body>
     </html>
   );
