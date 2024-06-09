@@ -1,11 +1,12 @@
 'use client';
 
+import { cn } from '@/utils/style';
 import {
   Dialog,
-  Transition,
-  TransitionChild,
   DialogPanel,
-  DialogTitle
+  DialogTitle,
+  Transition,
+  TransitionChild
 } from '@headlessui/react';
 import React, { Fragment } from 'react';
 import { IoClose } from 'react-icons/io5';
@@ -14,10 +15,17 @@ interface ModalProps {
   isOpen?: boolean;
   onClose: () => void;
   title: string;
+  className?: string;
   children: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  children,
+  title,
+  className
+}) => {
   return (
     <Transition show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -44,7 +52,12 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <DialogPanel className="relative w-full overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+              <DialogPanel
+                className={cn(
+                  'relative w-full overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6',
+                  className
+                )}
+              >
                 <DialogTitle className={`text-2xl`}>{title}</DialogTitle>
                 <div className="absolute right-0 top-0 z-10 hidden pr-4 pt-4 sm:block">
                   <button

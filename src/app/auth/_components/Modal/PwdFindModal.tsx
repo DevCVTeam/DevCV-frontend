@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import Button from '../../../../components/Button';
-import Modal from './Modal';
+import Modal from '../../../../components/Modal';
 
 type PwdFindModalProps = {
   isOpen: boolean;
