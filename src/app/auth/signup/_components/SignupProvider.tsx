@@ -1,7 +1,6 @@
 'use client';
 
-import { createContext, useState } from 'react';
-import React from 'react';
+import React, { createContext, useState } from 'react';
 
 type SignupContextProps = {
   agreements: number;
@@ -19,7 +18,6 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const [agreements, setAgreements] = useState<number>(0);
-
   return (
     <SignupContext.Provider value={{ agreements, setAgreements }}>
       {children}

@@ -1,10 +1,10 @@
 'use client';
 
 import Button from '@/components/Button';
-import { Checkbox } from '@headlessui/react';
+import { Checkbox, Field, Label } from '@headlessui/react';
 import { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { SignupContext } from '../_components/SignupProvider';
-import Link from 'next/link';
 
 const Agree = () => {
   const [allChecked, setAllChecked] = useState(false);
@@ -14,7 +14,17 @@ const Agree = () => {
   const [policyInfoProvisionAgreement, setPolicyInfoProvisionAgreement] =
     useState(false);
   const { agreements, setAgreements } = useContext(SignupContext);
-
+  const handleNext = () => {
+    if (
+      termsOfServiceAgreement &&
+      personalInfoCollectionAgreement &&
+      policyInfoProvisionAgreement
+    ) {
+      setAgreements(1);
+    } else {
+      toast.error('약관에 동의해주세요');
+    }
+  };
   return (
     <div className="flex flex-col gap-12">
       <div className="mt-20 flex flex-col gap-4">
@@ -35,14 +45,14 @@ const Agree = () => {
       </div>
       <div>
         <h4 className="text-2xl font-semibold">약관동의</h4>
-        <div className="my-4 flex items-center gap-2">
+        <Field className="my-4 flex items-center gap-2">
           <Checkbox
             checked={termsOfServiceAgreement}
             onChange={setTermsOfServiceAgreement}
             className="group block size-4 rounded border border-main bg-white data-[checked]:bg-main"
           />
-          <span>이용약관에 동의합니다.</span>
-        </div>
+          <Label>이용약관에 동의합니다.</Label>
+        </Field>
         <article className="h-80 w-full overflow-y-scroll rounded-md border-2 p-4">
           <h1 className="mb-4 text-2xl font-bold">제1장 총칙</h1>
 
@@ -282,16 +292,16 @@ const Agree = () => {
 
       <div>
         <h4 className="text-2xl font-semibold">개인정보 수집 이용 조회 동의</h4>
-        <div className="my-4 flex items-center gap-2">
+        <Field className="my-4 flex items-center gap-2">
           <Checkbox
             checked={personalInfoCollectionAgreement}
             onChange={setPersonalInfoCollectionAgreement}
             className="group block size-4 rounded border border-main bg-white data-[checked]:bg-main"
           />
-          <span>
+          <Label>
             위와 같이 본인의 개인정보를 수집·이용하는 것에 동의합니다.(필수)
-          </span>
-        </div>
+          </Label>
+        </Field>
         <article className="h-80 w-full overflow-y-scroll rounded-md border-2 p-4">
           <h1 className="mb-4 text-2xl font-bold">
             개인정보의 수집 및 이용 동의
@@ -439,16 +449,16 @@ const Agree = () => {
         <h4 className="text-2xl font-semibold">
           정책정보 제공을 위한 수집 및 이용 동의
         </h4>
-        <div className="my-4 flex items-center gap-2">
+        <Field className="my-4 flex items-center gap-2">
           <Checkbox
             checked={policyInfoProvisionAgreement}
             onChange={setPolicyInfoProvisionAgreement}
             className="group block size-4 rounded border border-main bg-white data-[checked]:bg-main"
           />
-          <span>
+          <Label>
             정책정보 제공을 위한 개인정보 수집 및 이용에 동의합니다.(선택)
-          </span>
-        </div>
+          </Label>
+        </Field>
         <article className="h-80 w-full overflow-y-scroll rounded-md border-2 p-4">
           <h1 className="mb-4 text-2xl font-bold">
             개인정보 수집 및 이용 안내
@@ -494,12 +504,8 @@ const Agree = () => {
             </p>
           </section>
         </article>
-        <Button
-          className="my-4 w-full"
-          onClick={() => setAgreements(1)}
-          type="button"
-        >
-          <Link href="/auth/signup/begin">다음</Link>
+        <Button className="my-4 w-full" onClick={handleNext} type="button">
+          다음
         </Button>
       </div>
     </div>
