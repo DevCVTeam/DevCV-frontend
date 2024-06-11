@@ -3,7 +3,7 @@
 import { FC, useRef } from 'react';
 import Button from '../../../../components/Button';
 import Input from '../../../../components/Input';
-import Modal from './Modal';
+import Modal from '../../../../components/Modal';
 
 type AdminLoginModalProps = {
   isOpen: boolean;
