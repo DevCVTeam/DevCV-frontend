@@ -1,5 +1,4 @@
-import Footer from '@/components/Footer/Footer';
-import Header from '@/components/Header/Header';
+import { NextLayout, NextProvider } from '@/components/Provider';
 import { cn } from '@/utils/style';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -25,15 +24,9 @@ export default function RootLayout({
           inter.className
         )}
       >
-        <div className="h-screen min-h-screen w-screen">
-          <div className="flex flex-1 flex-col">
-            <div className="mx-40 flex flex-1 flex-col">
-              <Header />
-              <main className="flex flex-1 flex-col">{children}</main>
-              <Footer />
-            </div>
-          </div>
-        </div>
+        <NextProvider>
+          <NextLayout>{children}</NextLayout>
+        </NextProvider>
       </body>
     </html>
   );
