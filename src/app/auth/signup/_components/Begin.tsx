@@ -5,7 +5,6 @@ import Input from '@/components/Input';
 import Label from '@/components/Label';
 import { scriptUrl } from '@/utils/constant';
 import { handleAuthenticate } from '@/utils/imp';
-import Script from 'next/script';
 import { useContext } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -79,8 +78,6 @@ const Begin = () => {
 
   return (
     <div className="flex justify-center">
-      <Script src="https://cdn.iamport.kr/v1/iamport.js" />
-
       <form
         className="flex flex-col items-start gap-4"
         onSubmit={handleSubmit(onSubmit)}
