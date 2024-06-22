@@ -28,7 +28,7 @@ const Agree = () => {
   return (
     <div className="flex flex-col gap-12">
       <div className="mt-20 flex flex-col gap-4">
-        <div className="flex items-center gap-2">
+        <Field className="flex items-center gap-2">
           <Checkbox
             checked={allChecked}
             onChange={() => {
@@ -39,8 +39,8 @@ const Agree = () => {
             }}
             className="group block size-4 rounded border border-main bg-white data-[checked]:bg-main"
           />
-          <span>약관 전체 동의</span>
-        </div>
+          <Label>약관 전체 동의</Label>
+        </Field>
         <hr className="m-0 w-full border border-main" />
       </div>
       <div>

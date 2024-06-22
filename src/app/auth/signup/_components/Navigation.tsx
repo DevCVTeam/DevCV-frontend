@@ -10,13 +10,7 @@ const Navigation = () => {
   return (
     <div className="flex flex-col gap-16">
       <div className="mt-12 flex flex-col items-center gap-4">
-        <Image
-          objectFit="cover"
-          src="/logo.png"
-          alt="Logo"
-          width={60}
-          height={60}
-        />
+        <Image src="/logo.png" alt="Logo" width={60} height={60} />
         <h4 className="text-2xl font-semibold">회원가입</h4>
       </div>
       <div className="flex items-center justify-center gap-4">
