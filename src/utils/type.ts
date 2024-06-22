@@ -1,3 +1,19 @@
+export type ResumeResponse = {
+  content: Resume[];
+  totalElements: number;
+  numberOfElements: number;
+  currentPage: number;
+  totalPages: number;
+  size: number;
+  startPage: number;
+  endPage: number;
+};
+
+export type Image = {
+  resumeImgPath: string;
+  ord: number;
+};
+
 export type Resume = {
   resumeId: number;
   userId: string;
@@ -8,22 +24,24 @@ export type Resume = {
   thumbnail: string;
 };
 
-export enum StackType {
-  대기업,
-  중견기업,
-  중소기업,
-  스타트업,
-  유니콘기업,
-  공기업,
-  벤처기업
-}
+export type JobType =
+  | 'backend'
+  | 'frontend'
+  | 'mobile'
+  | 'infra'
+  | 'game'
+  | 'embedded'
+  | 'security';
 
-export enum ComponyType {
-  백엔드,
-  프론트엔드,
-  모바일,
-  인프라,
-  게임,
-  임베디드,
-  보안
-}
+export type CompanyType =
+  | 'largeE'
+  | 'mediumE'
+  | 'smallE'
+  | 'startE'
+  | 'unicornE'
+  | 'publicE'
+  | 'ventureE';
+
+export type SocialType = 'nomal' | 'google' | 'kakao';
+
+export type RoleType = 'admin' | 'nomal';
