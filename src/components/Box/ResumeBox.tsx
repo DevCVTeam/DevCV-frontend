@@ -20,7 +20,7 @@ const ResumeBox: FC<ResumeBoxProps> = ({
   thumbnail
 }) => {
   return (
-    <div className="h-60 rounded-lg sm:w-64 md:w-72 lg:w-80">
+    <div className="h-80 rounded-lg sm:w-40 md:w-72 lg:w-80">
       <Link href={`/products/${resumeId}`}>
         <div className="mb-3 flex w-80 flex-col items-center justify-between bg-white p-3 shadow-md hover:bg-slate-100 hover:shadow-xl">
           <Image
@@ -28,7 +28,7 @@ const ResumeBox: FC<ResumeBoxProps> = ({
             alt="thumbnail"
             width={260}
             height={220}
-            objectFit="cover"
+            style={{ width: 'auto', height: 'auto' }}
           />
           <h3 className="mt-2 self-start text-lg font-semibold">{title}</h3>
           <div className="my-3 flex w-full flex-row justify-between text-sm">

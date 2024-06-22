@@ -17,7 +17,6 @@ const Banner: FC<BannerProps> = ({ images }) => {
         showArrows
         showIndicators
         infiniteLoop
-        showThumbs
         useKeyboardArrows
         autoPlay
         stopOnHover
