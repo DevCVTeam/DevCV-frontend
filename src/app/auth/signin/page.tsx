@@ -1,14 +1,16 @@
 'use client';
+
 import AdminLoginModal from '@/app/auth/_components/Modal/AdminLoginModal';
 import IdFindModal from '@/app/auth/_components/Modal/IdFindModal';
 import PwdFindModal from '@/app/auth/_components/Modal/PwdFindModal';
 import Button from '@/components/Header/Button';
 import Input from '@/components/Input';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
+import toast from 'react-hot-toast';
 import { FcGoogle } from 'react-icons/fc';
 import { SiKakaotalk } from 'react-icons/si';
 
@@ -16,39 +18,75 @@ const SigninPage = () => {
   const [adminIsOpen, setAdminInOpen] = useState(false);
   const [idFindIsOpen, setIdFindIsOpen] = useState(false);
   const [pwdFindIsOpen, setPwdFindIsOpen] = useState(false);
+  const [recaptcha, setRecaptcha] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);
   const pwdRef = useRef<HTMLInputElement>(null);
+  const { status } = useSession();
   const router = useRouter();
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.replace('/');
+    }
+  }, [router, status]);
+  const validateEmail = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const validatePassword = (password: string) => {
+    return password.length >= 8 && password.length <= 16;
+  };
 
   const handleLogin = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/members/login`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          email: emailRef.current?.value,
-          password: pwdRef.current?.value
-        })
+    try {
+      if (!recaptcha) {
+        return toast.error('입력방지를 체크해주세요');
       }
-    );
-    const accessToken = await res.json();
+      const email = emailRef.current?.value;
+      const password = pwdRef.current?.value;
+
+      if (!email || !validateEmail(email)) {
+        return toast.error('유효한 이메일을 입력해주세요.');
+      }
+
+      if (!password || !validatePassword(password)) {
+        return toast.error('비밀번호는 8글자 이상 16글자 이하여야 합니다.');
+      }
+
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false
+      });
+      if (result?.error) {
+        toast.error('로그인에 실패하였습니다.');
+      } else if (result === null) {
+        toast.error('로그인에 실패하였습니다.');
+      } else {
+        toast.success('로그인에 성공하였습니다.');
+      }
+    } catch (error) {
+      toast.error('로그인에 실패하였습니다.');
+    }
   };
+
+  // 자동입력방지 ReCAPTCHA
   const onChange = () => {
-    // 자동입력방지 ReCAPTCHA
+    setRecaptcha(true);
   };
 
   const kakaoLoginHandler = () => {
     try {
       signIn('kakao', { callbackUrl: '/', redirect: true });
     } catch (error) {
-      console.log(error);
+      toast.error('로그인 실패하였습니다.');
     }
   };
   const googleLoginHandler = () => {
     try {
       signIn('google', { callbackUrl: '/' });
     } catch (error) {
-      console.log(error);
+      toast.error('로그인 실패하였습니다.');
     }
   };
   return (

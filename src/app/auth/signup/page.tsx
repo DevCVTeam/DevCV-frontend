@@ -9,7 +9,7 @@ import Success from './_components/Success';
 const SignupPage = () => {
   const { agreements } = useContext(SignupContext);
   return (
-    <div>
+    <div className="w-2/5">
       {agreements === 0 ? <Agree /> : null}
       {agreements === 1 ? <Begin /> : null}
       {agreements === 2 ? <Success /> : null}
