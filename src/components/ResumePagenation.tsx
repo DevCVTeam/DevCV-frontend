@@ -10,7 +10,7 @@ import ResumeBox from './Box/ResumeBox';
 const ResumePagenation = () => {
   const router = useRouter();
   const [itemOffset, setItemOffset] = useState(0); // 현재 페이지 번호 상태 변수
-  const itemsPerPage = 10;
+  const itemsPerPage = 15;
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = resumes.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(resumes.length / itemsPerPage);
