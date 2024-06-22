@@ -1,62 +1,48 @@
 'use client';
 
 import { Badge } from '@/components/Badge';
-import Button from '@/components/Button';
+import { MarkdownViewer } from '@/components/Markdown';
+import { Company, Job } from '@/utils/constant';
+import { Resume } from '@/utils/type';
 import { FaCheck } from 'react-icons/fa';
 
-const Detail = () => {
+const Detail = ({
+  content,
+  stack,
+  category,
+  sellerNickname
+}: Partial<Resume>) => {
+  console.log(content, stack, category);
   return (
     <div>
-      <div>
+      <div className="flex flex-col gap-4">
         <div className="flex items-start justify-between">
           <div className="flex">
-            <div className="ml-4">
-              <h2 className="text-2xl font-semibold">Jane Doe</h2>
+            <div className="ml-4 flex flex-col gap-2">
+              <h2 className="text-2xl font-semibold">{sellerNickname}</h2>
               <div className="my-1 flex space-x-1">
-                <Badge variant="secondary">UX</Badge>
-                <Badge variant="secondary">UI</Badge>
-                <Badge variant="secondary">UXUI</Badge>
-                <Badge>Designer</Badge>
+                {stack?.map((data) => (
+                  <Badge variant="secondary" key={data}>
+                    {data}
+                  </Badge>
+                ))}
+                <Badge variant="secondary">
+                  {Company[category?.companyType!]}
+                </Badge>
+                <Badge variant="secondary">{Job[category?.stackType!]}</Badge>
               </div>
               <div className="my-1 flex space-x-4">
                 <div className="flex items-center">
-                  <FaCheck className="size-4 text-green-500" />
-                  <span className="ml-1 text-sm">주요 경력 및 이력</span>
-                </div>
-                <div className="flex items-center">
-                  <FaCheck className="size-4 text-default" />
+                  <FaCheck className="size-4 text-main" />
                   <span className="ml-1 text-sm">인증 완료</span>
                 </div>
               </div>
-              <div className="my-1">
-                <p className="text-sm">현) NA사 UX 디자이너</p>
-                <p className="text-sm">전) S그룹 대기업 UX 디자이너</p>
-              </div>
-              <div className="my-1 flex space-x-4">
-                <div className="flex items-center">
-                  <FaCheck className="size-4 text-green-500" />
-                  <span className="ml-1 text-sm">활동 내역</span>
-                </div>
-                <div className="flex items-center">
-                  <FaCheck className="size-4 text-gray-500" />
-                  <span className="ml-1 text-sm">인증 완료</span>
-                </div>
-              </div>
-              <p className="text-sm">
-                카카오, 라인, 쿠팡, 배민 등 메이저 디자이너 스타트업 신규 합격
-                15회
-                <br />
-                사이드 프로젝트: 네이버, 카카오, 쿠팡 개발자와 협업 중인 레더
-                어워드 수상
-              </p>
             </div>
           </div>
-          <Button className="bg-green-500 text-white hover:bg-green-600">
-            공유자 정보 다운로드
-          </Button>
         </div>
+        <hr />
         <div className="mt-6">
-          <p className="text-sm">(이력서 관련정보 markdown 등이감)</p>
+          <MarkdownViewer source={content} />
         </div>
       </div>
     </div>

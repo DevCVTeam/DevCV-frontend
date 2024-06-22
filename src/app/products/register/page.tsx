@@ -4,11 +4,7 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Label from '@/components/Label';
 import { MarkdownEditor } from '@/components/Markdown';
-import {
-  enterpriseOptions,
-  positionOptions,
-  teckstackOptions
-} from '@/utils/option';
+import { companyOptions, jobOptions, teckstackOptions } from '@/utils/option';
 import Image from 'next/image';
 import { Controller, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -19,8 +15,8 @@ type TResumeRegister = {
   thumbnail: File | null;
   resumefile: File[] | null;
   title: string;
-  enterprise: string;
-  position: string;
+  company: string;
+  job: string;
   career: string;
   price: number;
   activity: string;
@@ -159,41 +155,39 @@ const ResumeRegister = () => {
               <div className="flex gap-4">
                 <Controller
                   control={control}
-                  name="enterprise"
+                  name="company"
                   rules={{ required: true }}
                   render={({ field: { onChange, value, ref } }) => (
                     <Select
-                      inputId="enterprise"
-                      options={enterpriseOptions}
-                      instanceId="enterprise-select"
+                      inputId="company"
+                      options={companyOptions}
+                      instanceId="company-select"
                       className="w-56"
                       ref={ref}
-                      value={enterpriseOptions.find(
-                        (enterpriseOption) => enterpriseOption.value === value
+                      value={companyOptions.find(
+                        (companyOption) => companyOption.value === value
                       )}
-                      onChange={(enterpriseOption) =>
-                        onChange(enterpriseOption?.value)
+                      onChange={(companyOption) =>
+                        onChange(companyOption?.value)
                       }
                     />
                   )}
                 />
                 <Controller
                   control={control}
-                  name="position"
+                  name="job"
                   rules={{ required: true }}
                   render={({ field: { onChange, value, ref } }) => (
                     <Select
-                      inputId="position"
+                      inputId="job"
                       className="w-56"
-                      instanceId="position-select"
-                      options={positionOptions}
+                      instanceId="job-select"
+                      options={jobOptions}
                       ref={ref}
-                      value={positionOptions.find(
-                        (positionOption) => positionOption.value === value
+                      value={jobOptions.find(
+                        (jobOptions) => jobOptions.value === value
                       )}
-                      onChange={(positionOption) =>
-                        onChange(positionOption?.value)
-                      }
+                      onChange={(jobOptions) => onChange(jobOptions?.value)}
                     />
                   )}
                 />

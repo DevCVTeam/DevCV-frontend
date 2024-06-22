@@ -1,12 +1,12 @@
-import Banner from '@/components/Carousel/Banner';
-import CategoryResume from '@/components/resume/CategoryResume';
-import { images } from '@/utils/dummy';
+import { CategoryResume } from '@/components/Resume';
+import { getResumes } from '@/utils/fetch';
 
-export default function Home() {
+export default async function Home() {
+  const resumes = await getResumes({});
   return (
     <main className="mt-8 flex min-h-screen flex-1 flex-col items-center text-clip">
-      <Banner images={images} />
-      <CategoryResume />
+      {/* <Banner images={images} /> */}
+      <CategoryResume {...resumes} />
     </main>
   );
 }
