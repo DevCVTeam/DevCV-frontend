@@ -185,9 +185,15 @@ const ResumeRegister = () => {
                       options={jobOptions}
                       ref={ref}
                       value={jobOptions.find(
+<<<<<<< HEAD
                         (jobOptions) => jobOptions.value === value
                       )}
                       onChange={(jobOptions) => onChange(jobOptions?.value)}
+=======
+                        (jobOption) => jobOption.value === value
+                      )}
+                      onChange={(jobOption) => onChange(jobOption?.value)}
+>>>>>>> 974338243f5894e6644560486c74d3a1a691a474
                     />
                   )}
                 />

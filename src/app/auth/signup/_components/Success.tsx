@@ -1,6 +1,5 @@
 import Button from '@/components/Button';
 import Link from 'next/link';
-import React from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 
 const Success = () => {

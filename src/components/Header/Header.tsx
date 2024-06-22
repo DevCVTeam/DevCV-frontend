@@ -23,7 +23,11 @@ const Header = () => {
       <nav>
         {status === 'authenticated' ? (
           <div className="flex items-center gap-2 lg:gap-3">
+<<<<<<< HEAD
             <div className="text-nowrap">{session.user?.name}님</div>
+=======
+            <div>{session.user?.name}님</div>
+>>>>>>> 974338243f5894e6644560486c74d3a1a691a474
             <div>
               <Link href={'/event'}>
                 <Button className="w-24">출석체크</Button>
