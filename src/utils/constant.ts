@@ -1,5 +1,5 @@
-// export const scriptUrl =
-//   '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+export const scriptUrl =
+  '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
 
 export const PAGESIZE = 10;
 export const passwordRegex: RegExp = /^[a-zA-Z\d@$!%*?&]{8,16}$/;
