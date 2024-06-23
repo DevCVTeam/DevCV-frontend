@@ -11,8 +11,7 @@ const Detail = ({
   stack,
   category,
   sellerNickname
-}: Partial<Resume>) => {
-  console.log(content, stack, category);
+}: Pick<Resume, 'content' | 'stack' | 'category' | 'sellerNickname'>) => {
   return (
     <div>
       <div className="flex flex-col gap-4">
@@ -21,15 +20,15 @@ const Detail = ({
             <div className="ml-4 flex flex-col gap-2">
               <h2 className="text-2xl font-semibold">{sellerNickname}</h2>
               <div className="my-1 flex space-x-1">
-                {stack?.map((data) => (
+                {stack.map((data) => (
                   <Badge variant="secondary" key={data}>
                     {data}
                   </Badge>
                 ))}
                 <Badge variant="secondary">
-                  {Company[category?.companyType!]}
+                  {Company[category.companyType!]}
                 </Badge>
-                <Badge variant="secondary">{Job[category?.stackType!]}</Badge>
+                <Badge variant="secondary">{Job[category.stackType!]}</Badge>
               </div>
               <div className="my-1 flex space-x-4">
                 <div className="flex items-center">

@@ -92,10 +92,10 @@ const ResumeDetail = ({
               />
             </TabPanel>
             <TabPanel key={'comments'} className="rounded-xl bg-white/5 p-3">
-              <Comments />
+              <Comments resumeId={resumeId} reviewCount={reviewCount} />
             </TabPanel>
             <TabPanel key={'inquiry'} className="rounded-xl bg-white/5 p-3">
-              <ProductInquiry />
+              <ProductInquiry email="ironjustlikethat@gmail.com" />
             </TabPanel>
           </TabPanels>
         </TabGroup>
