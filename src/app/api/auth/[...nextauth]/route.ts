@@ -21,8 +21,7 @@ const authOptions: NextAuthOptions = {
       credentials: {
         email: {
           label: 'Email',
-          type: 'text',
-          placeholder: 'example@example.com'
+          type: 'text'
         },
         password: { label: 'Password', type: 'password' }
       },
@@ -45,7 +44,7 @@ const authOptions: NextAuthOptions = {
             return null;
           }
           // const user = await response.json();
-
+          console.log(user.accessToken);
           return {
             id: user.accessToken,
             name: user.memberName,
@@ -109,7 +108,13 @@ const authOptions: NextAuthOptions = {
     // },
 
     session: ({ session, token }) => {
-      return session;
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.sub
+        }
+      };
     },
     jwt: async ({ user, token, account, profile, session, trigger }) => {
       if (user) {
