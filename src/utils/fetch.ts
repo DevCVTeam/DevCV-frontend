@@ -1,6 +1,12 @@
 import toast from 'react-hot-toast';
 import { PAGESIZE } from './constant';
-import { CompanyType, JobType, Resume, ResumeResponse } from './type';
+import {
+  CommentResponse,
+  CompanyType,
+  JobType,
+  Resume,
+  ResumeResponse
+} from './type';
 
 export const getResumes = async ({
   page = 1,
@@ -67,7 +73,7 @@ export const getReviews = async (resumeId: number, page: number) => {
       method: 'GET'
     }
   );
-  const data = await res.json();
+  const data: CommentResponse = await res.json();
   return data;
 };
 

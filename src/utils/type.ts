@@ -34,6 +34,43 @@ export type Resume = {
   reviewCount: number;
 };
 
+export type CommentResponse = {
+  content: Comment[];
+  totalElements: number;
+  numberOfElements: number;
+  currentPage: number;
+  totalPages: number;
+  size: number;
+  startPage: number;
+  endPage: number;
+  totalReviews: number;
+  averageRating: number;
+};
+
+export type Comment = {
+  reviewId: number;
+  resumeId: number;
+  memberId: number;
+  orderId: string;
+  grade: number;
+  text: string;
+  createdDate: string;
+  updatedDate: string;
+  reviewerNickname: string;
+  sellerNickname: string;
+  commentDtoList: Reply[];
+};
+
+export type Reply = {
+  commentId: number;
+  reviewId: number;
+  memberId: number;
+  sellerNickname: string;
+  text: string;
+  createdDate: string;
+  updatedDate: string;
+};
+
 export type JobType =
   | 'backend'
   | 'frontend'
