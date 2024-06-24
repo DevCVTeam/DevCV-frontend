@@ -3,6 +3,20 @@ import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import KakaoProvider from 'next-auth/providers/kakao';
+const decodeJwtResponse = (token: string) => {
+  let base64Url = token.split('.')[1];
+  let base64 = base64Url?.replace(/-/g, '+')?.replace(/_/g, '/');
+  let jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split('')
+      .map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join('')
+  );
+
+  return JSON.parse(jsonPayload);
+};
 const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/auth/signin',
@@ -44,7 +58,7 @@ const authOptions: NextAuthOptions = {
             return null;
           }
           // const user = await response.json();
-          console.log(user.accessToken);
+          console.log(user);
           return {
             id: user.accessToken,
             name: user.memberName,
@@ -112,6 +126,7 @@ const authOptions: NextAuthOptions = {
         ...session,
         user: {
           ...session.user,
+          ...decodeJwtResponse(token.sub!),
           id: token.sub
         }
       };

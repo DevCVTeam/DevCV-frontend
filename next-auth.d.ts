@@ -1,3 +1,4 @@
+import { RoleType, SocialType } from '@/utils/type';
 import 'next-auth';
 
 declare module 'next-auth' {
@@ -7,6 +8,11 @@ declare module 'next-auth' {
       name?: string;
       email?: string;
       image?: string;
+      exp: number;
+      memberId: number;
+      memberName: string;
+      role: RoleType;
+      social: SocialType;
     };
   }
 }
