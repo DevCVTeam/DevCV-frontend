@@ -1,5 +1,5 @@
 import { MdOutlineDateRange } from 'react-icons/md';
-import QuestionInput from './_components/QuestionInput';
+import AttendanceCheckIn from './_components/AttendanceCheckIn';
 
 const EventIdPage = () => {
   return (
@@ -15,7 +15,7 @@ const EventIdPage = () => {
       </div>
       <hr className="my-12 w-full border" />
       <div>
-        <QuestionInput />
+        <AttendanceCheckIn />
       </div>
     </div>
   );
