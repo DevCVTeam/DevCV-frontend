@@ -71,6 +71,52 @@ export type Reply = {
   updatedDate: string;
 };
 
+export type UserDetail = {
+  memberInfo: {
+    memberId: number;
+    email: string;
+    memberName: string;
+    phone: string;
+    company: string; // 변경필요 "중견기업" 이렇게 Response 되는데 기존의 type 대로
+    job: JobType;
+    stack: string[];
+    address: string;
+  };
+  resumeList: {
+    memberId: number;
+    count: number;
+    resumeList: {
+      resumeId: number;
+      title: string;
+      price: number;
+      resumeFilePath: string;
+      thumbnail: string;
+      sellerNickname: string;
+      stackType: JobType;
+      companyType: CompanyType;
+    };
+  };
+  orderList: { memberId: number; count: number; orderList: OrderList[] };
+  mypoint: number;
+};
+
+export type OrderList = {
+  orderId: number;
+  resumeId: number;
+  title: string;
+  price: number;
+  orderDate: string;
+};
+
+export type User = {
+  email: string;
+  exp: number;
+  memberId: number;
+  memberName: string;
+  role: RoleType;
+  social: SocialType;
+};
+
 export type JobType =
   | 'backend'
   | 'frontend'

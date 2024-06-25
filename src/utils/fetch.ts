@@ -5,7 +5,8 @@ import {
   CompanyType,
   JobType,
   Resume,
-  ResumeResponse
+  ResumeResponse,
+  UserDetail
 } from './type';
 
 export const getResumes = async ({
@@ -45,9 +46,7 @@ export const getResumes = async ({
   if (!res.ok) {
     console.log(res);
   }
-  console.log(res);
   const data: ResumeResponse = await res.json();
-  console.log(data);
   return data;
 };
 
@@ -95,6 +94,23 @@ export const getOrders = async (id: number) => {
     method: 'GET'
   });
   const data = await res.json();
+  return data;
+};
+
+export const getMyPage = async ({
+  memberId,
+  token
+}: {
+  memberId: number;
+  token: string;
+}) => {
+  const res = await fetch(`${process.env.SERVER_URL}/mypage/${memberId}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+  const data: UserDetail = await res.json();
   return data;
 };
 
