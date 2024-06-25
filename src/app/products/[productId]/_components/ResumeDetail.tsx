@@ -2,6 +2,7 @@ import Button from '@/components/Button';
 import { Resume } from '@/utils/type';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import Image from 'next/image';
+import Link from 'next/link';
 import Comments from './Comments';
 import Detail from './Detail';
 import ProductInquiry from './ProductInquiry';
@@ -55,7 +56,7 @@ const ResumeDetail = ({
 
             <span>가격: {price.toLocaleString()} Point</span>
             <Button className="bg-main text-black hover:bg-hover">
-              결제하기
+              <Link href={'/orders/order'}>결제하기</Link>
             </Button>
           </div>
         </div>
