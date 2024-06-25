@@ -17,7 +17,7 @@ const decodeJwtResponse = (token: string) => {
 
   return JSON.parse(jsonPayload);
 };
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/auth/signin',
     signOut: '/',
@@ -25,8 +25,8 @@ const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: 'jwt' as const,
-    maxAge: 60 * 60,
-    updateAge: 60 * 60 * 2
+    maxAge: 60 * 60, // 1시간
+    updateAge: 60 * 60 * 2 // 2시간
   },
   providers: [
     CredentialsProvider({
@@ -81,9 +81,8 @@ const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ user, account, profile, credentials, email }) {
+      console.log(user, account, profile);
       if (account?.provider === 'google') {
-        console.log(user, account, profile);
-
         const res = await fetch(
           `${process.env.SERVER_URL}/members/google-login?token=${account.access_token}`,
           {
