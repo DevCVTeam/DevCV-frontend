@@ -3,12 +3,9 @@
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Label from '@/components/Label';
-import { JobType, UserDetail } from '@/utils/type';
-import Link from 'next/link';
+import { JobType, UserInfo } from '@/utils/type';
 import { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import SalesTable from './SalesTable';
-import ShoppingTable from './ShoppingTable';
 
 type TUserData = {
   memberId: number;
@@ -22,11 +19,15 @@ type TUserData = {
 };
 
 // 유저 값을 전역 변수로 사용하자!!
-const UserDetailsEditor: FC<UserDetail> = ({
-  memberInfo,
-  mypoint,
-  orderList,
-  resumeList
+const UserDetailsEditor: FC<UserInfo> = ({
+  address,
+  company,
+  email,
+  job,
+  memberId,
+  memberName,
+  phone,
+  stack
 }) => {
   const {
     register,
@@ -39,14 +40,14 @@ const UserDetailsEditor: FC<UserDetail> = ({
   } = useForm<TUserData>({
     mode: 'onChange',
     defaultValues: {
-      memberId: memberInfo?.memberId,
-      email: memberInfo?.email,
-      memberName: memberInfo?.memberName,
-      phone: memberInfo?.phone,
-      company: memberInfo?.company,
-      job: memberInfo?.job,
-      stack: memberInfo?.stack,
-      address: memberInfo?.address
+      address,
+      company,
+      email,
+      job,
+      memberId,
+      memberName,
+      phone,
+      stack
     }
   });
 
@@ -118,27 +119,6 @@ const UserDetailsEditor: FC<UserDetail> = ({
           수정하기
         </Button>
       </form>
-      <hr />
-      <div className="self-start">
-        <h3 className="text-2xl font-semibold text-sub">포인트</h3>
-        <span className="text-2xl font-semibold">
-          포인트 {mypoint.toLocaleString()}
-        </span>
-        <span className="text-sm"> point</span>
-        <Link href="/event">
-          <Button className="m-4 self-center">이벤트 이동</Button>
-        </Link>
-      </div>
-      <hr />
-      <div className="flex flex-col gap-4">
-        <h3 className="text-2xl font-semibold text-sub">구매목록</h3>
-        <ShoppingTable orderList={orderList} />
-      </div>
-
-      <div className="flex flex-col gap-4">
-        <h3 className="text-2xl font-semibold text-sub">판매목록</h3>
-        <SalesTable />
-      </div>
     </div>
   );
 };

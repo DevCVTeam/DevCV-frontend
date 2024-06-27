@@ -1,14 +1,14 @@
 'use client';
 
-import { UserDetail } from '@/utils/type';
-import { useRouter } from 'next/navigation';
+import { OrderList } from '@/utils/type';
 import { FC } from 'react';
 
-const ShoppingTable: FC<Pick<UserDetail, 'orderList'>> = ({ orderList }) => {
-  const router = useRouter();
+// 클릭 시 모달창 생성하고 PDF를 다운로드하게 진행
+const ShoppingTable: FC<OrderList> = ({ count, memberId, orderList }) => {
+  console.log(orderList);
   return (
     <div className="flex flex-col gap-1">
-      {orderList.orderList.length !== 0 ? (
+      {count !== 0 ? (
         <div>
           <div className="flex items-center justify-between px-4 py-2">
             <p className="min-w-[200px] font-semibold">이력서 제목</p>
@@ -20,7 +20,7 @@ const ShoppingTable: FC<Pick<UserDetail, 'orderList'>> = ({ orderList }) => {
           </div>
 
           <div>
-            {orderList.orderList.map((item, index) => (
+            {orderList?.map((order, index) => (
               <div
                 className="flex items-center justify-between rounded-xl border-b border-gray-300 bg-subgray px-4 py-2 hover:bg-slate-200"
                 key={index}
@@ -28,20 +28,19 @@ const ShoppingTable: FC<Pick<UserDetail, 'orderList'>> = ({ orderList }) => {
                 <div className="flex items-center">
                   <div className="mr-4 size-8 rounded-full bg-blue-500"></div>
                   <div>
-                    <p className="min-w-[200px] font-semibold">{item.title}</p>
+                    <p className="min-w-[200px] font-semibold">
+                      {order.resumeTitle}
+                    </p>
                     <p className="min-w-[150px] text-gray-500">
-                      {item.resumeId}
+                      {order.orderId}
                     </p>
                   </div>
                 </div>
-                <div className="grid grid-cols-4 gap-12 text-center">
-                  <p className="w-[100px]">{item.resumeId}</p>
-                  <p className="w-[100px]">{item.price}</p>
+                <div className="grid grid-cols-3 gap-12 text-center">
+                  <p className="w-[100px]">{order.sellerName ?? '홍길동'}</p>
+                  <p className="w-[100px]">{order.totalAmount}</p>
                   <p className="w-[100px] text-gray-500">
-                    {new Date(item.orderDate).toLocaleDateString()}
-                  </p>
-                  <p className="w-[100px] cursor-pointer text-gray-500">
-                    등록하기
+                    {new Date(order.createdDate).toLocaleDateString('ko-KR')}
                   </p>
                 </div>
               </div>
