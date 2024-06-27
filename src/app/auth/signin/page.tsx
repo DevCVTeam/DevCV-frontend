@@ -5,6 +5,7 @@ import IdFindModal from '@/app/auth/_components/Modal/IdFindModal';
 import PwdFindModal from '@/app/auth/_components/Modal/PwdFindModal';
 import Button from '@/components/Header/Button';
 import Input from '@/components/Input';
+import { signFn } from '@/utils/jwt';
 import { signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -53,9 +54,10 @@ const SigninPage = () => {
         return toast.error('비밀번호는 8글자 이상 16글자 이하여야 합니다.');
       }
 
+      const token = await signFn(password);
       const result = await signIn('credentials', {
         email,
-        password,
+        password: token,
         redirect: false
       });
       if (result?.error) {
@@ -66,6 +68,7 @@ const SigninPage = () => {
         toast.success('로그인에 성공하였습니다.');
       }
     } catch (error) {
+      console.log(error);
       toast.error('로그인에 실패하였습니다.');
     }
   };
