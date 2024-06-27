@@ -7,7 +7,7 @@ type ApplyModalProps = {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
-  type: 'apply' | 'modify';
+  type: 'pending' | 'modified';
 };
 
 const ApplyModal: FC<ApplyModalProps> = ({ isOpen, onClose, type }) => {
@@ -18,7 +18,7 @@ const ApplyModal: FC<ApplyModalProps> = ({ isOpen, onClose, type }) => {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={type === 'apply' ? '이력서 신청' : '이력서 수정 신청'}
+      title={type === 'pending' ? '이력서 신청' : '이력서 수정 신청'}
       className="sm:max-w-6xl"
     >
       <div className="mt-6 flex flex-col gap-4">
@@ -80,7 +80,7 @@ const ApplyModal: FC<ApplyModalProps> = ({ isOpen, onClose, type }) => {
         </div>
       </div>
       <div className="mt-20 flex justify-around">
-        <Button>{type === 'modify' ? '수락하기' : '수정 수락하기'}</Button>
+        <Button>{type === 'modified' ? '수락하기' : '수정 수락하기'}</Button>
         <Button className="bg-slate-200 hover:bg-slate-400">취소하기</Button>
       </div>
     </Modal>
