@@ -4,7 +4,7 @@ import 'next-auth';
 declare module 'next-auth' {
   interface Session {
     user: {
-      id: string;
+      accessToken: string;
       name?: string;
       email?: string;
       image?: string;
@@ -14,5 +14,19 @@ declare module 'next-auth' {
       role: RoleType;
       social: SocialType;
     };
+  }
+}
+
+declare module 'next-auth/jwt' {
+  /** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
+  interface JWT {
+    id: string;
+    name: string;
+    email: string;
+    sub: string;
+    refreshToken: string;
+    iat: number;
+    exp: number;
+    jti: string;
   }
 }
