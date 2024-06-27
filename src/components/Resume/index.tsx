@@ -6,6 +6,7 @@ import { CompanyType, JobType, ResumeResponse } from '@/utils/type';
 import { useQuery } from '@tanstack/react-query';
 import { FC, useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { GrPowerReset } from 'react-icons/gr';
 import ReactPaginate from 'react-paginate';
 import CompanyBox from '../Box/CompanyBox';
 import ResumeBox from '../Box/ResumeBox';
@@ -24,6 +25,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
   const [job, setJob] = useState<JobType | undefined>(undefined);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+
   const {
     data: resumePage,
     isPending,
@@ -35,7 +37,6 @@ export const CategoryResume: FC<ResumeResponse> = ({
   } = useQuery({
     queryKey: ['resumes', company, job, page],
     queryFn: async () => {
-      console.log(company, job);
       const { content, totalPages } = await getResumes({ page, company, job });
       console.log(totalPage);
       setTotalPage(totalPages);
@@ -54,9 +55,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
       : undefined
   });
   const handlePageClick = async (event: any) => {
-    console.log(event.selected);
     setPage(event.selected + 1);
-    console.log(resumePage);
   };
 
   return (
@@ -73,6 +72,17 @@ export const CategoryResume: FC<ResumeResponse> = ({
           {Job[job!]} {Company[company!]} 이력서
         </h2>
         <span>선택된 기업의 이력서입니다.</span>
+      </div>
+      <div className="flex flex-col items-center justify-center gap-1">
+        <GrPowerReset
+          onClick={() => {
+            setCompany(undefined);
+            setJob(undefined);
+          }}
+          className="cursor-pointer rounded-full"
+          size={24}
+        />
+        <span className="text-xs">선택 초기화</span>
       </div>
       <div className="flex flex-col justify-center">
         {isFetching ? (
