@@ -17,7 +17,7 @@ const CommentBox = ({
   updatedDate
 }: Comment) => {
   const { status, data: session } = useSession();
-  console.log(session);
+  console.log(grade);
 
   return (
     <div className="flex flex-col justify-between gap-2 rounded-xl border-2 p-2">
@@ -25,9 +25,11 @@ const CommentBox = ({
         <div className="flex gap-2 ">
           <span className="font-semibold">{reviewerNickname}</span>
           {[...Array(grade)].map((_, index) => (
-            <FaStar key={index} className="text-main" />
+            <div key={index} className="m-0 p-0">
+              <FaStar className="text-main" />
+            </div>
           ))}
-          <div>5</div>
+          <div>{grade}</div>
         </div>
         {status === 'authenticated' ? (
           <div className="flex gap-2 text-default">
