@@ -5,9 +5,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { SessionProvider } from 'next-auth/react';
 import Script from 'next/script';
 import { Suspense } from 'react';
-import { Toaster } from 'react-hot-toast';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
+import ToasterContext from './ToasterContext';
 
 interface Props {
   children?: React.ReactNode;
@@ -24,7 +24,6 @@ export const NextProvider = ({ children }: Props) => {
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
         <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-        <Toaster />
       </SessionProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
@@ -38,6 +37,7 @@ export const NextLayout = ({ children }: Props) => {
         <Script src="https://cdn.iamport.kr/v1/iamport.js" />
         <Header />
         <main className="flex flex-1 flex-col">{children}</main>
+        <ToasterContext />
         <Footer />
       </div>
     </div>

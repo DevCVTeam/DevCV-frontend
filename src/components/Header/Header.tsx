@@ -8,6 +8,7 @@ import Button from '../Button';
 const Header = () => {
   // const router = useRouter();
   const { status, data: session } = useSession();
+
   return (
     <header className="flex h-20 w-full items-center justify-between border-b px-4 lg:px-10">
       <Link href="/" className="flex">
@@ -17,35 +18,50 @@ const Header = () => {
           width={30}
           height={50}
           className="size-auto"
-          objectFit="cover"
         />
         <b className="ml-3 self-center text-xl">DevCV</b>
       </Link>
       <nav>
         {status === 'authenticated' ? (
-          <div className="flex items-center gap-2 lg:gap-3">
-            <div>{session.user?.name}님</div>
-            <div>
-              <Link href={'/event'}>
-                <Button className="w-24">출석체크</Button>
-              </Link>
+          session?.user.role === 'admin' ? (
+            <div className="flex items-center gap-2 lg:gap-3">
+              <div>{session.user?.name}님</div>
+              <div>
+                <Link href={'/admin'}>
+                  <Button className="w-32">관리자 페이지</Button>
+                </Link>
+              </div>
+              <div>
+                <Button className="w-24" onClick={() => signOut()}>
+                  로그아웃
+                </Button>
+              </div>
             </div>
-            <div>
-              <Link href={'/products/register'}>
-                <Button className="w-24">판매하기</Button>
-              </Link>
+          ) : (
+            <div className="flex items-center gap-2 lg:gap-3">
+              <div>{session.user?.name}님</div>
+              <div>
+                <Link href={'/event'}>
+                  <Button className="w-24">이벤트</Button>
+                </Link>
+              </div>
+              <div>
+                <Link href={'/products/register'}>
+                  <Button className="w-24">판매하기</Button>
+                </Link>
+              </div>
+              <div>
+                <Link href={'/auth/profile'}>
+                  <Button className="w-24">마이페이지</Button>
+                </Link>
+              </div>
+              <div>
+                <Button className="w-24" onClick={() => signOut()}>
+                  로그아웃
+                </Button>
+              </div>
             </div>
-            <div>
-              <Link href={'/auth/profile'}>
-                <Button className="w-24">마이페이지</Button>
-              </Link>
-            </div>
-            <div>
-              <Button className="w-24" onClick={() => signOut()}>
-                로그아웃
-              </Button>
-            </div>
-          </div>
+          )
         ) : null}
         {status === 'unauthenticated' ? (
           <div className="flex items-center gap-2 lg:gap-3">

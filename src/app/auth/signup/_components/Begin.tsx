@@ -10,6 +10,7 @@ import { Authenticate } from '@/utils/imp';
 import { companyOptions, jobOptions, teckstackOptions } from '@/utils/option';
 import { cn } from '@/utils/style';
 import { CompanyType, JobType } from '@/utils/type';
+import { sign } from 'jsonwebtoken';
 import { useContext, useRef, useState } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -103,17 +104,24 @@ const Begin = () => {
       address,
       detailAddress,
       postalCode,
+      password,
       confirmPassword,
       company,
       job,
       ...rest
     } = data;
+    const token = sign(password, process.env.NEXT_PUBLIC_NEXTAUTH_SECRET!, {
+      algorithm: 'HS512',
+      expiresIn: '1h'
+    });
+    console.log(token);
 
     const res = await fetch(`/server/members/signup`, {
       method: 'POST',
       body: JSON.stringify({
         ...rest,
         social: 0,
+        password: token,
         address: `${address}-(${postalCode})-${detailAddress}`,
         company: CompanyEnum[company],
         job: JobEnum[job]

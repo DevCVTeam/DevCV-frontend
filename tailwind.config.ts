@@ -15,27 +15,27 @@ const config: Config = {
         // => @media (min-width: 640px) { ... }
       },
       backgroundImage: {},
-      backgroundColor: {
-        hover: '#6fff6f',
-        main: '#98FF98',
-        sub: '#63AD63',
-        default: '#ADADAD',
-        subgray: '#F6F6F6'
-      },
-      textColor: {
-        hover: '#6fff6f',
-        main: '#98FF98',
-        sub: '#63AD63',
-        default: '#ADADAD',
-        subgray: '#F6F6F6'
-      },
-      borderColor: {
-        hover: '#6fff6f',
-        main: '#98FF98',
-        sub: '#63AD63',
-        default: '#ADADAD',
-        subgray: '#F6F6F6'
-      },
+      // backgroundColor: {
+      //   hover: '#6fff6f',
+      //   main: '#98FF98',
+      //   sub: '#63AD63',
+      //   default: '#ADADAD',
+      //   subgray: '#F6F6F6'
+      // },
+      // textColor: {
+      //   hover: '#6fff6f',
+      //   main: '#98FF98',
+      //   sub: '#63AD63',
+      //   default: '#ADADAD',
+      //   subgray: '#F6F6F6'
+      // },
+      // borderColor: {
+      //   hover: '#6fff6f',
+      //   main: '#98FF98',
+      //   sub: '#63AD63',
+      //   default: '#ADADAD',
+      //   subgray: '#F6F6F6'
+      // },
       animation: {
         'spin-slower': 'spin 35s ease infinite',
         'spin-slow': 'spin 25s ease-in-out infinite reverse'
@@ -46,6 +46,11 @@ const config: Config = {
           2: 'hsl(168 83.8% 78.2%)'
         },
         bkg: 'hsl(210 40% 98%)',
+        hover: '#6fff6f',
+        main: '#98FF98',
+        sub: '#63AD63',
+        default: '#ADADAD',
+        subgray: '#F6F6F6',
         content: 'hsl(217 32.6% 17.5%)'
       }
     }

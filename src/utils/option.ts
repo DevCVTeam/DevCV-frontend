@@ -28,3 +28,16 @@ export const teckstackOptions = [
   { value: 'Nuxt.JS', label: 'Nuxt.JS' },
   { value: 'Angular', label: 'Angular' }
 ];
+type TForm = {
+  userName: string;
+  nickName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  address: string;
+  detailAddress: string;
+  job: string;
+  compony: string;
+  techStack: string;
+  // referrer: string;
+};
