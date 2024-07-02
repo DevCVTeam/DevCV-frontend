@@ -1,14 +1,17 @@
 'use client';
 
+import axios from 'axios';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Button from '../Button';
-
 const Header = () => {
   // const router = useRouter();
   const { status, data: session } = useSession();
-
+  if (status === 'authenticated') {
+    axios.defaults.headers.common['Authorization'] =
+      `Bearer ${session?.user.accessToken}`;
+  }
   return (
     <header className="flex h-20 w-full items-center justify-between border-b px-4 lg:px-10">
       <Link href="/" className="flex">

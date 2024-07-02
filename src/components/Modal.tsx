@@ -8,12 +8,13 @@ import {
   Transition,
   TransitionChild
 } from '@headlessui/react';
+import { useRouter } from 'next/navigation';
 import React, { Fragment } from 'react';
 import { IoClose } from 'react-icons/io5';
 
 interface ModalProps {
   isOpen?: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   title: string;
   className?: string;
   children: React.ReactNode;
@@ -26,9 +27,13 @@ const Modal: React.FC<ModalProps> = ({
   title,
   className
 }) => {
+  const router = useRouter();
+  function onDismiss() {
+    router.back();
+  }
   return (
     <Transition show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={onClose}>
+      <Dialog as="div" className="relative z-50" onClose={onClose ?? onDismiss}>
         <TransitionChild
           as={Fragment}
           enter="ease-out duration-300"
@@ -63,7 +68,7 @@ const Modal: React.FC<ModalProps> = ({
                   <button
                     type="button"
                     className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    onClick={onClose}
+                    onClick={onClose ?? onDismiss}
                   >
                     <span className="sr-only">Close</span>
                     <IoClose className="size-6" aria-hidden="true" />
