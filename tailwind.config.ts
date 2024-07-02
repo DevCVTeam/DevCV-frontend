@@ -51,6 +51,7 @@ const config: Config = {
         sub: '#63AD63',
         default: '#ADADAD',
         subgray: '#F6F6F6',
+        textColor: '#292929',
         content: 'hsl(217 32.6% 17.5%)'
       }
     }
