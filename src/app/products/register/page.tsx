@@ -5,6 +5,7 @@ import Input from '@/components/Input';
 import Label from '@/components/Label';
 import { MarkdownEditor } from '@/components/Markdown';
 import { companyOptions, jobOptions, teckstackOptions } from '@/utils/option';
+import axios from 'axios';
 import imageCompression from 'browser-image-compression';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -17,7 +18,7 @@ import { GoPlusCircle } from 'react-icons/go';
 import Select from 'react-select';
 import ReactSelect from 'react-select/creatable';
 type TResumeRegister = {
-  thumbnail: File;
+  thumbnail: File[];
   resumefile: File;
   title: string;
   company: string;
@@ -102,57 +103,37 @@ const ResumeRegister = () => {
         stackType: job
       }
     });
-    formData.append('resume', resume);
-    if (thumbnailImg instanceof File) {
-      const compressedThumbnail = await compressImage(thumbnailImg);
-      if (compressedThumbnail) {
-        formData.append('images', compressedThumbnail);
-      } else {
-        toast.error('썸네일 파일 압축에 실패했습니다.');
-        return;
-      }
-    } else {
-      toast.error('썸네일 파일이 올바르지 않습니다.');
-      return;
-    }
+    const blob = new Blob([resume], { type: 'application/json' });
+    formData.append('resume', blob);
 
-    if (resumeFile instanceof File) {
-      formData.append('resumeFile', resumeFile);
-    } else {
-      toast.error('이력서 파일이 올바르지 않습니다.');
-      return;
-    }
-
-    // const response = await axios.post(
-    //   '/server/resumes',
-    //   {
-    //     formData
-    //   },
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${session?.user.accessToken}`,
-    //       'Content-Type': 'multipart/form-data;'
-    //     }
+    thumbnailImg.map((file) => {
+      console.log(file.size);
+      formData.append('images', file);
+    });
+    formData.append('resumeFile', resumeFile);
+    // const res = await fetch('/server/resumes', {
+    //   method: 'POST',
+    //   body: formData,
+    //   headers: {
+    //     Authorization: `Bearer ${session?.user.accessToken}`
     //   }
-    // );
-    // if (response.status !== 200) {
+    // });
+    // console.log(formData.get('resume'));
+    // console.log(formData.get('images'));
+    // console.log(formData.get('resumeFile'));
+
+    // if (!res.ok) {
     //   return toast.error('이력서 등록에 실패했습니다.');
     // }
-    // console.log(response);
-    const res = await fetch('/server/resume', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${session?.user.accessToken}`,
-        'Content-Type': 'multipart/form-data'
-      }
-    });
 
-    if (!res.ok) {
+    const response = await axios.post('/server/resumes', formData);
+    if (response.status !== 200) {
       return toast.error('이력서 등록에 실패했습니다.');
     }
-    const response = await res.json();
-    console.log(response);
+
+    toast.success('이력서 등록에 성공했습니다.');
+
+    return router.push('/');
   };
   return (
     <div className="flex flex-col">
@@ -181,9 +162,10 @@ const ResumeRegister = () => {
                     type="file"
                     id="thumbnail"
                     accept="image/*"
+                    multiple
                     onChange={(e) => {
-                      const file = e.target.files?.[0] || null;
-                      field.onChange(file);
+                      const files = Array.from(e.target.files || []);
+                      field.onChange(files);
                     }}
                     className="hidden" // 기본 파일 입력을 숨깁니다.
                   />
@@ -198,7 +180,7 @@ const ResumeRegister = () => {
                       />
                     ) : (
                       <Image
-                        src={getPreviewSrc(thumbnail)!}
+                        src={getPreviewSrc(thumbnail[0])!}
                         alt="미리보기"
                         width={800}
                         height={800}
@@ -330,7 +312,7 @@ const ResumeRegister = () => {
                 )}
               </Label>
               <Input
-                type="text"
+                type="number"
                 id="price"
                 placeholder="가격 입력"
                 {...register('price', { required: '가격을 입력해주세요' })}
