@@ -56,6 +56,7 @@ export const authOptions: NextAuthOptions = {
           if (user.errorCode) {
             return null;
           }
+          console.log(user.accessToken);
 
           return {
             id: user.accessToken,
@@ -80,6 +81,7 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ user, account, profile, credentials, email }) {
+      console.log(account);
       if (account?.provider === 'google') {
         const res = await fetch(
           `${process.env.SERVER_URL}/members/google-login?token=${account.access_token}`,
@@ -148,7 +150,6 @@ export const authOptions: NextAuthOptions = {
       //    token.refreshToken = refreshToken;
       //     token.accessTokenExpires = jwtParse(accessToken).exp;
       //   }
-
       const timeRemaing =
         token?.exp - (Math.floor(new Date().getTime() / 1000) + 10 * 60);
 
@@ -157,7 +158,6 @@ export const authOptions: NextAuthOptions = {
 
         return { ...token, accessToken: newToken };
       }
-
       return token;
     }
   }

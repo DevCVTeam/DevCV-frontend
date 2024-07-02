@@ -39,6 +39,7 @@ export type Resume = {
   };
   memberId: number;
   sellerNickname: string;
+  sellerEmail: string;
   averageGrade: number;
   reviewCount: number;
 };
@@ -54,6 +55,7 @@ export type CommentResponse = {
   endPage: number;
   totalReviews: number;
   averageRating: number;
+  ratingCounts: number[];
 };
 
 export type Comment = {
@@ -88,29 +90,29 @@ export type UserInfo = {
   company: string; // 변경필요 "중견기업" 이렇게 Response 되는데 기존의 type 대로
   job: JobType;
   stack: string[];
+  nickName: string;
   address: string;
 };
-export type OrderList = {
+export type OrderListResponse = {
   memberId: number;
-  count: number;
-  orderList?: {
-    orderId: string;
-    resumeTitle: string;
-    totalAmount: number;
-    orderStatus: OrderStatus;
-    createdDate: string;
-    payType: string;
-    sellerName: string;
-  }[];
+  orderCount: number;
+  orderList?: OrderList[];
+};
+
+export type OrderList = {
+  orderNumber: string;
+  totalPrice: number;
+  orderStatus: OrderStatus;
+  createdDate: string;
+  resumeList: OrderDetail[];
 };
 
 export type OrderDetail = {
-  orderId: string;
-  resumeTitle: string;
-  totalAmount: number;
-  orderStatus: OrderStatus;
-  createdDate: string;
-  payType: PointType;
+  resumeId: number;
+  title: string;
+  price: number;
+  resumeFilePath: string;
+  thumbnailPath: string;
 };
 
 export type User = {
@@ -137,7 +139,7 @@ export type Event = {
 
 export type PendingModifiedResumeListResponse = {
   content: PendingModifiedResumeList[];
-} & Exclude<ResumeResponse, 'content'>;
+} & Omit<ResumeResponse, 'content'>;
 
 export type PendingModifiedResumeList = {
   status: 'pending' | 'modified';
@@ -150,6 +152,46 @@ export type PendingModifiedResumeList = {
     sellerNickname: string;
     stackType: JobType;
     companyType: CompanyType;
+  }[];
+};
+
+export type PaymentResponse = {
+  memberResponse: {
+    memberId: number;
+    nickname: string;
+    memberName: string;
+    email: string;
+  };
+
+  resumeResponse: Pick<
+    Resume,
+    'resumeId' | 'title' | 'price' | 'resumeFilePath' | 'sellerNickname'
+  > & {
+    thumbnail: string;
+    stackType: JobType;
+    companyType: CompanyType;
+    createdDate: string;
+    updatedDate: string;
+    resumeStatus: ResumeStatus;
+  };
+  myPoint: number;
+};
+
+export type SalesResume = {
+  memberId: number;
+  count: number;
+  resumeList: {
+    resumeId: number;
+    title: string;
+    price: number;
+    resumeFilePath: string;
+    thumbnail: string;
+    sellerNickname: string;
+    stackType: JobType;
+    companyType: CompanyType;
+    createdDate: string;
+    updatedDate: string;
+    resumeStatus: ResumeStatus;
   }[];
 };
 
