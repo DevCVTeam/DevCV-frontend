@@ -36,7 +36,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
     isFetching
   } = useQuery({
     queryKey: ['resumes', company, job, page],
-    queryFn: async () => {
+    queryFn: async ({}) => {
       const { content, totalPages } = await getResumes({ page, company, job });
       console.log(totalPage);
       setTotalPage(totalPages);

@@ -1,17 +1,31 @@
 'use client';
 
-import { OrderList } from '@/utils/type';
-import { FC } from 'react';
+import { OrderListResponse } from '@/utils/type';
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel
+} from '@headlessui/react';
+import Link from 'next/link';
+import { FC, useState } from 'react';
+import { FaArrowCircleDown, FaArrowCircleUp } from 'react-icons/fa';
 
-// 클릭 시 모달창 생성하고 PDF를 다운로드하게 진행
-const ShoppingTable: FC<OrderList> = ({ count, memberId, orderList }) => {
-  console.log(orderList);
+const ShoppingTable: FC<OrderListResponse & { token: string }> = ({
+  orderCount,
+  memberId,
+  orderList,
+  token
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [orderId, setOrderId] = useState('');
   return (
     <div className="flex flex-col gap-1">
-      {count !== 0 ? (
+      {orderCount !== 0 ? (
         <div>
           <div className="flex items-center justify-between px-4 py-2">
-            <p className="min-w-[200px] font-semibold">이력서 제목</p>
+            <p className="min-w-[200px] font-semibold">
+              주문번호 (이력서 제목)
+            </p>
             <div className="grid grid-cols-3 gap-12 text-center">
               <p className="w-[100px]">판매처</p>
               <p className="w-[100px]">가격</p>
@@ -20,30 +34,58 @@ const ShoppingTable: FC<OrderList> = ({ count, memberId, orderList }) => {
           </div>
 
           <div>
-            {orderList?.map((order, index) => (
-              <div
-                className="flex items-center justify-between rounded-xl border-b border-gray-300 bg-subgray px-4 py-2 hover:bg-slate-200"
-                key={index}
-              >
-                <div className="flex items-center">
-                  <div className="mr-4 size-8 rounded-full bg-blue-500"></div>
-                  <div>
-                    <p className="min-w-[200px] font-semibold">
-                      {order.resumeTitle}
-                    </p>
-                    <p className="min-w-[150px] text-gray-500">
-                      {order.orderId}
-                    </p>
+            {orderList?.map((order) => (
+              <Disclosure key={order.orderNumber}>
+                {({ open }) => (
+                  <div className="my-2 flex flex-col">
+                    <DisclosureButton className="flex w-full cursor-pointer items-center justify-between rounded-xl border-b border-gray-300 bg-subgray px-4 py-2 hover:bg-slate-200">
+                      <p className="min-w-[200px] text-start font-semibold">
+                        {order.orderNumber}
+                      </p>
+                      <div className="grid grid-cols-3 gap-12 text-center">
+                        <p className="w-[100px]">홍길동</p>
+                        <p className="w-[100px]">100,000원</p>
+                        <p className="w-[100px] text-gray-500">
+                          {new Date(order.createdDate).toLocaleDateString(
+                            'ko-KR'
+                          )}
+                        </p>
+                      </div>
+                    </DisclosureButton>
+                    <div className="self-center">
+                      {open ? <FaArrowCircleDown /> : <FaArrowCircleUp />}
+                    </div>
+                    <DisclosurePanel className="rounded-xl bg-green-200 px-4 pb-2 pt-4">
+                      {order.resumeList.map((resume) => (
+                        <Link
+                          href={`/auth/profile/orderResume/${order.orderNumber}`}
+                          className="cursor-pointer"
+                          key={resume.resumeId}
+                          passHref
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="min-w-[200px]">
+                              <p className="font-semibold">{resume.title}</p>
+                              <p className="text-gray-500">{resume.resumeId}</p>
+                            </div>
+                            <div className="grid grid-cols-3 gap-12 text-center">
+                              <p className="w-[100px]">
+                                {resume.resumeId ?? '홍길동'}
+                              </p>
+                              <p className="w-[100px]">{resume.price}</p>
+                              <p className="w-[100px] text-gray-500">
+                                {new Date(order.createdDate).toLocaleDateString(
+                                  'ko-KR'
+                                )}
+                              </p>
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
+                    </DisclosurePanel>
                   </div>
-                </div>
-                <div className="grid grid-cols-3 gap-12 text-center">
-                  <p className="w-[100px]">{order.sellerName ?? '홍길동'}</p>
-                  <p className="w-[100px]">{order.totalAmount}</p>
-                  <p className="w-[100px] text-gray-500">
-                    {new Date(order.createdDate).toLocaleDateString('ko-KR')}
-                  </p>
-                </div>
-              </div>
+                )}
+              </Disclosure>
             ))}
           </div>
         </div>
