@@ -15,6 +15,7 @@ const ResumeDetail = ({
   memberId,
   price,
   resumeFilePath,
+  sellerEmail,
   resumeId,
   reviewCount,
   sellerNickname,
@@ -56,7 +57,7 @@ const ResumeDetail = ({
 
             <span>가격: {price.toLocaleString()} Point</span>
             <Button className="bg-main text-black hover:bg-hover">
-              <Link href={'/orders/order'}>결제하기</Link>
+              <Link href={`/order/${resumeId}`}>결제하기</Link>
             </Button>
           </div>
         </div>
@@ -96,7 +97,7 @@ const ResumeDetail = ({
               <Comments resumeId={resumeId} reviewCount={reviewCount} />
             </TabPanel>
             <TabPanel key={'inquiry'} className="rounded-xl bg-white/5 p-3">
-              <ProductInquiry email="ironjustlikethat@gmail.com" />
+              <ProductInquiry sellerEmail={sellerEmail} />
             </TabPanel>
           </TabPanels>
         </TabGroup>
