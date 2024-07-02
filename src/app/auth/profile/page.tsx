@@ -10,5 +10,5 @@ export default async function ProfilePage() {
     memberId: user?.user.memberId!,
     token: user?.user.accessToken!
   });
-  return <UserDetailsEditor {...data} />;
+  return <UserDetailsEditor {...data} token={user?.user.accessToken!} />;
 }
