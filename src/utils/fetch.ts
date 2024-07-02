@@ -3,12 +3,15 @@ import { PAGESIZE } from './constant';
 import {
   CommentResponse,
   CompanyType,
+  Event,
   EventList,
   JobType,
-  OrderList,
+  OrderListResponse,
+  PaymentResponse,
   PendingModifiedResumeListResponse,
   Resume,
   ResumeResponse,
+  SalesResume,
   UserInfo
 } from './type';
 
@@ -108,7 +111,7 @@ export const getOrders = async ({
       }
     }
   );
-  const data: OrderList = await res.json();
+  const data: OrderListResponse = await res.json();
   return data;
 };
 
@@ -218,8 +221,9 @@ export const pendingModifiedResumeList = async ({
   type: 'pending' | 'modified';
 }) => {
   try {
+    console.log(type);
     const res = await fetch(
-      `${process.env.SERVER_URL ?? 'server'}/admin/resumes/${type}?page=${page}&size=${PAGESIZE}`,
+      `${process.env.SERVER_URL ?? '/server'}/admin/resumes/${type}?page=${page}&size=${PAGESIZE}`,
       {
         method: 'GET',
         headers: {
@@ -232,4 +236,61 @@ export const pendingModifiedResumeList = async ({
   } catch (error) {
     console.error(error);
   }
+};
+
+export const getCheckout = async ({
+  resumeId,
+  token
+}: {
+  resumeId: number;
+  token: string;
+}) => {
+  const res = await fetch(
+    `${process.env.SERVER_URL}/resumes/${resumeId}/checkout`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+  const data: PaymentResponse = await res.json();
+  return data;
+};
+
+export const getEvent = async ({
+  token,
+  eventId
+}: {
+  token: string;
+  eventId: number;
+}) => {
+  const res = await fetch(`${process.env.SERVER_URL}/events/${eventId}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+  const data: Event = await res.json();
+  return data;
+};
+
+export const salesResumes = async ({
+  memberId,
+  token
+}: {
+  memberId: number;
+  token: string;
+}) => {
+  const res = await fetch(
+    `${process.env.SERVER_URL}/members/${memberId}/resumes`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+  const resumes: SalesResume = await res.json();
+  return resumes;
 };

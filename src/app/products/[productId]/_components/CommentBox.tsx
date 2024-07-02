@@ -1,5 +1,6 @@
 'use client';
 
+import Button from '@/components/Button';
 import { Comment } from '@/utils/type';
 import { useSession } from 'next-auth/react';
 import { FaStar } from 'react-icons/fa';
@@ -17,7 +18,6 @@ const CommentBox = ({
   updatedDate
 }: Comment) => {
   const { status, data: session } = useSession();
-  console.log(grade);
 
   return (
     <div className="flex flex-col justify-between gap-2 rounded-xl border-2 p-2">
@@ -31,17 +31,26 @@ const CommentBox = ({
           ))}
           <div>{grade}</div>
         </div>
-        {status === 'authenticated' ? (
+        {status === 'authenticated' && memberId === session.user.memberId ? (
           <div className="flex gap-2 text-default">
-            <div>수정</div>
-            <div>삭제</div>
+            <Button>수정</Button>
+            <Button>삭제</Button>
           </div>
         ) : null}
       </div>
 
       <div>{text}</div>
       <div className="flex justify-between text-default">
-        <span>{updatedDate ?? createdDate}</span>
+        <span>
+          {new Date(updatedDate).toLocaleString('ko-KR', {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+          })}
+        </span>
         {/* <div className="flex items-center"> // 좋아요는 없는걸
           <CiHeart />
           45
