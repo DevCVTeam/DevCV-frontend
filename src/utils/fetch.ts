@@ -3,7 +3,6 @@ import { PAGESIZE } from './constant';
 import {
   CommentResponse,
   CompanyType,
-  Event,
   EventList,
   JobType,
   OrderListResponse,
@@ -12,6 +11,7 @@ import {
   Resume,
   ResumeResponse,
   SalesResume,
+  TEvent,
   UserInfo
 } from './type';
 
@@ -57,8 +57,8 @@ export const getResumes = async ({
 };
 
 // 이력서 상세페에지
-export const getDetailResume = async (productId: string) => {
-  const res = await fetch(`${process.env.SERVER_URL}/resumes/${productId}`, {
+export const getDetailResume = async (resumeId: number) => {
+  const res = await fetch(`${process.env.SERVER_URL}/resumes/${resumeId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -271,7 +271,7 @@ export const getEvent = async ({
       Authorization: `Bearer ${token}`
     }
   });
-  const data: Event = await res.json();
+  const data: TEvent = await res.json();
   return data;
 };
 
@@ -293,4 +293,17 @@ export const salesResumes = async ({
   );
   const resumes: SalesResume = await res.json();
   return resumes;
+};
+
+// sitemap.xml
+export const getResumeId = async () => {
+  const res = await fetch(`${process.env.SERVER_URL}/`, {
+    method: 'GET'
+  });
+  if (!res.ok) {
+    return null;
+  }
+
+  const data = await res.json();
+  return data;
 };
