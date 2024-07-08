@@ -1,10 +1,10 @@
-import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Label from '@/components/Label';
 import Modal from '@/components/Modal';
 import { getEvent } from '@/utils/fetch';
 import { authOptions } from '@/utils/next-auth';
 import { getServerSession } from 'next-auth';
+import EventButton from './_components/EventButton';
 
 export default async function ResumeModal({
   params: { id: eventId }
@@ -60,13 +60,7 @@ export default async function ResumeModal({
           />
         </div>
       </div>
-      <div className="mt-4 flex justify-center gap-4">
-        <Button>수정하기</Button>
-        <Button className="bg-black text-white hover:bg-slate-800">
-          이벤트 삭제하기
-        </Button>
-        <Button className="bg-slate-200 hover:bg-slate-400">취소하기</Button>
-      </div>
+      <EventButton eventId={eventId} user={user!} />
     </Modal>
   );
 }

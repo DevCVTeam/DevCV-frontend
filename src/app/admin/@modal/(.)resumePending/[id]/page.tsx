@@ -61,8 +61,12 @@ export default async function ResumeModal({
         <hr className="w-full border" />
         <div className="flex flex-col gap-2">
           <span className="font-semibold">기술 스택</span>
-          <p className="w-full rounded-xl bg-subgray p-4">
-            {resume?.stack?.map((d: any) => d)}
+          <p className="flex w-full gap-4 rounded-xl bg-subgray p-4">
+            {resume?.stack?.map((stack) => (
+              <div key={stack} className="rounded-2xl bg-white p-2 text-black">
+                {stack}
+              </div>
+            ))}
           </p>
         </div>
         <hr className="w-full border" />

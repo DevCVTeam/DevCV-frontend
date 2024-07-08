@@ -5,25 +5,23 @@ import Input from '@/components/Input';
 import Label from '@/components/Label';
 import { passwordRegex } from '@/utils/constant';
 import { CompanyEnum, JobEnum } from '@/utils/enum';
-import { getEmailSend } from '@/utils/fetch';
 import { Authenticate } from '@/utils/imp';
 import { signFn } from '@/utils/jwt';
 import { companyOptions, jobOptions, techstackOptions } from '@/utils/option';
 import { cn } from '@/utils/style';
 import { CompanyType, JobType } from '@/utils/type';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useContext, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import Select from 'react-select';
 import ReactSelect from 'react-select/creatable';
-import { SignupContext } from '../_components/SignupProvider';
 type TForm = {
   memberName: string;
-  nickName: string;
-  email: string;
+  // nickName: string;
+  // email: string;
   password: string;
   confirmPassword: string;
   address: string;
@@ -36,7 +34,7 @@ type TForm = {
   // referrer: string;
 };
 
-const Begin = () => {
+const Profile = () => {
   const params = useSearchParams();
   const { data: session } = useSession();
   console.log(session);
@@ -53,10 +51,7 @@ const Begin = () => {
 
   const [authenticate, setAuthenticate] = useState(false);
   const open = useDaumPostcodePopup();
-  const [verification, setVerification] = useState<string>('');
   const [emailCheck, setEmailCheck] = useState(false);
-  const verificationRef = useRef<HTMLInputElement>(null);
-  const { agreements, setAgreements } = useContext(SignupContext);
   const handleComplete = (data: any) => {
     let fullAddress = data.address;
     let extraAddress = '';
@@ -79,20 +74,6 @@ const Begin = () => {
     open({ onComplete: handleComplete });
   };
 
-  const handleEmailSend = async () => {
-    const email = getValues('email');
-    const certnumber = await getEmailSend(email);
-    setVerification(certnumber);
-  };
-
-  const handleEmailCheck = () => {
-    if (verificationRef.current?.value !== verification.toString()) {
-      return toast.error('이메일 인증에 실패하였습니다.');
-    }
-    setEmailCheck(true);
-    return toast.success('이메일 인증에 성공하셨습니다.');
-  };
-
   const handleAuthenticate = async () => {
     const name = getValues('memberName');
     const { phone, name: named } = await Authenticate(name, () =>
@@ -103,7 +84,7 @@ const Begin = () => {
   };
 
   const onSubmit: SubmitHandler<TForm> = async (data) => {
-    if (!authenticate || !emailCheck) {
+    if (!authenticate) {
       return toast.error('본인인증을 완료해주세요.');
     }
     const param = params.get('social');
@@ -125,6 +106,8 @@ const Begin = () => {
       method: 'POST',
       body: JSON.stringify({
         ...rest,
+        email: session?.user.email,
+        nickName: session?.user.name,
         social,
         password: token,
         address: `${address}-(${postalCode})-${detailAddress}`,
@@ -140,10 +123,9 @@ const Begin = () => {
       return toast.error(`${message.errorCode} : ${message.message}`);
     }
     toast.success('회원가입 성공!!');
-    if (social !== 0) {
-      return router.push('/');
-    }
-    setAgreements(2);
+
+    router.push('/');
+    return await signOut();
   };
 
   return (
@@ -166,58 +148,6 @@ const Begin = () => {
           id="memberName"
           className="w-full"
         />
-        <div className="flex w-full items-center gap-2">
-          <div className="flex w-full flex-col gap-2">
-            <Label htmlFor="email">
-              이메일 &nbsp;
-              {errors.email && (
-                <small role="alert" className="text-red-400">
-                  ※{errors.email.message}※
-                </small>
-              )}
-            </Label>
-            <div className="flex w-full gap-4">
-              <Input
-                {...register('email', {
-                  required: '이메일 입력은 필수입니다.',
-                  pattern: {
-                    value:
-                      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-                    message: '이메일 형식에 맞지 않습니다.'
-                  }
-                })}
-                placeholder="이메일을 작성해주세요."
-                id="email"
-                className="w-full"
-                disabled={emailCheck ? true : false}
-              />
-              <Button
-                className="self-end"
-                type="button"
-                onClick={handleEmailSend}
-                disabled={emailCheck ? true : false}
-              >
-                인증번호 받기
-              </Button>
-            </div>
-            <div className="flex w-full gap-4">
-              <Input
-                placeholder="인증번호"
-                ref={verificationRef}
-                className="w-full"
-                disabled={emailCheck ? true : false}
-              />
-              <Button
-                className="self-end"
-                type="button"
-                onClick={handleEmailCheck}
-                disabled={emailCheck ? true : false}
-              >
-                인증하기
-              </Button>
-            </div>
-          </div>
-        </div>
 
         <Label htmlFor="password">
           패스워드{' '}
@@ -269,14 +199,6 @@ const Begin = () => {
               }
             }
           })}
-        />
-
-        <Label htmlFor="nickName">닉네임</Label>
-        <Input
-          {...register('nickName', { required: true })}
-          placeholder="닉네임을 작성해주세요"
-          id="nickName"
-          className="w-full"
         />
 
         <hr className="w-full border-main" />
@@ -415,11 +337,11 @@ const Begin = () => {
         </div>
 
         <Button className="my-4 w-full" type="submit">
-          다음
+          회원가입
         </Button>
       </form>
     </div>
   );
 };
 
-export default Begin;
+export default Profile;

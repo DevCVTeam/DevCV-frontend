@@ -7,6 +7,13 @@ export type UserResponse = {
   message?: string;
 };
 
+export type SocialResponse = {
+  social: SocialType;
+  nickName: string;
+  accessToken: string;
+  email: string;
+};
+
 export type ResumeResponse = {
   content: Resume[];
   totalElements: number;
@@ -44,8 +51,8 @@ export type Resume = {
   reviewCount: number;
 };
 
-export type CommentResponse = {
-  content: Comment[];
+export type ReviewResponse = {
+  content: Review[];
   totalElements: number;
   numberOfElements: number;
   currentPage: number;
@@ -58,7 +65,7 @@ export type CommentResponse = {
   ratingCounts: number[];
 };
 
-export type Comment = {
+export type Review = {
   reviewId: number;
   resumeId: number;
   memberId: number;
@@ -70,10 +77,10 @@ export type Comment = {
   reviewerNickname: string;
   sellerNickname: string;
   sellerEmail: string;
-  commentDtoList: Reply[];
+  commentDtoList: Comment[];
 };
 
-export type Reply = {
+export type Comment = {
   commentId: number;
   reviewId: number;
   memberId: number;

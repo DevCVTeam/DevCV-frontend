@@ -3,9 +3,9 @@ import { Resume } from '@/utils/type';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Comments from './Comments';
 import Detail from './Detail';
 import ProductInquiry from './ProductInquiry';
+import Reviews from './Reviews';
 
 const ResumeDetail = ({
   averageGrade,
@@ -72,7 +72,7 @@ const ResumeDetail = ({
               상품 상세
             </Tab>
             <Tab
-              key={'comments'}
+              key={'reviews'}
               className="m-0 inline-block w-72 cursor-pointer text-center text-black after:block after:scale-x-0 after:border-b-4 after:border-sub after:transition-transform after:duration-200 after:content-[''] hover:text-sub hover:after:scale-x-100 data-[selected]:text-sub"
             >
               구매 후기
@@ -93,8 +93,8 @@ const ResumeDetail = ({
                 sellerNickname={sellerNickname}
               />
             </TabPanel>
-            <TabPanel key={'comments'} className="rounded-xl bg-white/5 p-3">
-              <Comments resumeId={resumeId} reviewCount={reviewCount} />
+            <TabPanel key={'reviews'} className="rounded-xl bg-white/5 p-3">
+              <Reviews resumeId={resumeId} reviewCount={reviewCount} />
             </TabPanel>
             <TabPanel key={'inquiry'} className="rounded-xl bg-white/5 p-3">
               <ProductInquiry sellerEmail={sellerEmail} />

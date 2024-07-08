@@ -14,11 +14,13 @@ const CommentWrite = ({
   isOpen,
   onClose,
   refetch,
+  reviewId,
   type
 }: {
   resumeId: number;
   isOpen: boolean;
   onClose: () => void;
+  reviewId?: number;
   refetch: any;
   type: 'seller' | 'review';
 }) => {
@@ -28,8 +30,9 @@ const CommentWrite = ({
   const [grade, setGrade] = useState(0);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(reviewId);
     if (type === 'seller') {
-      const res = await fetch(`/server/reviews/${resumeId}/comments`, {
+      const res = await fetch(`/server/reviews/${reviewId}/comments`, {
         method: 'POST',
         body: JSON.stringify({
           text: content

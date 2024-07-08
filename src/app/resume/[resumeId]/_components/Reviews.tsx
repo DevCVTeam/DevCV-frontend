@@ -9,8 +9,8 @@ import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import CommentBox from './CommentBox';
 import CommentWrite from './CommentWrite';
-
-const Comments = ({
+import ReviewBox from './ReviewBox';
+const Reviews = ({
   resumeId,
   reviewCount
 }: Pick<Resume, 'resumeId' | 'reviewCount'>) => {
@@ -80,13 +80,7 @@ const Comments = ({
           </div>
           <Button onClick={() => setWriteOpen(true)}>구매 후기 작성하기</Button>
         </div>
-        <CommentWrite
-          resumeId={resumeId}
-          isOpen={writeOpen}
-          onClose={() => setWriteOpen(false)}
-          refetch={refetch}
-          type="review"
-        />
+
         <div className="flex justify-center gap-8">
           <div className="flex w-1/4 flex-col items-center justify-center rounded-xl border bg-subgray">
             <h4 className="text-3xl font-semibold">{totalRating}점</h4>
@@ -130,9 +124,21 @@ const Comments = ({
 
         <div className="flex flex-col gap-4">
           {sortedComments?.map((comment, index) => (
-            // <div key={index} className="flex ">
-            <CommentBox key={index} refetch={refetch} {...comment} />
-            // </div>
+            <div key={index} className="flex flex-col gap-2">
+              <CommentWrite
+                resumeId={resumeId}
+                isOpen={writeOpen}
+                reviewId={comment.reviewId}
+                onClose={() => setWriteOpen(false)}
+                refetch={refetch}
+                type="review"
+              />
+              <ReviewBox key={index} refetch={refetch} {...comment} />
+              {comment.commentDtoList.length !== 0 ? (
+                <CommentBox {...comment.commentDtoList[0]} />
+              ) : null}
+              <hr className="my-6 w-full border" />
+            </div>
           ))}
         </div>
         <div ref={ref} />
@@ -141,4 +147,4 @@ const Comments = ({
   );
 };
 
-export default Comments;
+export default Reviews;
