@@ -2,11 +2,14 @@
 
 import Button from '@/components/Button';
 import { Checkbox, Field, Label } from '@headlessui/react';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { SignupContext } from '../_components/SignupProvider';
 
 const Agree = () => {
+  useEffect(() => {
+    // 계정조회하고 있으면 redirect
+  }, []);
   const [allChecked, setAllChecked] = useState(false);
   const [termsOfServiceAgreement, setTermsOfServiceAgreement] = useState(false);
   const [personalInfoCollectionAgreement, setPersonalInfoCollectionAgreement] =
