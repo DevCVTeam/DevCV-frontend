@@ -2,7 +2,8 @@ import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import KakaoProvider from 'next-auth/providers/kakao';
-import { UserResponse } from './type';
+import { cookies } from 'next/headers';
+import { SocialResponse, UserResponse } from './type';
 const decodeJwtResponse = (token: string) => {
   let base64Url = token.split('.')[1];
   let base64 = base64Url?.replace(/-/g, '+')?.replace(/_/g, '/');
@@ -18,6 +19,7 @@ const decodeJwtResponse = (token: string) => {
   return JSON.parse(jsonPayload);
 };
 export const authOptions: NextAuthOptions = {
+  // secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: '/auth/signin',
     signOut: '/',
@@ -43,7 +45,6 @@ export const authOptions: NextAuthOptions = {
         try {
           // 외부 서버와 통신하여 유저 정보와 토큰을 가져오는 로직을 여기에 구현합니다.
           const { email, password } = credentials!;
-          console.log(email, password);
           const res = await fetch(`${process.env.SERVER_URL}/members/login`, {
             method: 'POST',
             body: JSON.stringify({ email, password }),
@@ -56,13 +57,18 @@ export const authOptions: NextAuthOptions = {
           if (user.errorCode) {
             return null;
           }
-          console.log(user.accessToken);
+          const { memberId, role, social, memberName, emailRes, exp } =
+            decodeJwtResponse(user.accessToken);
 
           return {
-            id: user.accessToken,
+            accessToken: user.accessToken,
             refreshToken: user.refreshToken,
-            name: user.memberName,
-            email: user.email
+            id: memberId,
+            email: user.email,
+            memberName: memberName,
+            role,
+            social,
+            exp
           };
         } catch (e: any) {
           throw new Error(e.response);
@@ -81,7 +87,7 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ user, account, profile, credentials, email }) {
-      console.log(account);
+      const cookieStore = cookies();
       if (account?.provider === 'google') {
         const res = await fetch(
           `${process.env.SERVER_URL}/members/google-login?token=${account.access_token}`,
@@ -93,7 +99,20 @@ export const authOptions: NextAuthOptions = {
           console.log(res);
           return false;
         }
-        const data = await res.json();
+        const data: SocialResponse = await res.json();
+        const setCookieHeader = res.headers.get('Set-Cookie');
+        const refreshTokenMatch =
+          setCookieHeader?.match(/RefreshToken=([^;]+)/);
+        const refreshToken = refreshTokenMatch ? refreshTokenMatch[1] : null;
+        // cookieStore.set('RefreshToken', res.headers.get(""));
+        cookieStore.set('Authorization', data.accessToken, {
+          expires: new Date(Date.now() + 60 * 60 * 1000)
+        });
+        cookieStore.set('RefreshToken', refreshToken!, {
+          expires: new Date(Date.now() + 60 * 60 * 1000)
+        });
+        user.accessToken = data.accessToken;
+        user.refreshToken = refreshToken!;
         return true;
       }
       if (account?.provider === 'kakao') {
@@ -104,13 +123,34 @@ export const authOptions: NextAuthOptions = {
           }
         );
         if (!res.ok) {
-          console.log(res);
+          console.log(await res.json());
           return false;
         }
-        const data = await res.json();
+        const data: SocialResponse = await res.json();
+        const setCookieHeader = res.headers.get('Set-Cookie');
+        const refreshTokenMatch =
+          setCookieHeader?.match(/RefreshToken=([^;]+)/);
+        const refreshToken = refreshTokenMatch ? refreshTokenMatch[1] : null;
+        // cookieStore.set('RefreshToken', res.headers.get(""));
+        cookieStore.set('Authorization', data.accessToken, {
+          expires: new Date(Date.now() + 60 * 60 * 1000)
+        });
+        cookieStore.set('RefreshToken', refreshToken!, {
+          expires: new Date(Date.now() + 60 * 60 * 1000)
+        });
+        user.accessToken = data.accessToken;
+        user.refreshToken = refreshToken!;
         return true;
       }
-      if (account?.provider === 'credentials') return true;
+      if (account?.provider === 'credentials') {
+        cookieStore.set('RefreshToken', user.refreshToken, {
+          expires: new Date(Date.now() + 60 * 60 * 1000)
+        });
+        cookieStore.set('Authorization', user.accessToken, {
+          expires: new Date(Date.now() + 60 * 60 * 1000)
+        });
+        return true;
+      }
 
       return false;
     },
@@ -119,29 +159,13 @@ export const authOptions: NextAuthOptions = {
     // },
 
     session: ({ session, token }) => {
-      // console.log(session, token);
-
-      // if (
-      //   res.headers.get('Authorization') &&
-      //   res.headers.get('refreshtoken')
-      // ) {
-      //   const authorization = res.headers.get('authorization');
-      //   const refreshToken = res.headers.get('refreshtoken');
-      //   cookies().set('Authorization', authorization!, {
-      //     expires: 3600,
-      //     maxAge: 3600
-      //   });
-      //   cookies().set('RefreshToken', refreshToken!, {
-      //     expires: 3600,
-      //     maxAge: 3600
-      //   });
-      // }
       return {
         ...session,
         user: {
           ...session.user,
-          ...decodeJwtResponse(token.sub!),
-          accessToken: token.sub
+          ...decodeJwtResponse(token.accessToken!),
+          accessToken: token.accessToken,
+          refreshToken: token.refreshToken
         }
       };
     },
@@ -150,6 +174,12 @@ export const authOptions: NextAuthOptions = {
       //    token.refreshToken = refreshToken;
       //     token.accessTokenExpires = jwtParse(accessToken).exp;
       //   }
+      if (trigger === 'update' || trigger === 'signIn') {
+        token.accessToken = user.accessToken;
+        token.refreshToken = user.refreshToken;
+        // On session creation or sign-in, include access and refresh tokens
+        return token;
+      }
       const timeRemaing =
         token?.exp - (Math.floor(new Date().getTime() / 1000) + 10 * 60);
 
@@ -158,6 +188,7 @@ export const authOptions: NextAuthOptions = {
 
         return { ...token, accessToken: newToken };
       }
+
       return token;
     }
   }
