@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast';
+
 export const Authenticate = (
   name?: any,
   onAuth?: any
@@ -62,6 +64,7 @@ export const Authenticate = (
             }
             resolve({ name: data.response.name, phone: data.response.phone });
           } else {
+            toast.error('본인명의 핸드폰으로 인증해주세요.');
             resolve({ name: '', phone: '' });
           }
         }

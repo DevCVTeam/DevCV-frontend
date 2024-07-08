@@ -56,9 +56,23 @@ const ResumeList: FC<ResumeListProps> = ({ type, token }) => {
       }
     });
     if (!res.ok) {
-      return toast.error('실패');
+      return toast.error('이력서 승인 실패');
     }
-    toast.success('성공');
+    toast.success('이력서 승인 성공');
+    return router.refresh();
+  };
+
+  const handleRejected = async (resumeId: number) => {
+    const res = await fetch(`/server/admin/resumes/${resumeId}/rejected`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    if (!res.ok) {
+      return toast.error('반려 실패');
+    }
+    toast.success('반려 완료');
     return router.refresh();
   };
   return (
@@ -104,7 +118,10 @@ const ResumeList: FC<ResumeListProps> = ({ type, token }) => {
                 >
                   승인
                 </Button>
-                <Button className="w-1/2 bg-white text-red-500 hover:bg-slate-300">
+                <Button
+                  className="w-1/2 bg-white text-red-500 hover:bg-slate-300"
+                  onClick={() => handleRejected(resume.resumeId)}
+                >
                   반려
                 </Button>
               </p>

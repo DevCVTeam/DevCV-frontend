@@ -80,14 +80,20 @@ const SigninPage = () => {
 
   const kakaoLoginHandler = () => {
     try {
-      signIn('kakao', { callbackUrl: '/', redirect: true });
+      signIn('kakao', {
+        callbackUrl: '/auth/social/profile?social=kakao',
+        redirect: false
+      });
     } catch (error) {
       toast.error('로그인 실패하였습니다.');
     }
   };
   const googleLoginHandler = () => {
     try {
-      signIn('google', { callbackUrl: '/' });
+      signIn('google', {
+        callbackUrl: '/auth/social/profile?social=google',
+        redirect: false
+      });
     } catch (error) {
       toast.error('로그인 실패하였습니다.');
     }

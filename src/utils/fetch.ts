@@ -1,7 +1,6 @@
 import toast from 'react-hot-toast';
 import { PAGESIZE } from './constant';
 import {
-  CommentResponse,
   CompanyType,
   EventList,
   JobType,
@@ -10,6 +9,7 @@ import {
   PendingModifiedResumeListResponse,
   Resume,
   ResumeResponse,
+  ReviewResponse,
   SalesResume,
   TEvent,
   UserInfo
@@ -31,8 +31,7 @@ export const getResumes = async ({
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
-        },
-        cache: 'force-cache'
+        }
       }
     );
     const data: ResumeResponse = await res.json();
@@ -45,8 +44,7 @@ export const getResumes = async ({
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
-      },
-      cache: 'force-cache'
+      }
     }
   );
   if (!res.ok) {
@@ -78,7 +76,7 @@ export const getReviews = async (resumeId: number, page: number) => {
       method: 'GET'
     }
   );
-  const data: CommentResponse = await res.json();
+  const data: ReviewResponse = await res.json();
   return data;
 };
 

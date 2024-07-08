@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaStar } from 'react-icons/fa';
-const CommentEdit = ({
+const ReviewEdit = ({
   resumeId,
   isOpen,
   onClose,
@@ -102,4 +102,4 @@ const CommentEdit = ({
   );
 };
 
-export default CommentEdit;
+export default ReviewEdit;

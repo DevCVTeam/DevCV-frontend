@@ -12,6 +12,7 @@ const Header = () => {
     axios.defaults.headers.common['Authorization'] =
       `Bearer ${session?.user.accessToken}`;
   }
+  console.log(session);
   return (
     <header className="flex h-20 w-full items-center justify-between border-b px-4 lg:px-10">
       <Link href="/" className="flex">
@@ -28,7 +29,7 @@ const Header = () => {
         {status === 'authenticated' ? (
           session?.user.role === 'admin' ? (
             <div className="flex items-center gap-2 lg:gap-3">
-              <div>{session.user?.name}님</div>
+              <div>{session.user?.memberName}님</div>
               <div>
                 <Link href={'/admin'}>
                   <Button className="w-32">관리자 페이지</Button>
@@ -42,7 +43,7 @@ const Header = () => {
             </div>
           ) : (
             <div className="flex items-center gap-2 lg:gap-3">
-              <div>{session.user?.name}님</div>
+              <div>{session.user?.memberName}님</div>
               <div>
                 <Link href={'/event'}>
                   <Button className="w-24">이벤트</Button>

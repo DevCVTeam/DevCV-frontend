@@ -18,7 +18,7 @@ export const jobOptions = [
   { value: 'security', label: '보안' }
 ];
 
-export const teckstackOptions = [
+export const techstackOptions = [
   { value: 'Spring', label: 'Spring' },
   { value: 'Node.JS', label: 'Node.JS' },
   { value: '.NET', label: '.NET' },

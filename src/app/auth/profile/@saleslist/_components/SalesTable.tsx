@@ -96,10 +96,14 @@ const SalesTable: FC<SalesResume> = ({ count, memberId, resumeList }) => {
               </p>
             ) : null}
             {resume.resumeStatus === 'pending' ? (
-              <p className="flex w-[200px] gap-4 underline">대기</p>
+              <p className="flex w-[200px] items-center justify-center gap-4 underline">
+                대기
+              </p>
             ) : null}
             {resume.resumeStatus === 'rejected' ? (
-              <p className="flex w-[200px] gap-4 underline">반려</p>
+              <p className="flex w-[200px] items-center justify-center gap-4 underline">
+                반려
+              </p>
             ) : null}
             {resume.resumeStatus === 'regcompleted' ? (
               <p className="flex w-[200px] gap-4">
@@ -120,7 +124,9 @@ const SalesTable: FC<SalesResume> = ({ count, memberId, resumeList }) => {
               </p>
             ) : null}
             {resume.resumeStatus === 'modified' ? (
-              <p className="flex w-[200px] gap-4">수정대기</p>
+              <p className="flex w-[200px] items-center justify-center gap-4">
+                수정대기
+              </p>
             ) : null}
           </div>
         </div>
