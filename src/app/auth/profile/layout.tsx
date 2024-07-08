@@ -4,21 +4,32 @@ export default function Layout({
   children,
   point,
   orderlist,
-  modal
+  saleslist,
+  orderModal,
+  salesModal
 }: {
   children: ReactNode;
   point: ReactNode;
   orderlist: ReactNode;
-  modal: ReactNode;
+  saleslist: ReactNode;
+  orderModal: ReactNode;
+  salesModal: ReactNode;
 }) {
   return (
     <div className="flex flex-col gap-12">
-      {modal}
       <div>{children}</div>
       <hr />
       <div>{point}</div>
       <hr />
-      <div>{orderlist}</div>
+      <div>
+        {orderModal}
+        {orderlist}
+      </div>
+      <hr />
+      <div>
+        {salesModal}
+        {saleslist}
+      </div>
     </div>
   );
 }

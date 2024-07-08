@@ -24,3 +24,9 @@ export const Company = {
   publicE: '공기업',
   ventureE: '벤처기업'
 };
+
+export const OrderStatus = {
+  CREATED: '생성완료',
+  PENDING_PAYMENT: '결제요청',
+  COMPLETED: '구매완료'
+};

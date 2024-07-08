@@ -69,6 +69,7 @@ export type Comment = {
   updatedDate: string;
   reviewerNickname: string;
   sellerNickname: string;
+  sellerEmail: string;
   commentDtoList: Reply[];
 };
 
@@ -104,15 +105,7 @@ export type OrderList = {
   totalPrice: number;
   orderStatus: OrderStatus;
   createdDate: string;
-  resumeList: OrderDetail[];
-};
-
-export type OrderDetail = {
-  resumeId: number;
-  title: string;
-  price: number;
-  resumeFilePath: string;
-  thumbnailPath: string;
+  resumeList: Resume[];
 };
 
 export type User = {
@@ -126,15 +119,16 @@ export type User = {
 
 export type EventList = {
   count: number;
-  eventListResponse: Event[];
+  eventListResponse: TEvent[];
 };
 
-export type Event = {
+export type TEvent = {
   eventId: number;
   name: string;
   eventCategory: string;
   startDate: string;
   endDate: string;
+  point: number;
 };
 
 export type PendingModifiedResumeListResponse = {
@@ -161,20 +155,16 @@ export type PaymentResponse = {
     nickname: string;
     memberName: string;
     email: string;
+    point: number;
   };
 
-  resumeResponse: Pick<
-    Resume,
-    'resumeId' | 'title' | 'price' | 'resumeFilePath' | 'sellerNickname'
-  > & {
-    thumbnail: string;
+  resumeResponse: {
+    title: string;
+    sellerName: string;
+    price: number;
     stackType: JobType;
-    companyType: CompanyType;
-    createdDate: string;
     updatedDate: string;
-    resumeStatus: ResumeStatus;
   };
-  myPoint: number;
 };
 
 export type SalesResume = {
@@ -222,7 +212,8 @@ export type ResumeStatus =
   | 'approved'
   | 'regcompleted'
   | 'deleted'
-  | 'rejected';
+  | 'rejected'
+  | 'modified';
 
 export type SocialType = 'nomal' | 'google' | 'kakao';
 

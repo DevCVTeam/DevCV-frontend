@@ -9,7 +9,6 @@ export default async function OrderPage({
 }: {
   params: { resumeId: number };
 }) {
-  console.log(resumeId);
   const user = await getServerSession(authOptions);
   const payment = await getCheckout({
     resumeId,
@@ -25,13 +24,13 @@ export default async function OrderPage({
         <OrderBox resumeResponse={payment.resumeResponse} />
         <PaymentBox
           resumePrice={payment.resumeResponse.price}
-          point={payment?.myPoint!}
+          point={payment?.memberResponse.point!}
         />
       </div>
       <PaymentButton
         memberId={payment.memberResponse.memberId}
         price={payment.resumeResponse.price}
-        resumeId={payment.resumeResponse.resumeId}
+        resumeId={resumeId}
         token={user?.user.accessToken!}
       />
     </div>

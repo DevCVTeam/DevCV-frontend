@@ -36,7 +36,7 @@ const Banner: FC = () => {
         swipeScrollTolerance={5}
         width={800}
         className="cursor-pointer"
-        onClickItem={(item) => router.push(`/products/${images[item].id}`)}
+        onClickItem={(item) => router.push(`/resume/${images[item].id}`)}
       >
         {images.map((image) => (
           <Image

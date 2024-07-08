@@ -6,6 +6,7 @@
   ],
   "rules": {
     "react-hooks/rules-of-hooks": "off",
+    "react-hooks/exhaustive-deps": "off",
     "tailwindcss/classnames-order": [
       "warn",
       {

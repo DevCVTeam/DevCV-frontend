@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import CommentBox from './CommentBox';
 import CommentWrite from './CommentWrite';
+
 const Comments = ({
   resumeId,
   reviewCount
@@ -20,6 +21,7 @@ const Comments = ({
   const {
     data: commentPages,
     fetchNextPage,
+    refetch,
     hasNextPage
   } = useInfiniteQuery({
     queryKey: ['comments'],
@@ -67,7 +69,6 @@ const Comments = ({
       }
       return 0; // 정렬 옵션이 없는 경우
     });
-
   const [writeOpen, setWriteOpen] = useState(false);
   return (
     <div className="flex size-full flex-col gap-28 px-20">
@@ -79,6 +80,13 @@ const Comments = ({
           </div>
           <Button onClick={() => setWriteOpen(true)}>구매 후기 작성하기</Button>
         </div>
+        <CommentWrite
+          resumeId={resumeId}
+          isOpen={writeOpen}
+          onClose={() => setWriteOpen(false)}
+          refetch={refetch}
+          type="review"
+        />
         <div className="flex justify-center gap-8">
           <div className="flex w-1/4 flex-col items-center justify-center rounded-xl border bg-subgray">
             <h4 className="text-3xl font-semibold">{totalRating}점</h4>
@@ -99,39 +107,36 @@ const Comments = ({
           </div>
         </div>
       </div>
-      {writeOpen ? (
-        <CommentWrite resumeId={resumeId} />
-      ) : (
-        <div>
-          <div className="flex justify-center gap-6">
-            {['latest', 'high Rating', 'low Rating'].map((sortOption) => (
-              <div
-                key={sortOption}
-                className={cn(
-                  'm-0 inline-block w-72 cursor-pointer text-center text-black after:block after:scale-x-0 after:border-b-4 after:border-sub after:transition-transform after:duration-200 hover:text-sub hover:after:scale-x-50',
-                  sort === sortOption ? 'text-main' : ''
-                )}
-                onClick={() => setSort(sortOption)}
-              >
-                {sortOption === 'latest'
-                  ? '최신 순'
-                  : sortOption === 'high Rating'
-                    ? '높은 평점 순'
-                    : '낮은 평점 순'}
-              </div>
-            ))}
-          </div>
 
-          <div className="flex flex-col gap-4">
-            {sortedComments?.map((comment, index) => (
-              // <div key={index} className="flex ">
-              <CommentBox key={index} {...comment} />
-              // </div>
-            ))}
-          </div>
-          <div ref={ref} />
+      <div>
+        <div className="flex justify-center gap-6">
+          {['latest', 'high Rating', 'low Rating'].map((sortOption) => (
+            <div
+              key={sortOption}
+              className={cn(
+                'm-0 inline-block w-72 cursor-pointer text-center text-black after:block after:scale-x-0 after:border-b-4 after:border-sub after:transition-transform after:duration-200 hover:text-sub hover:after:scale-x-50',
+                sort === sortOption ? 'text-main' : ''
+              )}
+              onClick={() => setSort(sortOption)}
+            >
+              {sortOption === 'latest'
+                ? '최신 순'
+                : sortOption === 'high Rating'
+                  ? '높은 평점 순'
+                  : '낮은 평점 순'}
+            </div>
+          ))}
         </div>
-      )}
+
+        <div className="flex flex-col gap-4">
+          {sortedComments?.map((comment, index) => (
+            // <div key={index} className="flex ">
+            <CommentBox key={index} refetch={refetch} {...comment} />
+            // </div>
+          ))}
+        </div>
+        <div ref={ref} />
+      </div>
     </div>
   );
 };
