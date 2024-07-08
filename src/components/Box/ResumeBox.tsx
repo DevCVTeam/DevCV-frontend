@@ -21,7 +21,7 @@ const ResumeBox: FC<ResumeBoxProps> = ({
 }) => {
   return (
     <Link
-      href={`/products/${resumeId}`}
+      href={`/resume/${resumeId}`}
       className="h-80 rounded-lg bg-white shadow-md hover:bg-slate-100 hover:shadow-2xl sm:w-40 md:w-72 lg:w-72"
     >
       <div className="mb-3 flex h-full flex-col items-center justify-between p-3">

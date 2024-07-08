@@ -6,7 +6,6 @@ import Label from '@/components/Label';
 import { MarkdownEditor } from '@/components/Markdown';
 import { companyOptions, jobOptions, teckstackOptions } from '@/utils/option';
 import axios from 'axios';
-import imageCompression from 'browser-image-compression';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -26,32 +25,6 @@ type TResumeRegister = {
   price: number;
   techstack: string;
   description: string;
-};
-
-const compressImage = async (imageFile: File) => {
-  const options = {
-    maxSizeMB: 0.2,
-    maxWidthOrHeight: 1920,
-    useWebWorker: true
-  };
-  try {
-    const compressedFile = await imageCompression(imageFile, options);
-    return compressedFile;
-  } catch (error) {
-    console.error('이미지 압축 오류:', error);
-    return null;
-  }
-};
-
-const getCookieValue = (name: string): string | null => {
-  const nameEQ = name + '=';
-  const ca = document.cookie.split(';');
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-  }
-  return null;
 };
 
 // 이력서 등록
