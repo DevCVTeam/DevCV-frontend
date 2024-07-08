@@ -12,7 +12,7 @@ import { cn } from '@/utils/style';
 import { CompanyType, JobType } from '@/utils/type';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -37,8 +37,15 @@ type TForm = {
 const Profile = () => {
   const params = useSearchParams();
   const { data: session } = useSession();
-  console.log(session);
   const router = useRouter();
+
+  useEffect(() => {
+    console.log(session);
+    if (session?.user.memberId) {
+      router.push('/');
+    }
+  }, [session]);
+  console.log(session);
   const {
     register,
     handleSubmit,

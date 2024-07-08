@@ -23,7 +23,7 @@ const EventButton = ({ eventId, user }: { eventId: number; user: Session }) => {
             return router.back();
           }
           toast.success('이벤트가 삭제되었습니다.');
-          return router.back();
+          return router.refresh();
         }}
       >
         이벤트 삭제하기

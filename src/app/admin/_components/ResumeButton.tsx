@@ -23,7 +23,7 @@ const ResumeButton = ({
       return toast.error('실패');
     }
     toast.success('성공');
-    return router.back();
+    return router.refresh();
   };
   const handleRejected = async () => {
     const res = await fetch(`/server/admin/resumes/${resumeId}/rejected`, {
