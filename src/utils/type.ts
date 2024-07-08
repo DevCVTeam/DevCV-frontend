@@ -136,6 +136,8 @@ export type TEvent = {
   startDate: string;
   endDate: string;
   point: number;
+  errorCode?: string;
+  message?: string;
 };
 
 export type PendingModifiedResumeListResponse = {
