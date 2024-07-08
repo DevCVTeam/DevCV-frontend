@@ -16,6 +16,16 @@ declare module 'next-auth' {
       social: SocialType;
     };
   }
+  interface User {
+    accessToken: string;
+    refreshToken: string;
+    id: string;
+    memberName: string;
+    role: string;
+    social: string;
+    email: string;
+    exp: number;
+  }
 }
 
 declare module 'next-auth/jwt' {
@@ -25,6 +35,7 @@ declare module 'next-auth/jwt' {
     name: string;
     email: string;
     sub: string;
+    accessToken: string;
     refreshToken: string;
     iat: number;
     exp: number;
