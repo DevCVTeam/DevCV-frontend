@@ -24,18 +24,24 @@ const AdminLoginModal: FC<AdminLoginModalProps> = ({
   const idRef = useRef<HTMLInputElement>(null);
   const pwdRef = useRef<HTMLInputElement>(null);
   const handleSubmit = async () => {
-    const pwdToken = await signFn(pwdRef.current?.value!);
-    const result = await signIn('credentials', {
-      email: idRef.current?.value,
-      password: pwdToken
-    });
-    console.log(result);
-    if (result?.error) {
+    try {
+      const pwdToken = await signFn(pwdRef.current?.value!);
+      const result = await signIn('credentials', {
+        email: idRef.current?.value,
+        password: pwdToken,
+        redirect: false
+      });
+      console.log(result);
+      if (result?.error) {
+        return toast.error('로그인에 실패하였습니다.');
+      } else if (result === null) {
+        return toast.error('로그인에 실패하였습니다.');
+      } else {
+        return toast.success('로그인에 성공하였습니다.');
+      }
+    } catch (error) {
+      console.log(error);
       return toast.error('로그인에 실패하였습니다.');
-    } else if (result === null) {
-      return toast.error('로그인에 실패하였습니다.');
-    } else {
-      toast.success('로그인에 성공하였습니다.');
     }
   };
   return (

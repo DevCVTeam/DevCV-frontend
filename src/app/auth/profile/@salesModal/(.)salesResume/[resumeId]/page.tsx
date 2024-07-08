@@ -5,9 +5,10 @@ import Input from '@/components/Input';
 import Label from '@/components/Label';
 import { MarkdownEditor } from '@/components/Markdown';
 import Modal from '@/components/Modal';
-import { Company, Job } from '@/utils/constant';
-import { companyOptions, jobOptions, teckstackOptions } from '@/utils/option';
+import { Company } from '@/utils/constant';
+import { companyOptions, jobOptions, techstackOptions } from '@/utils/option';
 import { Resume } from '@/utils/type';
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -26,7 +27,7 @@ type TResumeModified = {
   company: string;
   job: string;
   price: number;
-  techstack: string;
+  techstack: string[];
   description: string;
 };
 
@@ -49,6 +50,7 @@ export default function SalesResumeModal({
   } = useForm<TResumeModified>({ mode: 'onChange' });
   const resumefile = watch('resumefile');
   const { data: user } = useSession();
+
   useEffect(() => {
     (async () => {
       const res = await fetch(
@@ -60,9 +62,56 @@ export default function SalesResumeModal({
           }
         }
       );
-      const data: Resume = await res.json();
 
+      const data: Resume = await res.json();
       setResume(data);
+      const initialImage = () => {
+        return Promise.all(
+          data.imageList.map(async (image) => {
+            const extension = image.resumeImgPath.substring(
+              image.resumeImgPath.lastIndexOf('.')
+            );
+            const {
+              data: { type, arrayBuffer }
+            } = await axios.get('/api/download', {
+              params: { url: image.resumeImgPath }
+            });
+
+            return new File(
+              [Uint8Array.from(arrayBuffer)],
+              data.title + data.sellerNickname + extension,
+              { type }
+            );
+          })
+        );
+      };
+
+      const initialResume = async () => {
+        const extension = data.resumeFilePath.substring(
+          data.resumeFilePath.lastIndexOf('.')
+        );
+        const {
+          data: { type, arrayBuffer }
+        } = await axios.get('/api/download', {
+          params: { url: data.resumeFilePath }
+        });
+
+        return new File(
+          [Uint8Array.from(arrayBuffer)],
+          data.title + data.sellerNickname + extension,
+          {
+            type
+          }
+        );
+      };
+      setValue('description', data.content);
+      setValue('price', data.price);
+      setValue('techstack', data.stack);
+      setValue('job', data?.category.stackType);
+      setValue('company', data?.category.companyType);
+      setValue('thumbnail', await initialImage());
+      setValue('resumefile', await initialResume());
+      console.log(getValues('job'), getValues('techstack'));
     })();
   }, []);
   if (resume === undefined) return <div>loading...</div>;
@@ -106,6 +155,16 @@ export default function SalesResumeModal({
       const formData = new FormData();
 
       const resume = JSON.stringify({
+        price,
+        title,
+        content: description,
+        stack: techstack,
+        category: {
+          companyType: company,
+          stackType: job
+        }
+      });
+      console.log({
         price,
         title,
         content: description,
@@ -180,7 +239,6 @@ export default function SalesResumeModal({
             control={control}
             name="job"
             rules={{ required: '직무를 작성해주세요' }}
-            defaultValue={Job[resume?.category.stackType]}
             render={({ field: { onChange, value, ref } }) => (
               <Select
                 inputId="job"
@@ -191,7 +249,7 @@ export default function SalesResumeModal({
                 value={jobOptions.find(
                   (jobOption) => jobOption.value === value
                 )}
-                defaultInputValue={value}
+                // defaultInputValue={value}
                 onChange={(jobOption) => onChange(jobOption?.value)}
               />
             )}
@@ -216,7 +274,7 @@ export default function SalesResumeModal({
                 value={companyOptions.find(
                   (companyOption) => companyOption.value === value
                 )}
-                defaultInputValue={value}
+                // defaultInputValue={value}
                 onChange={(companyOption) => onChange(companyOption?.value)}
               />
             )}
@@ -224,7 +282,7 @@ export default function SalesResumeModal({
         </div>
         <hr className="w-full border" />
         <div className="flex justify-between">
-          <Label htmlFor="teckstack">
+          <Label htmlFor="techstack">
             기술 스택{' '}
             {errors.techstack && (
               <small role="alert" className="text-red-400">
@@ -236,17 +294,18 @@ export default function SalesResumeModal({
             control={control}
             name="techstack"
             shouldUnregister={true}
+            // defaultValue={resume.stack}
             render={({ field: { onChange, value, ref } }) => (
               <ReactSelect
                 inputId="techstack"
                 className="w-3/4"
-                options={teckstackOptions}
+                options={techstackOptions}
                 ref={ref}
                 isMulti
                 instanceId="long-value-select"
                 defaultValue={resume.stack
                   .map((stack) => {
-                    const matchingOption = teckstackOptions.find(
+                    const matchingOption = techstackOptions.find(
                       (teck) => teck.value === stack
                     );
                     return matchingOption
@@ -257,14 +316,15 @@ export default function SalesResumeModal({
                       : null;
                   })
                   .filter(Boolean)}
-                // defaultInputValue={resume.stack.join(', ')}
-                onChange={(selectedOptions) =>
-                  onChange(
+                onChange={(selectedOptions) => {
+                  console.log(selectedOptions);
+                  console.log(getValues('techstack'));
+                  return onChange(
                     selectedOptions
                       ? selectedOptions.map((option) => option?.value)
                       : []
-                  )
-                }
+                  );
+                }}
               />
             )}
           />
@@ -304,9 +364,7 @@ export default function SalesResumeModal({
               name="thumbnail"
               control={control}
               rules={{ required: '썸네일 이미지를 등록해주세요' }}
-              defaultValue={resume.imageList.map(
-                (image) => image.resumeImgPath
-              )}
+              // defaultValue={initialImage()}
               render={({ field }) => (
                 <div className="flex flex-col gap-1 text-sky-500">
                   <Input
@@ -319,7 +377,7 @@ export default function SalesResumeModal({
                       field.onChange(files);
                     }}
                   />
-                  {field.value.map((imagePath, index) => (
+                  {field?.value?.map((imagePath, index) => (
                     <div
                       className="flex items-center justify-between gap-1 text-sky-500"
                       key={index}
@@ -364,7 +422,7 @@ export default function SalesResumeModal({
             name="resumefile"
             control={control}
             rules={{ required: '이력서 파일을 등록해주세요' }}
-            defaultValue={resume.resumeFilePath}
+            // defaultValue={initialResume()}
             render={({ field }) => (
               <div className="flex w-3/4 flex-col rounded-2xl bg-subgray">
                 <Input
