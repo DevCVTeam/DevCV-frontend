@@ -4,7 +4,7 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Label from '@/components/Label';
 import { MarkdownEditor } from '@/components/Markdown';
-import { companyOptions, jobOptions, teckstackOptions } from '@/utils/option';
+import { companyOptions, jobOptions, techstackOptions } from '@/utils/option';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -311,12 +311,12 @@ const ResumeRegister = () => {
               <ReactSelect
                 inputId="techstack"
                 className="w-full"
-                options={teckstackOptions}
+                options={techstackOptions}
                 ref={ref}
                 isMulti
                 instanceId="long-value-select"
-                value={teckstackOptions.find(
-                  (teckstackOption) => teckstackOption.value === value
+                value={techstackOptions.find(
+                  (techstackOption) => techstackOption.value === value
                 )}
                 onChange={(selectedOptions) =>
                   onChange(
