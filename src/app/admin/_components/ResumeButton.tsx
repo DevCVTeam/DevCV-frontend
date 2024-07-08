@@ -23,12 +23,12 @@ const ResumeButton = ({
       return toast.error('실패');
     }
     toast.success('성공');
-    return router.push('/admin');
+    return router.push('/');
   };
   return (
     <div className="mt-20 flex justify-around">
-      <Button onClick={handleApproved}>수락하기</Button>
-      <Button className="bg-slate-200 hover:bg-slate-400">취소하기</Button>
+      <Button onClick={handleApproved}>승인</Button>
+      <Button className="bg-slate-200 hover:bg-slate-400">반려</Button>
     </div>
   );
 };
