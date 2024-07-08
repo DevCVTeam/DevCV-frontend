@@ -5,18 +5,23 @@ import Input from '@/components/Input';
 import Label from '@/components/Label';
 import Modal from '@/components/Modal';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 import toast from 'react-hot-toast';
 export default function EventAdd() {
   const { data: session } = useSession();
+  const router = useRouter();
   const startRef = useRef<HTMLInputElement>(null);
   const endRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
+  const pointRef = useRef<HTMLInputElement>(null);
+
   const handleEventAdd = async () => {
     if (
       !startRef.current?.value &&
       !endRef.current?.value &&
-      !titleRef.current?.value
+      !titleRef.current?.value &&
+      !pointRef.current?.value
     ) {
       toast.error('빈 값을 작성해주세요.');
     }
@@ -26,6 +31,7 @@ export default function EventAdd() {
         name: titleRef.current?.value,
         startDate: new Date(startRef.current?.value!),
         eventCategory: 'ATTENDANCE',
+        point: pointRef.current?.value,
         endDate: new Date(endRef.current?.value!)
       }),
       headers: {
@@ -37,6 +43,7 @@ export default function EventAdd() {
       return toast.error('이벤트가 작성되지 않았습니다.');
     }
     toast.success('이벤트가 등록되었습니다.');
+    return router.back();
   };
   return (
     <Modal title="이벤트 생성" isOpen={true}>
@@ -44,6 +51,10 @@ export default function EventAdd() {
         <div className="flex flex-col gap-4">
           <Label htmlFor="title">이벤트 제목</Label>
           <Input ref={titleRef} id="title" type="text" />
+        </div>
+        <div className="flex flex-col gap-4">
+          <Label htmlFor="point">이벤트 포인트</Label>
+          <Input ref={pointRef} id="point" type="number" />
         </div>
         <div className="flex flex-col gap-4">
           <Label htmlFor="startDate">이벤트 시작일</Label>
