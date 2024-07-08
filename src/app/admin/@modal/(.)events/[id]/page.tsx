@@ -13,6 +13,13 @@ export default async function ResumeModal({
 }) {
   const user = await getServerSession(authOptions);
   const event = await getEvent({ token: user?.user.accessToken!, eventId });
+  console.log(event);
+  if (event.errorCode)
+    return (
+      <Modal title="이벤트 목록" isOpen={true}>
+        삭제완료
+      </Modal>
+    );
   return (
     <Modal title="이벤트 목록" isOpen={true}>
       <span className="text-sm text-slate-400">

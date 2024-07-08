@@ -25,6 +25,7 @@ const ResumeList: FC<ResumeListProps> = ({ type, token }) => {
     isLoading,
     error,
     isPlaceholderData,
+    refetch,
     isFetching
   } = useQuery({
     queryKey: [`${type} events`, currentPage],
@@ -58,8 +59,8 @@ const ResumeList: FC<ResumeListProps> = ({ type, token }) => {
     if (!res.ok) {
       return toast.error('이력서 승인 실패');
     }
-    toast.success('이력서 승인 성공');
-    return router.refresh();
+    await refetch();
+    return toast.success('이력서 승인 성공');
   };
 
   const handleRejected = async (resumeId: number) => {
@@ -72,8 +73,8 @@ const ResumeList: FC<ResumeListProps> = ({ type, token }) => {
     if (!res.ok) {
       return toast.error('반려 실패');
     }
-    toast.success('반려 완료');
-    return router.refresh();
+    await refetch();
+    return toast.success('반려 완료');
   };
   return (
     <div className="flex flex-col gap-1">

@@ -198,7 +198,7 @@ export default function SalesResumeModal({
       }
 
       toast.success('이력서가 수정되었습니다.');
-      return router.back();
+      return router.refresh();
     } catch (error) {
       toast.error('수정에 실패하였습니다.');
     }

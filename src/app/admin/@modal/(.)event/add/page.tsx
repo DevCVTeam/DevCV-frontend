@@ -43,7 +43,7 @@ export default function EventAdd() {
       return toast.error('이벤트가 작성되지 않았습니다.');
     }
     toast.success('이벤트가 등록되었습니다.');
-    return router.back();
+    return router.refresh();
   };
   return (
     <Modal title="이벤트 생성" isOpen={true}>
