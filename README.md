@@ -69,6 +69,7 @@ flowchart LR
 ### 기술스택
 
 `Nextjs`, `TypeScript`, `Tailwindcss`, `Github Actions`, `aws`, `pnpm`
+
 [![My Skills](https://skillicons.dev/icons?i=next,ts,tailwindcss,githubactions,aws,pnpm)](https://skillicons.dev)
 
 ---
