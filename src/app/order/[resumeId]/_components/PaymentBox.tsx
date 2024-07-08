@@ -31,7 +31,7 @@ const PaymentBox = ({
       </div>
       <div className="flex justify-between gap-8 text-nowrap ">
         <span>결제 포인트</span>
-        <span className="font-semibold">- {resumePrice}</span>
+        <span className="font-semibold">- {resumePrice.toLocaleString()}</span>
         <span>포인트</span>
       </div>
       <hr className="bg-default" />

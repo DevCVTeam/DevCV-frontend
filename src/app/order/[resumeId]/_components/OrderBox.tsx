@@ -28,11 +28,11 @@ const OrderBox = ({
         <div>
           <div className="m-4 flex flex-col gap-8">
             <p className="font-semibold">{resumeResponse.title}</p>
-            <p className="font-semibold">{resumeResponse.sellerNickname}</p>
+            <p className="font-semibold">{resumeResponse.sellerName}</p>
             <p className="font-semibold">{resumeResponse.price}</p>
             <p className="font-semibold">{resumeResponse.stackType}</p>
             <p className="font-semibold">
-              {new Date(resumeResponse.createdDate).toLocaleDateString('ko-kr')}
+              {new Date(resumeResponse.updatedDate).toLocaleDateString('ko-kr')}
             </p>
           </div>
         </div>
