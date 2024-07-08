@@ -49,7 +49,7 @@ const Header = () => {
                 </Link>
               </div>
               <div>
-                <Link href={'/products/register'}>
+                <Link href={'/resume/register'}>
                   <Button className="w-24">판매하기</Button>
                 </Link>
               </div>
