@@ -12,6 +12,6 @@ export const config = {
     '/event/:path*',
     '/order',
     '/order/:path*',
-    '/products/register'
+    '/resume/register'
   ]
 };
