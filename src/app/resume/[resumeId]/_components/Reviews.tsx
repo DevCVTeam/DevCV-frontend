@@ -109,7 +109,7 @@ const Reviews = ({
                 onClick={() => console.log(rating, reviewCount)}
                 className="flex items-center justify-between gap-4 text-nowrap"
               >
-                <span className="w-10 text-gray-600">{5 - i}점</span>
+                <span className="w-10 text-gray-600">{i + 1}점</span>
                 <div className="flex flex-1 items-center">
                   <div className="relative h-2 flex-1 rounded-full bg-gray-200">
                     <div
