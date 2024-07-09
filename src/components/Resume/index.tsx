@@ -59,38 +59,42 @@ export const CategoryResume: FC<ResumeResponse> = ({
   };
 
   return (
-    <div className="flex w-full flex-col gap-8 rounded-sm">
-      <span className="flex">
-        <h3 className="text-2xl font-semibold">기업 선택</h3>
-        <p className="ml-2 self-end">원하시는 기업을 선택해주세요.</p>
-      </span>
-      <CompanyBox onClick={setCompany} company={company!} />
-      <StackBox onClick={setJob} job={job!} />
+    <div className="flex w-full flex-col gap-8 ">
+      <div className="flex w-full flex-col gap-8 rounded-2xl bg-subgray p-8">
+        <span className="flex">
+          <h3 className="text-2xl font-semibold">기업 선택</h3>
+          <p className="ml-2 place-self-end text-sm">
+            원하시는 기업을 선택해주세요.
+          </p>
+        </span>
+        <CompanyBox onClick={setCompany} company={company!} />
+        <StackBox onClick={setJob} job={job!} />
+      </div>
       <hr />
-      <div className="mt-4">
-        <h2 className="text-2xl">
-          {Job[job!]} {Company[company!]} 이력서
-        </h2>
-        <span>선택된 기업의 이력서입니다.</span>
-      </div>
-      <div className="flex flex-col items-center justify-center gap-1">
-        <GrPowerReset
-          onClick={() => {
-            setCompany(undefined);
-            setJob(undefined);
-          }}
-          className="cursor-pointer rounded-full"
-          size={24}
-        />
-        <span className="text-xs">선택 초기화</span>
-      </div>
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center gap-4 rounded-2xl bg-subgray p-8">
+        <div className="mt-4 flex gap-2">
+          <h2 className="text-2xl font-semibold">
+            {Company[company!]} {Job[job!]} 이력서
+          </h2>
+          <span className="self-end text-sm">선택된 기업의 이력서입니다.</span>
+        </div>
+        <div className="flex flex-col items-center justify-center gap-1">
+          <GrPowerReset
+            onClick={() => {
+              setCompany(undefined);
+              setJob(undefined);
+            }}
+            className="cursor-pointer rounded-full"
+            size={24}
+          />
+          <span className="text-xs">선택 초기화</span>
+        </div>
         {isFetching ? (
           <div>Loading...</div>
         ) : isError ? (
           <div>Error: {error.message}</div>
         ) : (
-          <div className="mb-8 grid grid-cols-1 grid-rows-2 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          <div className="grid grid-cols-1 grid-rows-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {resumePage?.resumes.map((resume) => (
               <ResumeBox
                 key={resume.resumeId}

@@ -39,7 +39,7 @@ export const NextProvider = ({ children }: Props) => {
 export const NextLayout = ({ children }: Props) => {
   return (
     <div className="box-border max-h-screen min-h-screen w-full">
-      <div className="mx-4 flex flex-1 flex-col sm:mx-8 md:mx-16 lg:mx-32 xl:mx-40">
+      <div className="mx-4 flex flex-1 flex-col sm:mx-8 md:mx-16 lg:mx-32 xl:mx-32">
         <Script src="https://cdn.iamport.kr/v1/iamport.js" />
         <Header />
         <main className="flex flex-1 flex-col">{children}</main>
