@@ -22,33 +22,49 @@ const CompanyBox: FC<CompanyBoxProps> = ({ onClick, company }) => {
       <div>
         <h4 className="mb-4 text-lg font-semibold">기업 종류</h4>
       </div>
-      <div className="flex flex-col flex-wrap sm:flex-row">
+      <div className="flex flex-col flex-wrap text-black  sm:flex-row">
         {[
-          { type: 'largeE', icon: <FaBuilding size={100} />, name: '대기업' },
-          { type: 'mediumE', icon: <MdDomain size={100} />, name: '중견기업' },
-          { type: 'smallE', icon: <FaStore size={100} />, name: '중소기업' },
-          { type: 'startE', icon: <FaRocket size={100} />, name: '스타트업' },
+          {
+            type: 'largeE',
+            icon: <FaBuilding size={80} />,
+            name: '대기업'
+          },
+          {
+            type: 'mediumE',
+            icon: <MdDomain size={80} />,
+            name: '중견기업'
+          },
+          {
+            type: 'smallE',
+            icon: <FaStore size={80} />,
+            name: '중소기업'
+          },
+          {
+            type: 'startE',
+            icon: <FaRocket size={80} />,
+            name: '스타트업'
+          },
           {
             type: 'unicornE',
-            icon: <GiUnicorn size={100} />,
+            icon: <GiUnicorn size={80} />,
             name: '유니콘기업'
           },
           {
             type: 'publicE',
-            icon: <MdAccountBalance size={100} />,
+            icon: <MdAccountBalance size={80} />,
             name: '공기업'
           },
           {
             type: 'ventureE',
-            icon: <FaLightbulb size={100} />,
+            icon: <FaLightbulb size={80} />,
             name: '벤처기업'
           }
         ].map(({ type, icon, name }) => (
           <div
             key={type}
             className={cn(
-              `m-2 flex cursor-pointer flex-col items-center justify-center gap-3 rounded-md border p-4 transition-all md:size-20 lg:size-28 xl:size-36 2xl:size-44 3xl:size-52`,
-              company === type ? 'bg-main' : 'hover:bg-hover'
+              `m-2 flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all md:size-12 lg:size-20 xl:size-28 2xl:size-36 3xl:size-44`,
+              company === type ? 'border-hover' : 'hover:border-hover'
             )}
             onClick={() => handleClick(type as CompanyType)}
           >
