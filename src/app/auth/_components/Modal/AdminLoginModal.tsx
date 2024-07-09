@@ -1,6 +1,6 @@
 'use client';
 
-import { signFn } from '@/utils/jwt';
+import { signFn } from '@/utils/actions/jwt';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FC, useRef } from 'react';
