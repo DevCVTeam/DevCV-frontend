@@ -18,6 +18,6 @@ export enum CompanyEnum {
   'ventureE'
 }
 
-// export type SocialType = 'nomal' | 'google' | 'kakao';
+// export type SocialType = 'normal' | 'google' | 'kakao';
 
-// export type RoleType = 'admin' | 'nomal';
+// export type RoleType = 'admin' | 'normal';
