@@ -1,7 +1,6 @@
 'use client';
 
 import { Comment } from '@/utils/type';
-import { useSession } from 'next-auth/react';
 import { FC } from 'react';
 
 const CommentBox: FC<Comment> = ({
@@ -13,7 +12,6 @@ const CommentBox: FC<Comment> = ({
   text,
   updatedDate
 }) => {
-  const { data: session } = useSession();
   return (
     <div>
       <div className="flex justify-between rounded-xl border-2 bg-subgray p-4">

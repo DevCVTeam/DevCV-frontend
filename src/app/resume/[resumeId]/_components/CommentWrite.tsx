@@ -14,15 +14,13 @@ const CommentWrite = ({
   isOpen,
   onClose,
   refetch,
-  reviewId,
-  type
+  reviewId
 }: {
   resumeId: number;
   isOpen: boolean;
   onClose: () => void;
   reviewId?: number;
   refetch: any;
-  type: 'seller' | 'review';
 }) => {
   const { data: session } = useSession();
   const router = useRouter();
@@ -30,31 +28,9 @@ const CommentWrite = ({
   const [grade, setGrade] = useState(0);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(reviewId);
-    if (type === 'seller') {
-      const res = await fetch(`/server/reviews/${reviewId}/comments`, {
-        method: 'POST',
-        body: JSON.stringify({
-          text: content
-        }),
-        headers: {
-          Authorization: `Bearer ${session?.user.accessToken}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        return toast.error(data.message);
-      }
-      return toast.success('코멘트 작성되었습니다.');
-      // refetch();
-      // return router.push(`/products/${resumeId}`);
-    }
-
-    const res = await fetch(`/server/resumes/${resumeId}/reviews`, {
+    const res = await fetch(`/server/reviews/${reviewId}/comments`, {
       method: 'POST',
       body: JSON.stringify({
-        grade,
         text: content
       }),
       headers: {
@@ -66,9 +42,9 @@ const CommentWrite = ({
     if (!res.ok) {
       return toast.error(data.message);
     }
-    toast.success('구매후기 작성되었습니다.');
+    toast.success('코멘트 작성되었습니다.');
     refetch();
-    return router.push(`/resume/${resumeId}`);
+    return router.push(`/products/${resumeId}`);
   };
   return (
     <Modal

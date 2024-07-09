@@ -9,32 +9,26 @@ import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaStar } from 'react-icons/fa';
-const ReviewEdit = ({
+const ReviewWrite = ({
   resumeId,
   isOpen,
   onClose,
-  refetch,
-  rating = 0,
-  text,
-  reviewId
+  refetch
 }: {
   resumeId: number;
   isOpen: boolean;
   onClose: () => void;
   refetch: any;
-  rating?: number;
-  text?: string;
-  reviewId?: number;
 }) => {
   const { data: session } = useSession();
   const router = useRouter();
-  const [content, setContent] = useState(text);
-  const [grade, setGrade] = useState(rating);
+  const [content, setContent] = useState('');
+  const [grade, setGrade] = useState(0);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const res = await fetch(`/server/resumes/${resumeId}/reviews/${reviewId}`, {
-      method: 'PUT',
+    const res = await fetch(`/server/resumes/${resumeId}/reviews`, {
+      method: 'POST',
       body: JSON.stringify({
         grade,
         text: content
@@ -48,15 +42,15 @@ const ReviewEdit = ({
     if (!res.ok) {
       return toast.error(data.message);
     }
-    router.refresh();
+    toast.success('구매후기 작성되었습니다.');
     refetch();
-    return toast.success('구매후기가 수정되었습니다.');
+    return router.push(`/resume/${resumeId}`);
   };
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={'구매후기 수정'}
+      title={'댓글 작성'}
       className="sm:max-w-xl"
     >
       <form
@@ -81,11 +75,10 @@ const ReviewEdit = ({
         <Textarea
           className="rounded-2xl border bg-subgray p-4"
           id="commentContent"
-          placeholder="이력서 구매후기 입력"
+          placeholder="이력서 후기입력"
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
             setContent(e.target.value)
           }
-          value={content}
           rows={20}
           cols={40}
         />
@@ -94,11 +87,11 @@ const ReviewEdit = ({
           className="my-10 w-2/4 self-center"
           onClick={onClose}
         >
-          구매후기 수정하기
+          후기 등록하기
         </Button>
       </form>
     </Modal>
   );
 };
 
-export default ReviewEdit;
+export default ReviewWrite;
