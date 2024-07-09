@@ -3,10 +3,8 @@
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Label from '@/components/Label';
-import { passwordRegex } from '@/utils/constant';
-import { CompanyEnum, JobEnum } from '@/utils/enum';
+import { signupAction } from '@/utils/actions/signup';
 import { Authenticate } from '@/utils/imp';
-import { signFn } from '@/utils/jwt';
 import { companyOptions, jobOptions, techstackOptions } from '@/utils/option';
 import { cn } from '@/utils/style';
 import { CompanyType, JobType } from '@/utils/type';
@@ -22,8 +20,8 @@ type TForm = {
   memberName: string;
   // nickName: string;
   // email: string;
-  password: string;
-  confirmPassword: string;
+  // password: string;
+  // confirmPassword: string;
   address: string;
   postalCode: string;
   detailAddress: string;
@@ -40,12 +38,10 @@ const Profile = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(session);
     if (session?.user.memberId) {
       router.push('/');
     }
   }, [session]);
-  console.log(session);
   const {
     register,
     handleSubmit,
@@ -58,7 +54,7 @@ const Profile = () => {
 
   const [authenticate, setAuthenticate] = useState(false);
   const open = useDaumPostcodePopup();
-  const [emailCheck, setEmailCheck] = useState(false);
+  // const [emailCheck, setEmailCheck] = useState(false);
   const handleComplete = (data: any) => {
     let fullAddress = data.address;
     let extraAddress = '';
@@ -90,49 +86,26 @@ const Profile = () => {
     toast.success('휴대전화 인증이 완료되었습니다.');
   };
 
+  // 서버에서 돌리기. password 노출하면 안됨
+  // https://bandal.dev/React/react-hook-form-with-nextjs-server-actions
   const onSubmit: SubmitHandler<TForm> = async (data) => {
-    if (!authenticate) {
-      return toast.error('본인인증을 완료해주세요.');
-    }
-    const param = params.get('social');
-    const social = param === 'google' ? 1 : param === null ? 0 : 2;
-
-    const {
-      address,
-      detailAddress,
-      postalCode,
-      password,
-      confirmPassword,
-      company,
-      job,
-      ...rest
-    } = data;
-    const token = await signFn(password);
-
-    const res = await fetch(`/server/members/signup`, {
-      method: 'POST',
-      body: JSON.stringify({
-        ...rest,
-        email: session?.user.email,
-        nickName: session?.user.name,
-        social,
-        password: token,
-        address: `${address}-(${postalCode})-${detailAddress}`,
-        company: CompanyEnum[company],
-        job: JobEnum[job]
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+    const { stack, ...form } = data;
+    const formData = new FormData();
+    formData.append('stack', stack);
+    Object.entries(form).forEach(([key, value]) => {
+      formData.append(key, value as string);
     });
-    if (!res.ok) {
-      const message = await res.json();
-      return toast.error(`${message.errorCode} : ${message.message}`);
+    formData.append('authenticate', String(authenticate));
+    formData.append('social', params.get('social') || '');
+    formData.append('email', session?.user.email!);
+    formData.append('nickName', session?.user.name!);
+    const actionRes = await signupAction(formData);
+    if (actionRes !== 'success') {
+      return toast.error(actionRes);
     }
     toast.success('회원가입 성공!!');
-
-    router.push('/');
-    return await signOut();
+    await signOut();
+    return router.push('/auth/signin');
   };
 
   return (
@@ -154,58 +127,6 @@ const Profile = () => {
           placeholder="이름을 작성해주세요."
           id="memberName"
           className="w-full"
-        />
-
-        <Label htmlFor="password">
-          패스워드{' '}
-          {errors.password && (
-            <small role="alert" className="text-red-400">
-              ※{errors.password.message || '최소 8글자 최대 16자 입력'}※
-            </small>
-          )}
-        </Label>
-        <Input
-          {...register('password', { required: true })}
-          id="password"
-          type="password"
-          className="w-full"
-          placeholder={'최소 8글자 최대 16자 입력'}
-          {...register('password', {
-            required: true,
-            minLength: 8,
-            maxLength: 16,
-            pattern: {
-              value: passwordRegex,
-              message: '잘못된 패스워드 입니다.'
-            }
-          })}
-        />
-        <Label htmlFor="confirmPassword">
-          패스워드 확인 패스워드{' '}
-          {errors.confirmPassword && (
-            <small role="alert" className="text-red-400">
-              ※{errors.confirmPassword.message || '최소 8글자 최대 16자 입력'}※
-            </small>
-          )}
-        </Label>
-        <Input
-          {...register('confirmPassword', { required: true })}
-          placeholder="패스워드를 다시한번 작성해주세요."
-          id="confirmPassword"
-          type="password"
-          className="w-full"
-          {...register('confirmPassword', {
-            required: true,
-            minLength: 8,
-            maxLength: 16,
-            validate: {
-              check: (val) => {
-                if (getValues('password') !== val) {
-                  return '비밀번호가 일치하지 않습니다.';
-                }
-              }
-            }
-          })}
         />
 
         <hr className="w-full border-main" />

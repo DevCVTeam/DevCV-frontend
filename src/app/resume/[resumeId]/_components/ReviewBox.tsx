@@ -26,7 +26,6 @@ const ReviewBox = ({
   const { status, data: session } = useSession();
   const [editOpen, setEditOpen] = useState(false);
   const [writeOpen, setWriteOpen] = useState(false);
-  console.log(sellerNickname, session?.user);
   const router = useRouter();
   const handleRemove = async () => {
     if (confirm('정말 삭제하시겠습니까?')) {
@@ -65,7 +64,6 @@ const ReviewBox = ({
         reviewId={reviewId}
         onClose={() => setWriteOpen(false)}
         refetch={refetch}
-        type="seller"
       />
       <div className="flex">
         <div className="flex flex-col gap-4">

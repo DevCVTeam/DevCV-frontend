@@ -1,6 +1,8 @@
 'use client';
 
+import { SocialObj } from '@/utils/constant';
 import { Authenticate } from '@/utils/imp';
+import { SocialType } from '@/utils/type';
 import { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import Button from '../../../../components/Button';
@@ -9,6 +11,15 @@ type IdFindModalProps = {
   isOpen: boolean;
   onClose: () => void;
   title: string;
+};
+
+type TResponse = {
+  findMemberList: {
+    social: SocialType;
+    email: string;
+  }[];
+  errorCode?: string;
+  message?: string;
 };
 
 const IdFindModal: FC<IdFindModalProps> = ({ isOpen, onClose, title }) => {
@@ -30,21 +41,36 @@ const IdFindModal: FC<IdFindModalProps> = ({ isOpen, onClose, title }) => {
     if (!res.ok) {
       return toast.error('에러 발생');
     }
-    const data = await res.json();
+    const data: TResponse = await res.json();
     if (data.errorCode) {
       return toast.error(`${data.message}`);
     }
-    setEmail(data.email);
+    console.log(data);
+    setEmail(data);
+    console.log(email);
   };
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState<TResponse>();
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title}>
       <div className="my-10 flex items-center justify-center">
-        {email ? (
+        {email?.findMemberList ? (
           <div className="flex flex-col gap-4 text-center">
-            <span className="text-2xl">사용자의 이메일은 아래와 같습니다.</span>
+            <span className="text-2xl">회원의 이메일은 아래와 같습니다.</span>
             <hr />
-            <span className="text-2xl font-semibold">{email}</span>
+            <div className="flex flex-col gap-8 ">
+              {email.findMemberList.map((member) => (
+                <div key={member.email}>
+                  <div className="flex">
+                    <span>Email : </span>&nbsp;
+                    <p className="font-semibold">{member.email}</p>
+                  </div>
+                  <div className="flex">
+                    <span>Social : </span>&nbsp;
+                    <p className="font-semibold">{SocialObj[member.social]}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         ) : (
           <Button

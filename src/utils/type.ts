@@ -173,6 +173,7 @@ export type PaymentResponse = {
     price: number;
     stackType: JobType;
     updatedDate: string;
+    thumbnailPath: string;
   };
 };
 
@@ -224,6 +225,6 @@ export type ResumeStatus =
   | 'rejected'
   | 'modified';
 
-export type SocialType = 'nomal' | 'google' | 'kakao';
+export type SocialType = 'normal' | 'google' | 'kakao';
 
-export type RoleType = 'admin' | 'nomal';
+export type RoleType = 'admin' | 'normal';

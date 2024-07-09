@@ -6,10 +6,11 @@ import { cn } from '@/utils/style';
 import { Resume } from '@/utils/type';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import { FaStar } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import CommentBox from './CommentBox';
-import CommentWrite from './CommentWrite';
 import ReviewBox from './ReviewBox';
+import ReviewWrite from './ReviewWrite';
 const Reviews = ({
   resumeId,
   reviewCount
@@ -32,8 +33,9 @@ const Reviews = ({
           comments: [],
           nextPage: null
         };
-      if (!totalRating) setTotalRating(comments.averageRating);
-      if (comments) {
+      if (pageParam === 1 && totalRating === 0 && averageRating === undefined) {
+        console.log(pageParam);
+        setTotalRating(comments.averageRating);
         setAverageRating((prev) => {
           const newRating = comments.ratingCounts?.map((data, i) => {
             return data + (prev?.[i] ?? 0);
@@ -72,6 +74,12 @@ const Reviews = ({
   const [writeOpen, setWriteOpen] = useState(false);
   return (
     <div className="flex size-full flex-col gap-28 px-20">
+      <ReviewWrite
+        resumeId={resumeId}
+        isOpen={writeOpen}
+        onClose={() => setWriteOpen(false)}
+        refetch={refetch}
+      />
       <div className="flex w-3/4 flex-col gap-4 self-center">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
@@ -82,20 +90,37 @@ const Reviews = ({
         </div>
 
         <div className="flex justify-center gap-8">
-          <div className="flex w-1/4 flex-col items-center justify-center rounded-xl border bg-subgray">
-            <h4 className="text-3xl font-semibold">{totalRating}점</h4>
-            <p>{reviewCount.toLocaleString()}개의 수강평</p>
+          <div className="flex w-1/4 flex-col items-center justify-center gap-2 rounded-xl border bg-subgray">
+            <h4 className="text-5xl font-semibold">{totalRating}</h4>
+            <div className="flex">
+              {[...Array(totalRating)].map((d, i) => (
+                <FaStar className={'text-xl text-main'} key={d} />
+              ))}
+            </div>
+            <p className="text-default">
+              {reviewCount.toLocaleString()}개의 수강평
+            </p>
           </div>
-          <div className="w-3/4 rounded-xl border bg-subgray p-6">
+
+          <div className="flex w-3/4 flex-col gap-4 rounded-xl bg-subgray p-6 shadow-sm">
             {averageRating?.map((rating, i) => (
               <div
                 key={i + 1}
-                onClick={() => console.log(rating)}
-                className="flex items-center gap-4 text-nowrap rounded-xl"
+                onClick={() => console.log(rating, reviewCount)}
+                className="flex items-center justify-between gap-4 text-nowrap"
               >
-                <span>{i + 1}점</span>
-                <div className={cn('h-1 w-full self-center bg-main')} />
-                <p>{rating}개</p>
+                <span className="w-10 text-gray-600">{5 - i}점</span>
+                <div className="flex flex-1 items-center">
+                  <div className="relative h-2 flex-1 rounded-full bg-gray-200">
+                    <div
+                      className="absolute left-0 top-0 h-full rounded-full bg-main transition-all duration-500"
+                      style={{ width: `${(rating / reviewCount) * 100}%` }}
+                    />
+                  </div>
+                  <p className="ml-4 w-20 text-left text-gray-500">
+                    {rating.toLocaleString()}개
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -125,14 +150,6 @@ const Reviews = ({
         <div className="flex flex-col gap-4">
           {sortedComments?.map((comment, index) => (
             <div key={index} className="flex flex-col gap-2">
-              <CommentWrite
-                resumeId={resumeId}
-                isOpen={writeOpen}
-                reviewId={comment.reviewId}
-                onClose={() => setWriteOpen(false)}
-                refetch={refetch}
-                type="review"
-              />
               <ReviewBox key={index} refetch={refetch} {...comment} />
               {comment.commentDtoList.length !== 0 ? (
                 <CommentBox {...comment.commentDtoList[0]} />

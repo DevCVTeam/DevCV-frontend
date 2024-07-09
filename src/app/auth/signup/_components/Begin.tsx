@@ -3,11 +3,11 @@
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Label from '@/components/Label';
+import { signFn } from '@/utils/actions/jwt';
 import { passwordRegex } from '@/utils/constant';
 import { CompanyEnum, JobEnum } from '@/utils/enum';
 import { getEmailSend } from '@/utils/fetch';
 import { Authenticate } from '@/utils/imp';
-import { signFn } from '@/utils/jwt';
 import { companyOptions, jobOptions, techstackOptions } from '@/utils/option';
 import { cn } from '@/utils/style';
 import { CompanyType, JobType } from '@/utils/type';

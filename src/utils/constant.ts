@@ -30,3 +30,9 @@ export const OrderStatus = {
   PENDING_PAYMENT: '결제요청',
   COMPLETED: '구매완료'
 };
+
+export const SocialObj = {
+  normal: '일반 로그인',
+  kakao: '카카오 로그인',
+  google: '구글 로그인'
+};
