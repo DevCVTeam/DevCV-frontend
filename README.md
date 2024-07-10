@@ -82,7 +82,6 @@ flowchart LR
     ResumeDetailPage[이력서 상세페이지]
     ResumeDetailView[이력서 상세페이지]
     ResumeDetailComment[이력서 상세 댓글]
-    ResumeDetailCommentWrite[이력서 상세 댓글 작성]
     ResumeDetailProductInquiry[이력서 상세 문의]
 
     AdminPage[관리자 페이지]
@@ -95,7 +94,7 @@ flowchart LR
 
 
     Home --> ResumeDetailPage
-    ResumeDetailPage --- ResumeDetailComment --> ResumeDetailCommentWrite
+    ResumeDetailPage --- ResumeDetailComment
     ResumeDetailPage --- ResumeDetailProductInquiry
     ResumeDetailPage --- ResumeDetailView
 
