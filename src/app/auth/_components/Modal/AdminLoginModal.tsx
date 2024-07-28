@@ -31,7 +31,6 @@ const AdminLoginModal: FC<AdminLoginModalProps> = ({
         password: pwdToken,
         redirect: false
       });
-      console.log(result);
       if (result?.error) {
         return toast.error('로그인에 실패하였습니다.');
       } else if (result === null) {

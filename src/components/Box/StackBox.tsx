@@ -15,10 +15,11 @@ import {
 
 type StackBoxProps = {
   onClick: (e: JobType) => void;
+  resetPage: (e: JobType) => void;
   job: JobType;
 };
 
-const StackBox: FC<StackBoxProps> = ({ onClick, job }) => {
+const StackBox: FC<StackBoxProps> = ({ onClick, job, resetPage }) => {
   const handleClick = (type: JobType) => {
     onClick(type);
   };
@@ -26,7 +27,7 @@ const StackBox: FC<StackBoxProps> = ({ onClick, job }) => {
   return (
     <span className="flex flex-col">
       <div>
-        <h4 className="mb-4 text-lg font-semibold">기업 종류</h4>
+        <h4 className="mb-4 text-lg font-semibold">기술 분야</h4>
       </div>
       <div className="flex flex-col flex-wrap text-black sm:flex-row">
         {[
@@ -56,7 +57,10 @@ const StackBox: FC<StackBoxProps> = ({ onClick, job }) => {
               `m-2 flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all md:size-12 lg:size-20 xl:size-28 2xl:size-36 3xl:size-44`,
               job === type ? 'border-main' : 'hover:border-main'
             )}
-            onClick={() => handleClick(type as JobType)}
+            onClick={() => {
+              handleClick(type as JobType);
+              resetPage(type as JobType);
+            }}
           >
             {icon}
             <p className="text-xl">{name}</p>

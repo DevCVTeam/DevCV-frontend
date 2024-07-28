@@ -11,7 +11,6 @@ export default async function ProductsPage({
 }) {
   const user = await getServerSession(authOptions);
   const resume = await getDetailResume(resumeId);
-  console.log(resume);
   if (!resume) return notFound();
   return <ResumeEdit />;
 }

@@ -45,7 +45,6 @@ const Banner: FC = () => {
             width={800}
             height={400}
             key={image.id}
-            onClick={() => console.log('ds')}
           />
         ))}
       </Carousel>

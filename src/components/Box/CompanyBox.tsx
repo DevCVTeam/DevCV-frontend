@@ -9,10 +9,11 @@ import { MdAccountBalance, MdDomain } from 'react-icons/md';
 
 type CompanyBoxProps = {
   onClick: (e: CompanyType) => void;
+  resetPage: (e: CompanyType) => void;
   company: CompanyType;
 };
 
-const CompanyBox: FC<CompanyBoxProps> = ({ onClick, company }) => {
+const CompanyBox: FC<CompanyBoxProps> = ({ onClick, company, resetPage }) => {
   const handleClick = (companyType: CompanyType) => {
     onClick(companyType);
   };
@@ -66,7 +67,10 @@ const CompanyBox: FC<CompanyBoxProps> = ({ onClick, company }) => {
               `m-2 flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all md:size-12 lg:size-20 xl:size-28 2xl:size-36 3xl:size-44`,
               company === type ? 'border-hover' : 'hover:border-hover'
             )}
-            onClick={() => handleClick(type as CompanyType)}
+            onClick={() => {
+              handleClick(type as CompanyType);
+              resetPage(type as CompanyType);
+            }}
           >
             {icon}
             <p className="text-xl">{name}</p>

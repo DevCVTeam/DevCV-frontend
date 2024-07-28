@@ -15,8 +15,6 @@ export default async function OrderPage({
     token: user?.user.accessToken!
   });
 
-  console.log(payment);
-
   return (
     <div className="flex flex-col gap-8">
       <h4 className="text-2xl font-semibold text-sub">주문 결제</h4>

@@ -2,7 +2,6 @@ import { getEvents } from '@/utils/fetch';
 import Link from 'next/link';
 
 export default async function EventList({ token }: { token: string }) {
-  console.log(token);
   const events = await getEvents(token);
   return (
     <div className="flex flex-col gap-1">

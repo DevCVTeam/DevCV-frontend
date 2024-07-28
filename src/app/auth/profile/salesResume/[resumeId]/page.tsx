@@ -1,5 +1,9 @@
 'use client';
 
-export default function SalesResumePage() {
-  return <div>asdjkldasjdslakdjsalk</div>;
+export default function SalesResumePage({
+  params: { resumeId }
+}: {
+  params: { resumeId: string };
+}) {
+  return <div>asdasd</div>;
 }

@@ -12,7 +12,6 @@ const Header = () => {
     axios.defaults.headers.common['Authorization'] =
       `Bearer ${session?.user.accessToken}`;
   }
-  console.log(session);
   return (
     <header className="flex h-20 w-full items-center justify-between border-b px-4 lg:px-10">
       <Link href="/" className="flex">

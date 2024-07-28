@@ -15,7 +15,6 @@ const PaymentButton = ({
   price: number;
   token: string;
 }) => {
-  console.log(token);
   const router = useRouter();
   const handlePayment = async () => {
     const res = await fetch(`/server/orders`, {
