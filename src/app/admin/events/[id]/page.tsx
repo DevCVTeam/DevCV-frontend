@@ -1,6 +1,5 @@
 import Input from '@/components/Input';
 import Label from '@/components/Label';
-import Modal from '@/components/Modal';
 import { getEvent } from '@/utils/fetch';
 import { authOptions } from '@/utils/next-auth';
 import { getServerSession } from 'next-auth';
@@ -13,12 +12,7 @@ export default async function Events({
 }) {
   const user = await getServerSession(authOptions);
   const event = await getEvent({ token: user?.user.accessToken!, eventId });
-  if (event.errorCode)
-    return (
-      <Modal title="이벤트 목록" isOpen={true}>
-        삭제완료
-      </Modal>
-    );
+  if (event.errorCode) return <div>삭제완료</div>;
   return (
     <div>
       <span className="text-sm text-slate-400">

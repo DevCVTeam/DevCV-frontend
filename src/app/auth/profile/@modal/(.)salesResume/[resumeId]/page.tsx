@@ -50,7 +50,6 @@ export default function SalesResumeModal({
   } = useForm<TResumeModified>({ mode: 'onChange' });
   const resumefile = watch('resumefile');
   const { data: user } = useSession();
-
   useEffect(() => {
     (async () => {
       const res = await fetch(
