@@ -327,7 +327,7 @@ const Begin = () => {
 
         <hr className="w-full border-main" />
         <Label htmlFor="company">
-          기업종류 &nbsp;
+          기업종류
           {errors.company && (
             <small role="alert" className="text-red-400">
               ※{errors.company.message || '선택해주세요'}※
@@ -353,7 +353,7 @@ const Begin = () => {
           )}
         />
         <Label htmlFor="job">
-          직무 &nbsp;
+          직무
           {errors.job && (
             <small role="alert" className="text-red-400">
               ※{errors.job.message || '선택해주세요'}※

@@ -274,7 +274,7 @@ export default function SalesResumePage({
         <hr className="w-full border" />
         <div className="flex justify-between">
           <Label htmlFor="techstack">
-            기술 스택{' '}
+            기술 스택
             {errors.techstack && (
               <small role="alert" className="text-red-400">
                 ※{errors.techstack.message}※
