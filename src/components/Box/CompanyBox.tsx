@@ -27,44 +27,45 @@ const CompanyBox: FC<CompanyBoxProps> = ({ onClick, company, resetPage }) => {
         {[
           {
             type: 'largeE',
-            icon: <FaBuilding size={80} />,
+            icon: <FaBuilding size={60} />,
             name: '대기업'
           },
           {
             type: 'mediumE',
-            icon: <MdDomain size={80} />,
+            icon: <MdDomain size={60} />,
             name: '중견기업'
           },
           {
             type: 'smallE',
-            icon: <FaStore size={80} />,
+            icon: <FaStore size={60} />,
             name: '중소기업'
           },
           {
             type: 'startE',
-            icon: <FaRocket size={80} />,
+            icon: <FaRocket size={60} />,
             name: '스타트업'
           },
           {
             type: 'unicornE',
-            icon: <GiUnicorn size={80} />,
+            icon: <GiUnicorn size={60} />,
             name: '유니콘기업'
           },
           {
             type: 'publicE',
-            icon: <MdAccountBalance size={80} />,
+            icon: <MdAccountBalance size={60} />,
             name: '공기업'
           },
           {
             type: 'ventureE',
-            icon: <FaLightbulb size={80} />,
+            icon: <FaLightbulb size={60} />,
             name: '벤처기업'
           }
         ].map(({ type, icon, name }) => (
           <div
             key={type}
             className={cn(
-              `m-2 flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all md:size-12 lg:size-20 xl:size-28 2xl:size-36 3xl:size-44`,
+              `3xl:size-44 m-2 flex w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all 
+             xs:w-full sm:w-full md:size-20 lg:size-20 xl:size-32 2xl:size-40`,
               company === type ? 'border-hover' : 'hover:border-hover'
             )}
             onClick={() => {
@@ -72,8 +73,12 @@ const CompanyBox: FC<CompanyBoxProps> = ({ onClick, company, resetPage }) => {
               resetPage(type as CompanyType);
             }}
           >
-            {icon}
-            <p className="text-xl">{name}</p>
+            <div className="hidden items-center justify-center md:flex lg:flex xl:flex 2xl:flex">
+              {icon}
+            </div>
+            <p className="flex items-center justify-center text-nowrap text-center text-xl sm:text-xs md:text-sm lg:text-lg  xl:text-xl">
+              {name}
+            </p>
           </div>
         ))}
       </div>

@@ -134,7 +134,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
 
   return (
     <div className="flex w-full flex-col gap-8 ">
-      <div className="flex w-full flex-col gap-8 rounded-2xl bg-subgray p-8">
+      <div className="flex w-full flex-col gap-8 rounded-2xl bg-subgray p-8 xl:p-5">
         <span className="flex">
           <h3 className="text-2xl font-semibold">기업 선택</h3>
           <p className="ml-2 place-self-end text-sm">
@@ -205,7 +205,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
         ) : isError ? (
           <div>Error: {error.message}</div>
         ) : (
-          <div className="grid grid-cols-1 grid-rows-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          <div className="grid grid-cols-1 grid-rows-2 gap-4 transition-all sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {resumePage?.resumes.map((resume) => (
               <ResumeBox
                 key={resume.resumeId}

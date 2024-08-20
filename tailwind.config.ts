@@ -10,9 +10,21 @@ const config: Config = {
     extend: {
       screens: {
         ...defaultTheme.screens,
-        '3xl': '1760px',
-        tablet: '640px'
-        // => @media (min-width: 640px) { ... }
+        xs: '480px'
+        // '2xl': { max: '1535px' },
+        // // => @media (max-width: 1535px) { ... }
+
+        // xl: { max: '1279px' },
+        // // => @media (max-width: 1279px) { ... }
+
+        // lg: { max: '1023px' },
+        // // => @media (max-width: 1023px) { ... }
+
+        // md: { max: '767px' },
+        // // => @media (max-width: 767px) { ... }
+
+        // xs: { max: '480px' }
+        // => @media (max-width: 639px) { ... }
       },
       backgroundImage: {},
       // backgroundColor: {
