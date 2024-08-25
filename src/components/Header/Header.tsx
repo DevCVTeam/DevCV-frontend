@@ -1,3 +1,4 @@
+// Header.tsx
 'use client';
 
 import axios from 'axios';
@@ -5,16 +6,18 @@ import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Button from '../Button';
+
 const Header = () => {
-  // const router = useRouter();
   const { status, data: session } = useSession();
+
   if (status === 'authenticated') {
     axios.defaults.headers.common['Authorization'] =
       `Bearer ${session?.user.accessToken}`;
   }
+
   return (
-    <header className="flex h-20 w-full items-center justify-between border-b px-4 lg:px-10">
-      <Link href="/" className="flex">
+    <header className="fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between border-b bg-white bg-opacity-[0.5] shadow-md">
+      <Link href="/" className="ml-10 flex">
         <Image
           src="/logo.png"
           alt="Logo"
@@ -24,7 +27,7 @@ const Header = () => {
         />
         <b className="ml-3 self-center text-xl">DevCV</b>
       </Link>
-      <nav>
+      <nav className="mr-10">
         {status === 'authenticated' ? (
           session?.user.role === 'admin' ? (
             <div className="flex items-center gap-2 lg:gap-3">
