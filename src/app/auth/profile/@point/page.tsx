@@ -8,6 +8,5 @@ export default async function PointPage() {
     memberId: data?.user.memberId!,
     token: data?.user.accessToken!
   });
-  console.log(data);
   return <Point mypoint={point?.point!} />;
 }

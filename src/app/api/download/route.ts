@@ -4,7 +4,6 @@ export interface FileResponse {
   arrayBuffer: number[];
 }
 export async function GET(req: NextRequest) {
-  console.log(req.nextUrl.searchParams.get('url'));
   const url = req.nextUrl.searchParams.get('url');
   // 파일 경로에 요청
   const rawData = await fetch(url as string);

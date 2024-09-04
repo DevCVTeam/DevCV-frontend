@@ -1,19 +1,18 @@
+import EventButton from '@/app/admin/_components/EventButton';
 import Input from '@/components/Input';
 import Label from '@/components/Label';
 import Modal from '@/components/Modal';
 import { getEvent } from '@/utils/fetch';
 import { authOptions } from '@/utils/next-auth';
 import { getServerSession } from 'next-auth';
-import EventButton from './_components/EventButton';
 
-export default async function ResumeModal({
+export default async function Events({
   params: { id: eventId }
 }: {
   params: { id: number };
 }) {
   const user = await getServerSession(authOptions);
   const event = await getEvent({ token: user?.user.accessToken!, eventId });
-  console.log(event);
   if (event.errorCode)
     return (
       <Modal title="이벤트 목록" isOpen={true}>

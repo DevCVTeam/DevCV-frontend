@@ -15,10 +15,11 @@ import {
 
 type StackBoxProps = {
   onClick: (e: JobType) => void;
+  resetPage: (e: JobType) => void;
   job: JobType;
 };
 
-const StackBox: FC<StackBoxProps> = ({ onClick, job }) => {
+const StackBox: FC<StackBoxProps> = ({ onClick, job, resetPage }) => {
   const handleClick = (type: JobType) => {
     onClick(type);
   };
@@ -26,40 +27,48 @@ const StackBox: FC<StackBoxProps> = ({ onClick, job }) => {
   return (
     <span className="flex flex-col">
       <div>
-        <h4 className="mb-4 text-lg font-semibold">기업 종류</h4>
+        <h4 className="mb-4 text-lg font-semibold">기술 분야</h4>
       </div>
       <div className="flex flex-col flex-wrap text-black sm:flex-row">
         {[
-          { type: 'backend', icon: <FaServer size={80} />, name: '백엔드' },
+          { type: 'backend', icon: <FaServer size={60} />, name: '백엔드' },
           {
             type: 'frontend',
-            icon: <FaHtml5 size={80} />,
+            icon: <FaHtml5 size={60} />,
             name: '프론트엔드'
           },
-          { type: 'mobile', icon: <FaMobileAlt size={80} />, name: '모바일' },
+          { type: 'mobile', icon: <FaMobileAlt size={60} />, name: '모바일' },
           {
             type: 'infra',
-            icon: <FaNetworkWired size={80} />,
+            icon: <FaNetworkWired size={60} />,
             name: '인프라'
           },
-          { type: 'game', icon: <FaGamepad size={80} />, name: '게임' },
+          { type: 'game', icon: <FaGamepad size={60} />, name: '게임' },
           {
             type: 'embedded',
-            icon: <FaMicrochip size={80} />,
+            icon: <FaMicrochip size={60} />,
             name: '임베디드'
           },
-          { type: 'security', icon: <FaLock size={80} />, name: '보안' }
+          { type: 'security', icon: <FaLock size={60} />, name: '보안' }
         ].map(({ type, icon, name }) => (
           <div
             key={type}
             className={cn(
-              `m-2 flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all md:size-12 lg:size-20 xl:size-28 2xl:size-36 3xl:size-44`,
+              `3xl:size-44 m-2 flex w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all 
+              xs:w-full sm:w-full md:size-20 lg:size-20 xl:size-32 2xl:size-40`,
               job === type ? 'border-main' : 'hover:border-main'
             )}
-            onClick={() => handleClick(type as JobType)}
+            onClick={() => {
+              handleClick(type as JobType);
+              resetPage(type as JobType);
+            }}
           >
-            {icon}
-            <p className="text-xl">{name}</p>
+            <div className="hidden items-center justify-center md:flex lg:flex xl:flex 2xl:flex">
+              {icon}
+            </div>
+            <p className="flex items-center justify-center text-nowrap text-center text-xl sm:text-xs md:text-sm lg:text-lg  xl:text-xl">
+              {name}
+            </p>
           </div>
         ))}
       </div>

@@ -8,7 +8,6 @@ import ResumeList from './_components/ResumeList';
 // 병렬 라우팅 가능하지만 최상단
 export default async function Admin() {
   const user = await getServerSession(authOptions);
-  console.log(user);
   return (
     <div className="flex flex-col gap-32">
       <div className="mt-12">

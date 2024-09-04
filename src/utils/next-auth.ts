@@ -59,7 +59,6 @@ export const authOptions: NextAuthOptions = {
           }
           const { memberId, role, social, memberName, emailRes, exp } =
             decodeJwtResponse(user.accessToken);
-
           return {
             accessToken: user.accessToken,
             refreshToken: user.refreshToken,
@@ -127,6 +126,8 @@ export const authOptions: NextAuthOptions = {
           return false;
         }
         const data: SocialResponse = await res.json();
+        console.log(data);
+        console.log('data');
         const setCookieHeader = res.headers.get('Set-Cookie');
         const refreshTokenMatch =
           setCookieHeader?.match(/RefreshToken=([^;]+)/);
@@ -159,6 +160,7 @@ export const authOptions: NextAuthOptions = {
     // },
 
     session: ({ session, token }) => {
+      console.log(session, token);
       return {
         ...session,
         user: {
@@ -170,23 +172,21 @@ export const authOptions: NextAuthOptions = {
       };
     },
     jwt: async ({ user, token, account, profile, session, trigger }) => {
-      // if (account) {
-      //    token.refreshToken = refreshToken;
-      //     token.accessTokenExpires = jwtParse(accessToken).exp;
-      //   }
       if (trigger === 'update' || trigger === 'signIn') {
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
-        // On session creation or sign-in, include access and refresh tokens
         return token;
       }
-      const timeRemaing =
-        token?.exp - (Math.floor(new Date().getTime() / 1000) + 10 * 60);
-
-      if (timeRemaing <= 0) {
+      const iat =
+        decodeJwtResponse(token.accessToken).exp -
+        (Math.floor(new Date().getTime() / 1000) + 10 * 60);
+      console.log(decodeJwtResponse(token.accessToken));
+      if (iat <= 0) {
         const newToken = await refreshAccessToken(token.id);
-
+        console.log(newToken);
         return { ...token, accessToken: newToken };
+      } else {
+        console.log({ ...token });
       }
 
       return token;

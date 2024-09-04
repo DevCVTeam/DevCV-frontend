@@ -6,7 +6,6 @@ import Image from 'next/image';
 const OrderBox = ({
   resumeResponse
 }: Pick<PaymentResponse, 'resumeResponse'>) => {
-  console.log(resumeResponse);
   return (
     <div className="flex w-3/5 flex-col justify-start gap-4 rounded-2xl border bg-subgray p-8 text-xl">
       <div className="mt-0 font-semibold text-sub">주문 정보</div>

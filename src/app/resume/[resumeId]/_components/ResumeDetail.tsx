@@ -30,12 +30,15 @@ const ResumeDetail = ({
           <div className="absolute inset-0 bg-slate-800 opacity-50" />
         </div>
         <div className="relative z-10 m-4 flex flex-1 flex-row items-center justify-center gap-12 text-white">
-          <div>
+          <div className="relative h-[300px] w-[225px]">
             <Image
               src={imageList[0].resumeImgPath}
-              alt="Product Image"
-              width={300}
-              height={300}
+              alt="productImage"
+              layout="fill" // 부모 요소를 채우도록 설정
+              objectFit="cover" // 이미지가 부모 요소를 덮도록 설정
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
+              className="rounded-t-lg" // 이미지 상단 모서리를 둥글게 설정
             />
           </div>
           <div className="flex flex-col gap-4">

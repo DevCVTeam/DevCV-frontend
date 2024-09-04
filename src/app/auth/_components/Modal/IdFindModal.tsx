@@ -45,9 +45,7 @@ const IdFindModal: FC<IdFindModalProps> = ({ isOpen, onClose, title }) => {
     if (data.errorCode) {
       return toast.error(`${data.message}`);
     }
-    console.log(data);
     setEmail(data);
-    console.log(email);
   };
   const [email, setEmail] = useState<TResponse>();
   return (

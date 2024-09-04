@@ -95,9 +95,9 @@ export type UserInfo = {
   email: string;
   memberName: string;
   phone: string;
-  company: string; // 변경필요 "중견기업" 이렇게 Response 되는데 기존의 type 대로
+  company: CompanyType; // 변경필요 "중견기업" 이렇게 Response 되는데 기존의 type 대로
   job: JobType;
-  stack: string[];
+  stack: string;
   nickName: string;
   address: string;
 };

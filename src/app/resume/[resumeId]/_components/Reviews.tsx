@@ -34,7 +34,6 @@ const Reviews = ({
           nextPage: null
         };
       if (pageParam === 1 && totalRating === 0 && averageRating === undefined) {
-        console.log(pageParam);
         setTotalRating(comments.averageRating);
         setAverageRating((prev) => {
           const newRating = comments.ratingCounts?.map((data, i) => {
@@ -106,7 +105,6 @@ const Reviews = ({
             {averageRating?.map((rating, i) => (
               <div
                 key={i + 1}
-                onClick={() => console.log(rating, reviewCount)}
                 className="flex items-center justify-between gap-4 text-nowrap"
               >
                 <span className="w-10 text-gray-600">{i + 1}점</span>

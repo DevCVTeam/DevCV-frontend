@@ -3,24 +3,27 @@
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Label from '@/components/Label';
-import { JobType, UserInfo } from '@/utils/type';
+import { companyOptions, jobOptions, techstackOptions } from '@/utils/option';
+import { CompanyType, JobType, UserInfo } from '@/utils/type';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import Select from 'react-select';
+import ReactSelect from 'react-select/creatable';
 
 type TUserData = {
   memberId: number;
   email: string;
   memberName: string;
   phone: string;
-  company: string;
+  company: CompanyType;
   password: string;
   confirmPassword: string;
   nickName: string;
   job: JobType;
-  stack: string[];
+  stack: string;
   address: string;
 };
 
@@ -127,27 +130,91 @@ const UserDetailsEditor: FC<UserInfo & { token: string }> = ({
               />
             </div>
             <div className="flex w-2/4 flex-col gap-4">
-              <Label htmlFor="company">기업 종류</Label>
-              <Input
-                {...register('company', { required: true })}
-                placeholder="기업 종류를 작성해주세요."
-                id="company"
-                className="w-full"
+              <Label htmlFor="company">
+                기업 종류
+                {errors.company && (
+                  <small role="alert" className="text-red-400">
+                    ※{errors.company.message || '선택해주세요'}※
+                  </small>
+                )}
+              </Label>
+              <Controller
+                control={control}
+                name="company"
+                rules={{ required: true }}
+                render={({ field: { onChange, value, ref } }) => (
+                  <Select
+                    inputId="company"
+                    options={companyOptions}
+                    instanceId="company-select"
+                    className="h-12 w-full pt-2"
+                    ref={ref}
+                    value={companyOptions.find(
+                      (companyOption) => companyOption.value === value
+                    )}
+                    onChange={(companyOption) => onChange(companyOption?.value)}
+                  />
+                )}
               />
-              <Label htmlFor="job">직무</Label>
-              <Input
-                {...register('job', { required: true })}
-                placeholder="직무를 선택해주세요"
-                id="job"
-                className="w-full"
+              <Label htmlFor="job">
+                직무
+                {errors.job && (
+                  <small role="alert" className="text-red-400">
+                    ※{errors.job.message || '선택해주세요'}※
+                  </small>
+                )}
+              </Label>
+              <Controller
+                control={control}
+                name="job"
+                rules={{ required: true }}
+                render={({ field: { onChange, value, ref } }) => (
+                  <Select
+                    inputId="job"
+                    options={jobOptions}
+                    instanceId="job-select"
+                    className="h-12 w-full pt-2"
+                    ref={ref}
+                    value={jobOptions.find(
+                      (jobOption) => jobOption.value === value
+                    )}
+                    onChange={(jobOption) => onChange(jobOption?.value)}
+                  />
+                )}
               />
 
-              <Label htmlFor="stack">기술 스택</Label>
-              <Input
-                {...register('stack', { required: true })}
-                placeholder="기술스택을 선택해주세요"
-                id="stack"
-                className="w-full"
+              <Label htmlFor="stack">
+                기술 스택
+                {errors.stack && (
+                  <small role="alert" className="text-red-400">
+                    ※{errors.stack.message || '선택해주세요'}※
+                  </small>
+                )}
+              </Label>
+              <Controller
+                control={control}
+                name="stack"
+                shouldUnregister={true}
+                render={({ field: { onChange, value, ref } }) => (
+                  <ReactSelect
+                    inputId="stack"
+                    className="h-12 w-full pt-2"
+                    options={techstackOptions}
+                    ref={ref}
+                    isMulti
+                    instanceId="stack-select"
+                    value={techstackOptions.find(
+                      (techstackOption) => techstackOption.value === value
+                    )}
+                    onChange={(selectedOptions) =>
+                      onChange(
+                        selectedOptions
+                          ? selectedOptions.map((option) => option.value)
+                          : []
+                      )
+                    }
+                  />
+                )}
               />
               <Label htmlFor="confirmPassword">패스워드 확인</Label>
               <Input

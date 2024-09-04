@@ -4,7 +4,8 @@ import { Company, Job } from '@/utils/constant';
 import { getResumes } from '@/utils/fetch';
 import { CompanyType, JobType, ResumeResponse } from '@/utils/type';
 import { useQuery } from '@tanstack/react-query';
-import { FC, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { FC, useEffect, useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { GrPowerReset } from 'react-icons/gr';
 import ReactPaginate from 'react-paginate';
@@ -21,10 +22,17 @@ export const CategoryResume: FC<ResumeResponse> = ({
   totalElements,
   totalPages
 }) => {
-  const [company, setCompany] = useState<CompanyType | undefined>(undefined);
-  const [job, setJob] = useState<JobType | undefined>(undefined);
+  const router = useRouter();
+  const params = useSearchParams();
+
+  const [company, setCompany] = useState<CompanyType | undefined>(
+    params.get('companyType') as CompanyType
+  );
+  const [job, setJob] = useState<JobType | undefined>(
+    params.get('jobType') as JobType
+  );
   const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
 
   const {
     data: resumePage,
@@ -36,9 +44,8 @@ export const CategoryResume: FC<ResumeResponse> = ({
     isFetching
   } = useQuery({
     queryKey: ['resumes', company, job, page],
-    queryFn: async ({}) => {
+    queryFn: async () => {
       const { content, totalPages } = await getResumes({ page, company, job });
-      console.log(totalPage);
       setTotalPage(totalPages);
       if (!content)
         return {
@@ -54,21 +61,124 @@ export const CategoryResume: FC<ResumeResponse> = ({
         }
       : undefined
   });
+
   const handlePageClick = async (event: any) => {
     setPage(event.selected + 1);
+    if (job && company) {
+      router.push(
+        `/?jobType=${job}&companyType=${company}&page=${event.selected + 1}`,
+
+        { scroll: false }
+      );
+    } else if (job) {
+      router.push(`/?jobType=${job}&page=${event.selected + 1}`, {
+        scroll: false
+      });
+    } else if (company) {
+      router.push(`/?companyType=${company}&page=${event.selected + 1}`, {
+        scroll: false
+      });
+    } else {
+      router.push(`/?page=${event.selected + 1}`, {
+        scroll: false
+      });
+    }
+  };
+
+  useEffect(() => {
+    const pageNum = Number(params.get('page'));
+    if (pageNum) {
+      setPage(pageNum);
+    } else {
+      setPage(1);
+    }
+  }, [params]);
+
+  const handleCompanyClick = (selectedCompany: CompanyType) => {
+    if (company === selectedCompany) {
+      setCompany(undefined);
+      router.push('/', { scroll: false });
+    } else {
+      setCompany(selectedCompany);
+      setPage(1); // Reset page number
+      if (job) {
+        router.push(`/?jobType=${job}&companyType=${selectedCompany}&page=1`, {
+          scroll: false
+        });
+      } else {
+        router.push(`/?companyType=${selectedCompany}&page=1`, {
+          scroll: false
+        });
+      }
+    }
+  };
+
+  const handleJobClick = (selectedJob: JobType) => {
+    if (job === selectedJob) {
+      setJob(undefined);
+      router.push('/', { scroll: false });
+    } else {
+      setJob(selectedJob);
+      setPage(1);
+      if (company) {
+        router.push(`/?jobType=${selectedJob}&companyType=${company}&page=1`, {
+          scroll: false
+        });
+      } else {
+        router.push(`/?jobType=${selectedJob}&page=1`, {
+          scroll: false
+        });
+      }
+    }
   };
 
   return (
     <div className="flex w-full flex-col gap-8 ">
-      <div className="flex w-full flex-col gap-8 rounded-2xl bg-subgray p-8">
+      <div className="flex w-full flex-col gap-8 rounded-2xl bg-subgray p-8 xl:p-5">
         <span className="flex">
           <h3 className="text-2xl font-semibold">기업 선택</h3>
           <p className="ml-2 place-self-end text-sm">
             원하시는 기업을 선택해주세요.
           </p>
         </span>
-        <CompanyBox onClick={setCompany} company={company!} />
-        <StackBox onClick={setJob} job={job!} />
+        <CompanyBox
+          onClick={handleCompanyClick}
+          company={company!}
+          resetPage={(companyType) => {
+            setPage(1);
+            if (job) {
+              router.push(
+                `/?jobType=${job}&companyType=${companyType}&page=1`,
+                {
+                  scroll: false
+                }
+              );
+            } else {
+              router.push(`/?companyType=${companyType}&page=1`, {
+                scroll: false
+              });
+            }
+          }}
+        />
+        <StackBox
+          onClick={handleJobClick}
+          job={job!}
+          resetPage={(jobType) => {
+            setPage(1);
+            if (company) {
+              router.push(
+                `/?jobType=${jobType}&companyType=${company}&page=1`,
+                {
+                  scroll: false
+                }
+              );
+            } else {
+              router.push(`/?jobType=${jobType}&page=1`, {
+                scroll: false
+              });
+            }
+          }}
+        />
       </div>
       <hr />
       <div className="flex flex-col justify-center gap-4 rounded-2xl bg-subgray p-8">
@@ -83,6 +193,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
             onClick={() => {
               setCompany(undefined);
               setJob(undefined);
+              router.push('/');
             }}
             className="cursor-pointer rounded-full"
             size={24}
@@ -94,7 +205,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
         ) : isError ? (
           <div>Error: {error.message}</div>
         ) : (
-          <div className="grid grid-cols-1 grid-rows-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          <div className="grid grid-cols-1 grid-rows-2 gap-4 transition-all sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {resumePage?.resumes.map((resume) => (
               <ResumeBox
                 key={resume.resumeId}
@@ -124,15 +235,13 @@ export const CategoryResume: FC<ResumeResponse> = ({
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={totalPage}
+          forcePage={page - 1} // 현재 페이지를 강제로 설정
           renderOnZeroPageCount={() => <div>이력서 없음</div>}
           containerClassName="flex list-none gap-3" // 페이지 네이션 컨테이너 클래스
           pageClassName="flex justify-center items-center size-7 rounded-xl transition-colors" // 각 페이지 아이템 클래스
           activeClassName="bg-main text-white" // 선택된 페이지 클래스
           className="flex items-center justify-center gap-4"
         />
-        {/* <div className="flex justify-center">
-          {isFetching && <div>Fetching...</div>}
-        </div> */}
       </div>
     </div>
   );

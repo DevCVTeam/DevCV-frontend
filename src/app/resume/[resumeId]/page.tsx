@@ -8,7 +8,6 @@ export default async function ProductsPage({
   params: { resumeId: number };
 }) {
   const resume = await getDetailResume(resumeId);
-  console.log(resume);
   if (!resume) return notFound();
   return <ResumeDetail {...resume} />;
 }

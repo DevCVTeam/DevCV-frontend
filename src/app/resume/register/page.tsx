@@ -80,24 +80,9 @@ const ResumeRegister = () => {
     formData.append('resume', blob);
 
     thumbnailImg.map((file) => {
-      console.log(file.size);
       formData.append('images', file);
     });
     formData.append('resumeFile', resumeFile);
-    // const res = await fetch('/server/resumes', {
-    //   method: 'POST',
-    //   body: formData,
-    //   headers: {
-    //     Authorization: `Bearer ${session?.user.accessToken}`
-    //   }
-    // });
-    // console.log(formData.get('resume'));
-    // console.log(formData.get('images'));
-    // console.log(formData.get('resumeFile'));
-
-    // if (!res.ok) {
-    //   return toast.error('이력서 등록에 실패했습니다.');
-    // }
 
     const response = await axios.post('/server/resumes', formData);
     if (response.status !== 200) {
@@ -106,7 +91,7 @@ const ResumeRegister = () => {
 
     toast.success('이력서 등록에 성공했습니다.');
 
-    return router.push('/');
+    return router.push('/auth/profile');
   };
   return (
     <div className="flex flex-col">
@@ -371,7 +356,6 @@ const ResumeRegister = () => {
                     })
                       .then((res) => res.json())
                       .then((data) => {
-                        console.log(data);
                         let { preview_image_url, error } = data;
                         if (error) {
                           alert('이미지 올리기 실패!');

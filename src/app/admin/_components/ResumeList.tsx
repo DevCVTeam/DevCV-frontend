@@ -45,7 +45,6 @@ const ResumeList: FC<ResumeListProps> = ({ type, token }) => {
       };
     }
   });
-  console.log(type, isPending);
   const handlePageClick = ({ selected }: { selected: number }) => {
     setCurrentPage(selected + 1);
   };

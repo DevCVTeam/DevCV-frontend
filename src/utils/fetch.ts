@@ -36,6 +36,30 @@ export const getResumes = async ({
     );
     const data: ResumeResponse = await res.json();
     return data;
+  } else if (job) {
+    const res = await fetch(
+      `${process.env.SERVER_URL ?? '/server'}/resumes?page=${page}&size=${PAGESIZE}&stack-type=${job}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    const data: ResumeResponse = await res.json();
+    return data;
+  } else if (company) {
+    const res = await fetch(
+      `${process.env.SERVER_URL ?? '/server'}/resumes?page=${page}&size=${PAGESIZE}&company-type=${company}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    const data: ResumeResponse = await res.json();
+    return data;
   }
 
   const res = await fetch(
@@ -219,7 +243,6 @@ export const pendingModifiedResumeList = async ({
   type: 'pending' | 'modified';
 }) => {
   try {
-    console.log(type);
     const res = await fetch(
       `${process.env.SERVER_URL ?? '/server'}/admin/resumes/${type}?page=${page}&size=${PAGESIZE}`,
       {

@@ -39,7 +39,6 @@ type TForm = {
 const Begin = () => {
   const params = useSearchParams();
   const { data: session } = useSession();
-  console.log(session);
   const router = useRouter();
   const {
     register,
@@ -54,6 +53,7 @@ const Begin = () => {
   const [authenticate, setAuthenticate] = useState(false);
   const open = useDaumPostcodePopup();
   const [verification, setVerification] = useState<string>('');
+  const [duplicateCheck, setDuplicateCheck] = useState<boolean>(false);
   const [emailCheck, setEmailCheck] = useState(false);
   const verificationRef = useRef<HTMLInputElement>(null);
   const { agreements, setAgreements } = useContext(SignupContext);
@@ -79,16 +79,50 @@ const Begin = () => {
     open({ onComplete: handleComplete });
   };
 
+  const handleDuplicated = async () => {
+    const email = getValues('email');
+    const res = await fetch(
+      `/server/members/duplication-email?email=${email}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    if (!res.ok) {
+      return toast.error('중복체크를 다시시도해주세요.');
+    }
+    if (res.status < 300) {
+      setDuplicateCheck(true);
+      return toast.success('사용 가능한 이메일입니다.');
+    } else {
+      const data = await res.json();
+      return toast.error(data.message);
+    }
+  };
+
   const handleEmailSend = async () => {
+    if (!duplicateCheck) {
+      return toast.error('이메일 중복확인을 해주세요');
+    }
     const email = getValues('email');
     const certnumber = await getEmailSend(email);
     setVerification(certnumber);
   };
 
   const handleEmailCheck = () => {
-    if (verificationRef.current?.value !== verification.toString()) {
+    if (
+      verificationRef.current?.value !== verification ||
+      verification.length === 0
+    ) {
       return toast.error('이메일 인증에 실패하였습니다.');
     }
+    console.log(
+      verificationRef.current?.value,
+      verification,
+      verification.length
+    );
     setEmailCheck(true);
     return toast.success('이메일 인증에 성공하셨습니다.');
   };
@@ -192,12 +226,20 @@ const Begin = () => {
                 disabled={emailCheck ? true : false}
               />
               <Button
+                className="self-center"
+                type="button"
+                onClick={handleDuplicated}
+                disabled={duplicateCheck ? true : false}
+              >
+                중복확인
+              </Button>
+              <Button
                 className="self-end"
                 type="button"
                 onClick={handleEmailSend}
                 disabled={emailCheck ? true : false}
               >
-                인증번호 받기
+                인증번호 전송
               </Button>
             </div>
             <div className="flex w-full gap-4">
@@ -208,7 +250,7 @@ const Begin = () => {
                 disabled={emailCheck ? true : false}
               />
               <Button
-                className="self-end"
+                className="w-28 self-end"
                 type="button"
                 onClick={handleEmailCheck}
                 disabled={emailCheck ? true : false}
@@ -328,7 +370,7 @@ const Begin = () => {
 
         <hr className="w-full border-main" />
         <Label htmlFor="company">
-          기업종류 &nbsp;
+          기업종류
           {errors.company && (
             <small role="alert" className="text-red-400">
               ※{errors.company.message || '선택해주세요'}※
@@ -354,7 +396,7 @@ const Begin = () => {
           )}
         />
         <Label htmlFor="job">
-          직무 &nbsp;
+          직무
           {errors.job && (
             <small role="alert" className="text-red-400">
               ※{errors.job.message || '선택해주세요'}※

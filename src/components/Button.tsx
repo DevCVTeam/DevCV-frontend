@@ -9,7 +9,7 @@ const Button: FC<ButtonProps> = ({ className, children, ...rest }) => {
   return (
     <button
       className={cn(
-        'h-12 w-40 rounded-md bg-main py-2 text-black transition-all hover:bg-[#71d671]',
+        'h-12 w-40 rounded-md bg-main py-2 text-sm text-black transition-all hover:bg-[#71d671]',
         className
       )}
       {...rest}

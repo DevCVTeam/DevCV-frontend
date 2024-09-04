@@ -50,7 +50,6 @@ export default function SalesResumeModal({
   } = useForm<TResumeModified>({ mode: 'onChange' });
   const resumefile = watch('resumefile');
   const { data: user } = useSession();
-
   useEffect(() => {
     (async () => {
       const res = await fetch(
@@ -111,7 +110,6 @@ export default function SalesResumeModal({
       setValue('company', data?.category.companyType);
       setValue('thumbnail', await initialImage());
       setValue('resumefile', await initialResume());
-      console.log(getValues('job'), getValues('techstack'));
     })();
   }, []);
   if (resume === undefined) return <div>loading...</div>;
@@ -164,21 +162,11 @@ export default function SalesResumeModal({
           stackType: job
         }
       });
-      console.log({
-        price,
-        title,
-        content: description,
-        stack: techstack,
-        category: {
-          companyType: company,
-          stackType: job
-        }
-      });
+
       const blob = new Blob([resume], { type: 'application/json' });
       formData.append('resume', blob);
 
       thumbnailImg.map((file) => {
-        console.log(file);
         formData.append('images', file);
       });
       formData.append('resumeFile', resumeFile);
@@ -317,8 +305,6 @@ export default function SalesResumeModal({
                   })
                   .filter(Boolean)}
                 onChange={(selectedOptions) => {
-                  console.log(selectedOptions);
-                  console.log(getValues('techstack'));
                   return onChange(
                     selectedOptions
                       ? selectedOptions.map((option) => option?.value)
@@ -493,7 +479,6 @@ export default function SalesResumeModal({
                       })
                         .then((res) => res.json())
                         .then((data) => {
-                          console.log(data);
                           let { preview_image_url, error } = data;
                           if (error) {
                             alert('이미지 올리기 실패!');
