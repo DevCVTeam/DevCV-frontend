@@ -65,7 +65,7 @@ const CompanyBox: FC<CompanyBoxProps> = ({ onClick, company, resetPage }) => {
             key={type}
             className={cn(
               `3xl:size-44 m-2 flex w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all 
-             xs:w-full sm:w-full md:size-20 lg:size-20 xl:size-32 2xl:size-44`,
+             xs:w-full sm:w-full md:size-16 lg:size-20 xl:size-28 2xl:size-44`,
               company === type ? 'border-hover' : 'hover:border-hover'
             )}
             onClick={() => {
@@ -76,7 +76,7 @@ const CompanyBox: FC<CompanyBoxProps> = ({ onClick, company, resetPage }) => {
             <div className="hidden items-center justify-center md:flex lg:flex xl:flex 2xl:flex">
               {icon}
             </div>
-            <p className="flex items-center justify-center text-nowrap text-center text-xl sm:text-xs md:text-sm lg:text-lg  xl:text-xl">
+            <p className="flex items-center justify-center text-nowrap text-center text-xl sm:text-xs md:text-xs lg:text-sm  xl:text-xl">
               {name}
             </p>
           </div>

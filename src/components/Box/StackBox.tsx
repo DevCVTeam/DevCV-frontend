@@ -71,7 +71,7 @@ const StackBox: FC<StackBoxProps> = ({ onClick, job, resetPage }) => {
             key={type}
             className={cn(
               `3xl:size-44 m-2 flex w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all 
-              xs:w-full sm:w-full md:size-20 lg:size-24 xl:size-36 2xl:size-44`,
+              xs:w-full sm:w-full md:size-16 lg:size-20 xl:size-28 2xl:size-44`,
               job === type ? 'border-main' : 'hover:border-main'
             )}
             onClick={() => {
