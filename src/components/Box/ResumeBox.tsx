@@ -40,12 +40,9 @@ const ResumeBox: FC<ResumeBoxProps> = ({
         <h3 className="mt-2 self-start font-semibold">{title}</h3>
         <div className="my-3 flex w-full flex-row justify-between text-sm">
           <p>{userId}</p>
-          <div className="flex font-bold">
-            가격:&nbsp;
-            <p className="font-bold text-[#FF6060]">
-              {price.toLocaleString()}원
-            </p>
-          </div>
+          <p className="font-bold text-black">
+            가격: {price.toLocaleString()}원
+          </p>
         </div>
       </div>
     </Link>
