@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   icons: {
     icon: '/logo.png'
   },
-  metadataBase: new URL('https://devcv.net'),
+  metadataBase: new URL('http://devcv.net'),
   alternates: {
     canonical: '/'
   },
@@ -30,7 +30,15 @@ export const metadata: Metadata = {
       index: true,
       follow: true
     }
-  }
+  },
+  appleWebApp: true,
+  applicationName: 'DevCV',
+  authors: {
+    name: 'DevCV Team',
+    url: 'http://github.com/DevCVTeam'
+  },
+  creator: 'DevCV Team',
+  category: '이력서'
 };
 
 export default function RootLayout({

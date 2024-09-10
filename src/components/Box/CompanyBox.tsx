@@ -21,43 +21,43 @@ const CompanyBox: FC<CompanyBoxProps> = ({ onClick, company, resetPage }) => {
   return (
     <div className="flex flex-col">
       <div>
-        <h4 className="mb-4 text-lg font-semibold">기업 종류</h4>
+        <h4 className="text-lg font-semibold">기업 종류</h4>
       </div>
-      <div className="flex flex-col flex-wrap text-black  sm:flex-row">
+      <div className="flex flex-col flex-wrap text-black sm:flex-row">
         {[
           {
             type: 'largeE',
-            icon: <FaBuilding size={60} />,
+            icon: <FaBuilding size={60} color="#001aff" />,
             name: '대기업'
           },
           {
             type: 'mediumE',
-            icon: <MdDomain size={60} />,
+            icon: <MdDomain size={60} color="#0066ff" />,
             name: '중견기업'
           },
           {
             type: 'smallE',
-            icon: <FaStore size={60} />,
+            icon: <FaStore size={60} color="#00ff37" />,
             name: '중소기업'
           },
           {
             type: 'startE',
-            icon: <FaRocket size={60} />,
+            icon: <FaRocket size={60} color="#6f00ff" />,
             name: '스타트업'
           },
           {
             type: 'unicornE',
-            icon: <GiUnicorn size={60} />,
+            icon: <GiUnicorn size={60} color="#9900ff" />,
             name: '유니콘기업'
           },
           {
             type: 'publicE',
-            icon: <MdAccountBalance size={60} />,
+            icon: <MdAccountBalance size={60} color="#c300ff" />,
             name: '공기업'
           },
           {
             type: 'ventureE',
-            icon: <FaLightbulb size={60} />,
+            icon: <FaLightbulb size={60} color="#ff0062" />,
             name: '벤처기업'
           }
         ].map(({ type, icon, name }) => (
@@ -65,7 +65,7 @@ const CompanyBox: FC<CompanyBoxProps> = ({ onClick, company, resetPage }) => {
             key={type}
             className={cn(
               `3xl:size-44 m-2 flex w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all 
-             xs:w-full sm:w-full md:size-20 lg:size-20 xl:size-32 2xl:size-40`,
+             xs:w-full sm:w-full md:size-20 lg:size-20 xl:size-32 2xl:size-44`,
               company === type ? 'border-hover' : 'hover:border-hover'
             )}
             onClick={() => {

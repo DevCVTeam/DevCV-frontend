@@ -43,7 +43,6 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         try {
-          // 외부 서버와 통신하여 유저 정보와 토큰을 가져오는 로직을 여기에 구현합니다.
           const { email, password } = credentials!;
           const res = await fetch(`${process.env.SERVER_URL}/members/login`, {
             method: 'POST',

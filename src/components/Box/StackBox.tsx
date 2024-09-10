@@ -27,35 +27,51 @@ const StackBox: FC<StackBoxProps> = ({ onClick, job, resetPage }) => {
   return (
     <span className="flex flex-col">
       <div>
-        <h4 className="mb-4 text-lg font-semibold">기술 분야</h4>
+        <h4 className="text-lg font-semibold">기술 분야</h4>
       </div>
       <div className="flex flex-col flex-wrap text-black sm:flex-row">
         {[
-          { type: 'backend', icon: <FaServer size={60} />, name: '백엔드' },
+          {
+            type: 'backend',
+            icon: <FaServer size={60} color="black" />,
+            name: '백엔드'
+          },
           {
             type: 'frontend',
-            icon: <FaHtml5 size={60} />,
+            icon: <FaHtml5 size={60} color="#ff3c00" />,
             name: '프론트엔드'
           },
-          { type: 'mobile', icon: <FaMobileAlt size={60} />, name: '모바일' },
+          {
+            type: 'mobile',
+            icon: <FaMobileAlt size={60} color="#00ff73" />,
+            name: '모바일'
+          },
           {
             type: 'infra',
-            icon: <FaNetworkWired size={60} />,
+            icon: <FaNetworkWired size={60} color="#001aff" />,
             name: '인프라'
           },
-          { type: 'game', icon: <FaGamepad size={60} />, name: '게임' },
+          {
+            type: 'game',
+            icon: <FaGamepad size={60} color="#ff3e3e" />,
+            name: '게임'
+          },
           {
             type: 'embedded',
-            icon: <FaMicrochip size={60} />,
+            icon: <FaMicrochip size={60} color="#554646" />,
             name: '임베디드'
           },
-          { type: 'security', icon: <FaLock size={60} />, name: '보안' }
+          {
+            type: 'security',
+            icon: <FaLock size={60} color="#000000" />,
+            name: '보안'
+          }
         ].map(({ type, icon, name }) => (
           <div
             key={type}
             className={cn(
               `3xl:size-44 m-2 flex w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all 
-              xs:w-full sm:w-full md:size-20 lg:size-20 xl:size-32 2xl:size-40`,
+              xs:w-full sm:w-full md:size-20 lg:size-24 xl:size-36 2xl:size-44`,
               job === type ? 'border-main' : 'hover:border-main'
             )}
             onClick={() => {
