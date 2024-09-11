@@ -133,14 +133,14 @@ export const CategoryResume: FC<ResumeResponse> = ({
   };
 
   return (
-    <div className="flex w-full flex-col gap-8 ">
-      <div className="flex w-full flex-col gap-8 rounded-2xl bg-subgray p-8 xl:p-5">
-        <span className="flex">
+    <div className="flex w-auto flex-col gap-8">
+      <div className="flex w-auto flex-col gap-4 rounded-2xl bg-subgray p-8 xl:p-5">
+        {/* <span className="flex">
           <h3 className="text-2xl font-semibold">기업 선택</h3>
           <p className="ml-2 place-self-end text-sm">
             원하시는 기업을 선택해주세요.
           </p>
-        </span>
+        </span> */}
         <CompanyBox
           onClick={handleCompanyClick}
           company={company!}

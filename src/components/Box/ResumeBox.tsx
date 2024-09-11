@@ -22,7 +22,7 @@ const ResumeBox: FC<ResumeBoxProps> = ({
   return (
     <Link
       href={`/resume/${resumeId}`}
-      className="3xl:w-72 h-60 rounded-3xl bg-white shadow-md hover:bg-slate-100 hover:shadow-2xl "
+      className="3xl:w-72 size-full rounded-3xl bg-white shadow-md hover:bg-slate-100 hover:shadow-2xl "
     >
       <div className="mb-3 flex h-full flex-col items-center justify-between p-3">
         <div className="relative h-[220px] w-full">
@@ -40,7 +40,7 @@ const ResumeBox: FC<ResumeBoxProps> = ({
         <h3 className="mt-2 self-start font-semibold">{title}</h3>
         <div className="my-3 flex w-full flex-row justify-between text-sm">
           <p>{userId}</p>
-          <p className="font-bold text-green-500">
+          <p className="font-bold text-black">
             가격: {price.toLocaleString()}원
           </p>
         </div>

@@ -25,7 +25,7 @@ const Footer = () => {
           <li>광고문의</li>
         </ul>
       </nav>
-      <span className="mb-6 flex gap-2 text-wrap px-8 sm:flex-col">
+      <span className="mb-6 flex gap-1 text-wrap px-8 text-sm sm:flex-col">
         <div>(주)모였조 대표이사</div>
         <div>ㅇㅇㅇ 서울특별시 송파구 올림픽로 300, 롯데월드타워 73층 </div>
         <div>전화번호: (629) 555-0129 </div>
