@@ -11,7 +11,6 @@ import { GrPowerReset } from 'react-icons/gr';
 import ReactPaginate from 'react-paginate';
 import CompanyBox from '../Box/CompanyBox';
 import ResumeBox from '../Box/ResumeBox';
-import StackBox from '../Box/StackBox';
 export const CategoryResume: FC<ResumeResponse> = ({
   content: initialResumes,
   currentPage,
@@ -93,41 +92,57 @@ export const CategoryResume: FC<ResumeResponse> = ({
       setPage(1);
     }
   }, [params]);
+  const handleTypeClick = (selectedType: CompanyType | JobType) => {
+    const COMPANY_TYPES = [
+      'largeE',
+      'mediumE',
+      'smallE',
+      'startE',
+      'unicornE',
+      'publicE',
+      'ventureE'
+    ] as const;
 
-  const handleCompanyClick = (selectedCompany: CompanyType) => {
-    if (company === selectedCompany) {
-      setCompany(undefined);
-      router.push('/', { scroll: false });
-    } else {
-      setCompany(selectedCompany);
-      setPage(1); // Reset page number
-      if (job) {
-        router.push(`/?jobType=${job}&companyType=${selectedCompany}&page=1`, {
-          scroll: false
-        });
+    const isCompanyTye = Object.values(COMPANY_TYPES).includes(
+      selectedType as CompanyType
+    );
+
+    if (isCompanyTye) {
+      if (company === selectedType) {
+        setCompany(undefined);
+        router.push('/', { scroll: false });
       } else {
-        router.push(`/?companyType=${selectedCompany}&page=1`, {
-          scroll: false
-        });
+        setCompany(selectedType as CompanyType);
+        setPage(1);
+        if (job) {
+          router.push(`/?jobType=${job}&companyType=${selectedType}&page=1`, {
+            scroll: false
+          });
+        } else {
+          router.push(`/?companyType=${selectedType}&page=1`, {
+            scroll: false
+          });
+        }
       }
-    }
-  };
-
-  const handleJobClick = (selectedJob: JobType) => {
-    if (job === selectedJob) {
-      setJob(undefined);
-      router.push('/', { scroll: false });
     } else {
-      setJob(selectedJob);
-      setPage(1);
-      if (company) {
-        router.push(`/?jobType=${selectedJob}&companyType=${company}&page=1`, {
-          scroll: false
-        });
+      if (job === selectedType) {
+        setJob(undefined);
+        router.push('/', { scroll: false });
       } else {
-        router.push(`/?jobType=${selectedJob}&page=1`, {
-          scroll: false
-        });
+        setJob(selectedType as JobType);
+        setPage(1);
+        if (company) {
+          router.push(
+            `/?jobType=${selectedType}&companyType=${company}&page=1`,
+            {
+              scroll: false
+            }
+          );
+        } else {
+          router.push(`/?jobType=${selectedType}&page=1`, {
+            scroll: false
+          });
+        }
       }
     }
   };
@@ -142,8 +157,9 @@ export const CategoryResume: FC<ResumeResponse> = ({
           </p>
         </span> */}
         <CompanyBox
-          onClick={handleCompanyClick}
+          onClick={handleTypeClick}
           company={company!}
+          job={job!}
           resetPage={(companyType) => {
             setPage(1);
             if (job) {
@@ -160,7 +176,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
             }
           }}
         />
-        <StackBox
+        {/* <StackBox
           onClick={handleJobClick}
           job={job!}
           resetPage={(jobType) => {
@@ -178,7 +194,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
               });
             }
           }}
-        />
+        /> */}
       </div>
       <hr />
       <div className="flex flex-col justify-center gap-4 rounded-2xl bg-subgray p-8">

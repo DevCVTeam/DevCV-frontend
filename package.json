@@ -37,6 +37,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-select": "^5.8.0",
     "sharp": "^0.33.4",
+    "swiper": "^11.1.14",
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {

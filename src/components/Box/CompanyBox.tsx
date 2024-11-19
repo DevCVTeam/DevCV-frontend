@@ -1,87 +1,77 @@
 'use client';
 
-import { cn } from '@/utils/style';
-import { CompanyType } from '@/utils/type';
-import { FC } from 'react';
-import { FaBuilding, FaLightbulb, FaRocket, FaStore } from 'react-icons/fa';
-import { GiUnicorn } from 'react-icons/gi';
-import { MdAccountBalance, MdDomain } from 'react-icons/md';
-
+import { CAROUSEL_CONFIG, COMPANIES } from '@/constants/companies';
+import { CompanyType, JobType } from '@/utils/type';
+import { FC, useCallback, useMemo } from 'react';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // 캐러셀 기본 스타일 임포트
 type CompanyBoxProps = {
-  onClick: (e: CompanyType) => void;
-  resetPage: (e: CompanyType) => void;
+  onClick: (e: CompanyType | JobType) => void;
+  resetPage: (e: CompanyType | JobType) => void;
   company: CompanyType;
+  job: JobType;
 };
 
-const CompanyBox: FC<CompanyBoxProps> = ({ onClick, company, resetPage }) => {
-  const handleClick = (companyType: CompanyType) => {
-    onClick(companyType);
-  };
+const CompanyBox: FC<CompanyBoxProps> = ({
+  onClick,
+  company,
+  job,
+  resetPage
+}) => {
+  const groupedCompanies = useMemo(() => {
+    return [
+      COMPANIES.slice(0, CAROUSEL_CONFIG.itemsPerSlide),
+      COMPANIES.slice(CAROUSEL_CONFIG.itemsPerSlide)
+    ];
+  }, []);
+
+  const handleClick = useCallback(
+    (companyType: CompanyType) => {
+      onClick(companyType);
+      resetPage(companyType);
+    },
+    [onClick, resetPage]
+  );
 
   return (
-    <div className="flex flex-col">
-      <div>
-        <h4 className="text-lg font-semibold">기업 종류</h4>
-      </div>
-      <div className="flex flex-col flex-wrap text-black sm:flex-row">
-        {[
-          {
-            type: 'largeE',
-            icon: <FaBuilding size={60} color="#001aff" />,
-            name: '대기업'
-          },
-          {
-            type: 'mediumE',
-            icon: <MdDomain size={60} color="#0066ff" />,
-            name: '중견기업'
-          },
-          {
-            type: 'smallE',
-            icon: <FaStore size={60} color="#00ff37" />,
-            name: '중소기업'
-          },
-          {
-            type: 'startE',
-            icon: <FaRocket size={60} color="#6f00ff" />,
-            name: '스타트업'
-          },
-          {
-            type: 'unicornE',
-            icon: <GiUnicorn size={60} color="#9900ff" />,
-            name: '유니콘기업'
-          },
-          {
-            type: 'publicE',
-            icon: <MdAccountBalance size={60} color="#c300ff" />,
-            name: '공기업'
-          },
-          {
-            type: 'ventureE',
-            icon: <FaLightbulb size={60} color="#ff0062" />,
-            name: '벤처기업'
-          }
-        ].map(({ type, icon, name }) => (
+    <div className="flex flex-col items-center">
+      <h4 className="text-lg font-semibold">기업 및 기술 선택</h4>
+      <Carousel
+        showArrows={false}
+        showStatus={false}
+        showThumbs={false}
+        infiniteLoop={true}
+        useKeyboardArrows={true}
+        autoPlay={true}
+        stopOnHover={true}
+        swipeable={true}
+        emulateTouch={true}
+        interval={3000}
+        transitionTime={500}
+        className="w-full"
+      >
+        {groupedCompanies.map((group, index) => (
           <div
-            key={type}
-            className={cn(
-              `3xl:size-44 m-2 flex w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all 
-             xs:w-full sm:w-full md:size-16 lg:size-20 xl:size-28 2xl:size-44`,
-              company === type ? 'border-hover' : 'hover:border-hover'
-            )}
-            onClick={() => {
-              handleClick(type as CompanyType);
-              resetPage(type as CompanyType);
-            }}
+            key={index}
+            className="xl: grid grid-cols-1 gap-4 md:grid-cols-4 xl:grid-cols-7"
           >
-            <div className="hidden items-center justify-center md:flex lg:flex xl:flex 2xl:flex">
-              {icon}
-            </div>
-            <p className="flex items-center justify-center text-nowrap text-center text-xl sm:text-xs md:text-xs lg:text-sm  xl:text-xl">
-              {name}
-            </p>
+            {group.map(({ type, icon: Icon, name, color, size }) => (
+              <div
+                key={type}
+                className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all ${
+                  company === type ? 'border-hover' : 'hover:border-hover'
+                } ${job === type ? 'border-hover' : 'hover:border-hover'}`}
+                onClick={() => handleClick(type as CompanyType)}
+              >
+                <div className="flex items-center justify-center">
+                  {Icon && <Icon size={size} color={color} />}
+                </div>
+                <p className="text-center text-xl">{name}</p>
+              </div>
+            ))}
           </div>
         ))}
-      </div>
+      </Carousel>
     </div>
   );
 };

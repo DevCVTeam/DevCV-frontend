@@ -125,7 +125,7 @@ const SigninPage = () => {
           <h2 className="text-2xl font-semibold">DevCV 입니다.</h2>
         </div>
       </div>
-      <form className="flex w-1/3 flex-col gap-4">
+      <form className="flex flex-col gap-4">
         <Input
           placeholder="이메일을 입력해주세요."
           ref={emailRef}
@@ -143,7 +143,7 @@ const SigninPage = () => {
         >
           로그인
         </Button>
-        <div className="flex justify-between text-sm">
+        <div className="flex justify-between gap-4 text-sm">
           <div className="flex gap-2">
             <span
               className="cursor-pointer text-sub underline"
