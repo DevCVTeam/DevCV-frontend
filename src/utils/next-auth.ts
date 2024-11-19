@@ -51,8 +51,8 @@ export const authOptions: NextAuthOptions = {
               'Content-Type': 'application/json'
             }
           });
-
           const user: UserResponse = await res.json();
+          console.log(user);
           if (user.errorCode) {
             return null;
           }
