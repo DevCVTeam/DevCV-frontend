@@ -2,11 +2,34 @@
   "name": "devcv-frontend",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "win:dev": "concurrently -n \"NEXT,ELECTRON\" -c \"yellow,blue\" --kill-others \"next dev\" \"electron ./index.js\"",
+    "win:build": "next build && electron-builder",
     "start": "next start",
     "lint": "next lint"
+  },
+  "build": {
+    "productName": "DevCV",
+    "appId": "devcv.net",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "dist/**/*",
+      "index.js",
+      "preload.js",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": [
+        "zip",
+        "nsis"
+      ]
+    }
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.600.0",
@@ -20,6 +43,7 @@
     "axios": "^1.7.2",
     "browser-image-compression": "^2.0.2",
     "class-variance-authority": "^0.7.0",
+    "electron-serve": "^2.1.1",
     "jsonwebtoken": "^9.0.2",
     "next": "14.2.3",
     "next-auth": "^4.24.7",
@@ -47,6 +71,9 @@
     "@types/react-dom": "^18",
     "@types/react-google-recaptcha": "^2.1.9",
     "@types/react-lottie": "^1.2.10",
+    "concurrently": "^9.1.0",
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "eslint-config-prettier": "^9.1.0",
