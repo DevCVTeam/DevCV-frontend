@@ -2,37 +2,69 @@
   "name": "devcv-frontend",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
+  "main": "./build/main.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "win:dev": "concurrently -n \"NEXT,ELECTRON\" -c \"yellow,blue\" --kill-others \"next dev\" \"electron ./index.js\"",
-    "win:build": "next build && electron-builder",
-    "start": "next start",
-    "lint": "next lint"
+    "next:dev": "next dev",
+    "next:build": "next build",
+    "next:start": "next start",
+    "next:lint": "next lint",
+    "format": "dprint fmt",
+    "postinstall": "electron-builder install-app-deps",
+    "electron:dist": "electron-builder --dir",
+    "electron:dist:deb": "electron-builder --linux deb",
+    "electron:build": "tsup",
+    "build": "run-s next:build electron:build",
+    "dist": "run-s build electron:dist",
+    "dev": "npm-run-all --parallel electron:dev next:dev",
+    "electron:build_watch": "tsup --watch",
+    "electron:dev": "npm-run-all --parallel electron:build_watch electron:watch",
+    "electron:watch": "cross-env NODE_ENV='development' nodemon"
   },
   "build": {
     "productName": "DevCV",
-    "appId": "devcv.net",
     "asar": true,
-    "directories": {
-      "output": "dist"
-    },
+    "executableName": "DevCV",
+    "appId": "devcv.net",
+    "asarUnpack": [
+      "node_modules/next",
+      "node_modules/@img",
+      "node_modules/sharp",
+      "**\\*.{node,dll}"
+    ],
     "files": [
-      "dist/**/*",
-      "index.js",
-      "preload.js",
-      "node_modules/**/*"
+      "build",
+      {
+        "from": ".next/standalone",
+        "to": "app",
+        "filter": [
+          "!**/.env",
+          "!**/package.json"
+        ]
+      },
+      {
+        "from": ".next/static",
+        "to": "app/.next/static"
+      },
+      {
+        "from": "public",
+        "to": "app/public"
+      }
     ],
     "win": {
       "target": [
-        "zip",
         "nsis"
       ]
+    },
+    "linux": {
+      "target": [
+        "deb"
+      ],
+      "category": "Development"
     }
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.600.0",
+    "@electron-toolkit/utils": "^3.0.0",
     "@headlessui/react": "^2.0.4",
     "@portone/browser-sdk": "^0.0.7",
     "@react-icons/all-files": "^4.1.0",
@@ -43,7 +75,9 @@
     "axios": "^1.7.2",
     "browser-image-compression": "^2.0.2",
     "class-variance-authority": "^0.7.0",
+    "cross-env": "^7.0.3",
     "electron-serve": "^2.1.1",
+    "get-port-please": "^3.1.2",
     "jsonwebtoken": "^9.0.2",
     "next": "14.2.3",
     "next-auth": "^4.24.7",
@@ -79,9 +113,12 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-tailwindcss": "^3.17.0",
     "iamport-typings": "^1.4.0",
+    "nodemon": "^3.1.9",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8",
     "prettier": "^3.2.5",
     "tailwindcss": "^3.4.1",
+    "tsup": "^8.3.5",
     "typescript": "^5"
   }
 }

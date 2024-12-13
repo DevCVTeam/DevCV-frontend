@@ -18,7 +18,9 @@ const nextConfig = {
         destination: `${process.env.SERVER_URL}/:path*`
       }
     ];
-  }
+  },
+  transpilePackages: ['@nextelectron/ui'],
+  output: 'standalone'
 };
 
 export default nextConfig;
