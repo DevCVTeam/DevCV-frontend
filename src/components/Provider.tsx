@@ -7,6 +7,7 @@ import Script from 'next/script';
 import { Suspense } from 'react';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
+import { FullPageLoader } from './Loader';
 import ToasterContext from './ToasterContext';
 
 interface Props {
@@ -29,7 +30,7 @@ export const NextProvider = ({ children }: Props) => {
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
-        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+        <Suspense fallback={<FullPageLoader />}>{children}</Suspense>
       </SessionProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

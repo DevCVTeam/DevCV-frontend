@@ -15,7 +15,7 @@ const images = [
 const Banner: FC = () => {
   const router = useRouter();
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center w-full">
       <Carousel
         showStatus
         showArrows
@@ -25,8 +25,7 @@ const Banner: FC = () => {
         useKeyboardArrows
         autoPlay
         stopOnHover
-        swipeable
-        dynamicHeight
+        swipeable={false}
         emulateTouch
         autoFocus={false}
         thumbWidth={100}
@@ -34,18 +33,21 @@ const Banner: FC = () => {
         interval={2000}
         transitionTime={500}
         swipeScrollTolerance={5}
-        width={800}
         className="cursor-pointer"
         onClickItem={(item) => router.push(`/resume/${images[item].id}`)}
+        centerMode
+        centerSlidePercentage={33.33}
       >
         {images.map((image) => (
-          <Image
-            src={image.src}
-            alt={image.alt}
-            width={800}
-            height={400}
-            key={image.id}
-          />
+          <div key={image.id} className="px-2">
+            <Image
+              src={image.src}
+              alt={image.alt}
+              width={800}
+              height={400}
+              className="object-cover"
+            />
+          </div>
         ))}
       </Carousel>
     </div>

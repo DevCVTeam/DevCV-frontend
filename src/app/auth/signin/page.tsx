@@ -99,7 +99,7 @@ const SigninPage = () => {
     }
   };
   return (
-    <div className="my-40 flex w-full flex-col items-center gap-4">
+    <div className="mt-10 mb-40 flex flex-col items-center gap-4 border-2 border-gray-200 rounded-3xl shadow-lg w-2/5 justify-center self-center p-8 bg-white">
       <AdminLoginModal
         isOpen={adminIsOpen}
         onClose={() => setAdminInOpen(false)}
@@ -121,52 +121,55 @@ const SigninPage = () => {
       <div className="flex flex-col items-center gap-6">
         <Image width={48} height={48} src="/logo.png" alt="logoImage" />
         <div className="flex flex-col items-center">
-          <h2 className="text-2xl font-semibold">안녕하세요!</h2>
-          <h2 className="text-2xl font-semibold">DevCV 입니다.</h2>
+          <h2 className="text-3xl font-bold text-gray-800">안녕하세요!</h2>
+          <h2 className="text-3xl font-bold text-gray-800">DevCV 입니다.</h2>
         </div>
       </div>
-      <form className="flex flex-col gap-4">
+
+      <form className="flex flex-col gap-6">
         <Input
           placeholder="이메일을 입력해주세요."
           ref={emailRef}
           type="email"
+          className="border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-main focus:outline-none"
         />
         <Input
           placeholder="비밀번호를 입력해주세요."
           type="password"
           ref={pwdRef}
+          className="border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-main focus:outline-none"
         />
         <Button
           type="button"
-          className="w-full bg-main hover:bg-hover"
+          className="w-full bg-main hover:bg-hover text-white rounded-xl py-3 font-semibold"
           onClick={handleLogin}
         >
           로그인
         </Button>
-        <div className="flex justify-between gap-4 text-sm">
-          <div className="flex gap-2">
+        <div className="flex justify-between gap-6 text-sm text-gray-600">
+          <div className="flex gap-3">
             <span
-              className="cursor-pointer text-sub underline"
+              className="cursor-pointer hover:text-main underline"
               onClick={() => setAdminInOpen(true)}
             >
               관리자로그인
             </span>
             <span
-              className="cursor-pointer text-sub underline"
+              className="cursor-pointer hover:text-main underline"
               onClick={() => router.push('/auth/signup')}
             >
               회원가입
             </span>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <span
-              className="cursor-pointer text-sub underline"
+              className="cursor-pointer hover:text-main underline"
               onClick={() => setIdFindIsOpen(true)}
             >
               ID 찾기
             </span>
             <span
-              className="cursor-pointer text-sub underline"
+              className="cursor-pointer hover:text-main underline"
               onClick={() => setPwdFindIsOpen(true)}
             >
               비밀번호 찾기
@@ -174,24 +177,30 @@ const SigninPage = () => {
           </div>
         </div>
       </form>
-      <div className="mt-10">
+
+      <div className="mt-6">
         <ReCAPTCHA
           sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY!}
           onChange={onChange}
         />
       </div>
-      <hr className="my-6 w-1/3" />
-      <div className="flex flex-col items-center gap-4">
-        <span>소셜 로그인</span>
-        <div className="flex gap-8">
+
+      <hr className="my-6 w-1/4 border-gray-300" />
+
+      <div className="flex flex-col items-center gap-6">
+        <span className="text-lg font-semibold text-gray-700">소셜 로그인</span>
+        <div className="flex gap-10">
           <div
             onClick={kakaoLoginHandler}
-            className="cursor-pointer rounded-full"
+            className="cursor-pointer rounded-full p-3 bg-yellow-400 hover:bg-yellow-500 transition-all"
           >
-            <SiKakaotalk className="size-12 rounded-full bg-neutral-800 text-yellow-400" />
+            <SiKakaotalk className="text-neutral-800" size={32} />
           </div>
-          <div className="cursor-pointer rounded-full">
-            <FcGoogle onClick={googleLoginHandler} className="size-12" />
+          <div
+            onClick={googleLoginHandler}
+            className="cursor-pointer rounded-full p-3 bg-neutral-800 hover:bg-neutral-700 transition-all"
+          >
+            <FcGoogle size={32} />
           </div>
         </div>
       </div>
