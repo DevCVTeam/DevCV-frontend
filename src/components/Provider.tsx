@@ -7,6 +7,7 @@ import Script from 'next/script';
 import { Suspense } from 'react';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
+import { FullPageLoader } from './Loader';
 import ToasterContext from './ToasterContext';
 
 interface Props {
@@ -29,7 +30,7 @@ export const NextProvider = ({ children }: Props) => {
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
-        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+        <Suspense fallback={<FullPageLoader />}>{children}</Suspense>
       </SessionProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
@@ -42,7 +43,7 @@ export const NextLayout = ({ children }: Props) => {
       <div className="mx-4 flex flex-1 flex-col sm:mx-8 md:mx-16 lg:mx-32 xl:mx-32">
         <Script src="https://cdn.iamport.kr/v1/iamport.js" />
         <Header />
-        <main className="mt-20 flex flex-1 flex-col">{children}</main>
+        <main className="mt-20 flex flex-1 flex-col ">{children}</main>
         <ToasterContext />
         <Footer />
       </div>

@@ -34,7 +34,7 @@ const CompanyBox: FC<CompanyBoxProps> = ({
   );
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col gap-3">
       <h4 className="text-lg font-semibold">기업 및 기술 선택</h4>
       <Carousel
         showArrows={false}
@@ -42,7 +42,6 @@ const CompanyBox: FC<CompanyBoxProps> = ({
         showThumbs={false}
         infiniteLoop={true}
         useKeyboardArrows={true}
-        autoPlay={true}
         stopOnHover={true}
         swipeable={true}
         emulateTouch={true}
@@ -53,7 +52,7 @@ const CompanyBox: FC<CompanyBoxProps> = ({
         {groupedCompanies.map((group, index) => (
           <div
             key={index}
-            className="xl: grid grid-cols-1 gap-4 md:grid-cols-4 xl:grid-cols-7"
+            className="grid grid-cols-1 gap-4 md:grid-cols-4 xl:grid-cols-8"
           >
             {group.map(({ type, icon: Icon, name, color, size }) => (
               <div

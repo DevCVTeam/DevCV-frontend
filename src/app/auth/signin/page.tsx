@@ -99,99 +99,112 @@ const SigninPage = () => {
     }
   };
   return (
-    <div className="my-40 flex w-full flex-col items-center gap-4">
-      <AdminLoginModal
-        isOpen={adminIsOpen}
-        onClose={() => setAdminInOpen(false)}
-        title="관리자 로그인"
-      />
-
-      <IdFindModal
-        isOpen={idFindIsOpen}
-        onClose={() => setIdFindIsOpen(false)}
-        title="아이디 찾기"
-      />
-
-      <PwdFindModal
-        isOpen={pwdFindIsOpen}
-        onClose={() => setPwdFindIsOpen(false)}
-        title="패스워드 찾기"
-      />
-
-      <div className="flex flex-col items-center gap-6">
-        <Image width={48} height={48} src="/logo.png" alt="logoImage" />
-        <div className="flex flex-col items-center">
-          <h2 className="text-2xl font-semibold">안녕하세요!</h2>
-          <h2 className="text-2xl font-semibold">DevCV 입니다.</h2>
-        </div>
-      </div>
-      <form className="flex flex-col gap-4">
-        <Input
-          placeholder="이메일을 입력해주세요."
-          ref={emailRef}
-          type="email"
+    <div className="flex justify-center before:absolute before:-z-10 before:h-1/2 before:w-3/4 before:animate-spin-slower before:rounded-bl-full before:rounded-tr-full before:bg-accent-2 before:blur-3xl after:absolute after:-z-10 after:size-2/3 after:animate-spin-slow after:rounded-bl-full after:rounded-tr-full after:bg-accent-1/80 after:blur-3xl">
+      <div className="mb-40 mt-10 flex w-2/5 flex-col items-center justify-center gap-4 rounded-3xl border-2 border-gray-200 bg-white p-8 shadow-lg">
+        <AdminLoginModal
+          isOpen={adminIsOpen}
+          onClose={() => setAdminInOpen(false)}
+          title="관리자 로그인"
         />
-        <Input
-          placeholder="비밀번호를 입력해주세요."
-          type="password"
-          ref={pwdRef}
+
+        <IdFindModal
+          isOpen={idFindIsOpen}
+          onClose={() => setIdFindIsOpen(false)}
+          title="아이디 찾기"
         />
-        <Button
-          type="button"
-          className="w-full bg-main hover:bg-hover"
-          onClick={handleLogin}
-        >
-          로그인
-        </Button>
-        <div className="flex justify-between gap-4 text-sm">
-          <div className="flex gap-2">
-            <span
-              className="cursor-pointer text-sub underline"
-              onClick={() => setAdminInOpen(true)}
-            >
-              관리자로그인
-            </span>
-            <span
-              className="cursor-pointer text-sub underline"
-              onClick={() => router.push('/auth/signup')}
-            >
-              회원가입
-            </span>
-          </div>
-          <div className="flex gap-2">
-            <span
-              className="cursor-pointer text-sub underline"
-              onClick={() => setIdFindIsOpen(true)}
-            >
-              ID 찾기
-            </span>
-            <span
-              className="cursor-pointer text-sub underline"
-              onClick={() => setPwdFindIsOpen(true)}
-            >
-              비밀번호 찾기
-            </span>
+
+        <PwdFindModal
+          isOpen={pwdFindIsOpen}
+          onClose={() => setPwdFindIsOpen(false)}
+          title="패스워드 찾기"
+        />
+
+        <div className="flex flex-col items-center gap-6">
+          <Image width={48} height={48} src="/logo.png" alt="logoImage" />
+          <div className="flex flex-col items-center">
+            <h2 className="text-3xl font-bold text-gray-800">안녕하세요!</h2>
+            <h2 className="text-3xl font-bold text-gray-800">DevCV 입니다.</h2>
           </div>
         </div>
-      </form>
-      <div className="mt-10">
-        <ReCAPTCHA
-          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY!}
-          onChange={onChange}
-        />
-      </div>
-      <hr className="my-6 w-1/3" />
-      <div className="flex flex-col items-center gap-4">
-        <span>소셜 로그인</span>
-        <div className="flex gap-8">
-          <div
-            onClick={kakaoLoginHandler}
-            className="cursor-pointer rounded-full"
+
+        <form className="flex flex-col gap-6">
+          <Input
+            placeholder="이메일을 입력해주세요."
+            ref={emailRef}
+            type="email"
+            className="rounded-xl border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-main"
+          />
+          <Input
+            placeholder="비밀번호를 입력해주세요."
+            type="password"
+            ref={pwdRef}
+            className="rounded-xl border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-main"
+          />
+          <Button
+            type="button"
+            className="w-full rounded-xl bg-main py-3 font-semibold text-white hover:bg-hover"
+            onClick={handleLogin}
           >
-            <SiKakaotalk className="size-12 rounded-full bg-neutral-800 text-yellow-400" />
+            로그인
+          </Button>
+          <div className="flex justify-between gap-6 text-sm text-gray-600">
+            <div className="flex gap-3">
+              <span
+                className="cursor-pointer underline hover:text-main"
+                onClick={() => setAdminInOpen(true)}
+              >
+                관리자로그인
+              </span>
+              <span
+                className="cursor-pointer underline hover:text-main"
+                onClick={() => router.push('/auth/signup')}
+              >
+                회원가입
+              </span>
+            </div>
+            <div className="flex gap-3">
+              <span
+                className="cursor-pointer underline hover:text-main"
+                onClick={() => setIdFindIsOpen(true)}
+              >
+                ID 찾기
+              </span>
+              <span
+                className="cursor-pointer underline hover:text-main"
+                onClick={() => setPwdFindIsOpen(true)}
+              >
+                비밀번호 찾기
+              </span>
+            </div>
           </div>
-          <div className="cursor-pointer rounded-full">
-            <FcGoogle onClick={googleLoginHandler} className="size-12" />
+        </form>
+
+        <div className="mt-6">
+          <ReCAPTCHA
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY!}
+            onChange={onChange}
+          />
+        </div>
+
+        <hr className="my-6 w-1/4 border-gray-300" />
+
+        <div className="flex flex-col items-center gap-6">
+          <span className="text-lg font-semibold text-gray-700">
+            소셜 로그인
+          </span>
+          <div className="flex gap-10">
+            <div
+              onClick={kakaoLoginHandler}
+              className="cursor-pointer rounded-full bg-yellow-400 p-3 transition-all hover:bg-yellow-500"
+            >
+              <SiKakaotalk className="text-neutral-800" size={32} />
+            </div>
+            <div
+              onClick={googleLoginHandler}
+              className="cursor-pointer rounded-full bg-neutral-800 p-3 transition-all hover:bg-neutral-700"
+            >
+              <FcGoogle size={32} />
+            </div>
           </div>
         </div>
       </div>

@@ -22,27 +22,26 @@ const ResumeBox: FC<ResumeBoxProps> = ({
   return (
     <Link
       href={`/resume/${resumeId}`}
-      className="3xl:w-72 size-full rounded-3xl bg-white shadow-md hover:bg-slate-100 hover:shadow-2xl "
+      className="flex max-h-[340px] min-h-[240px] max-w-[340px] flex-col items-center rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
     >
-      <div className="mb-3 flex h-full flex-col items-center justify-between p-3">
-        <div className="relative h-[220px] w-full">
-          {/* 부모 요소에 상대적 위치 및 고정된 높이 설정 */}
-          <Image
-            src={thumbnail}
-            alt="thumbnail"
-            layout="fill" // 부모 요소를 채우도록 설정
-            objectFit="cover" // 이미지가 부모 요소를 덮도록 설정
-            placeholder="blur"
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
-            className="rounded-t-lg" // 이미지 상단 모서리를 둥글게 설정
-          />
-        </div>
-        <h3 className="mt-2 self-start font-semibold">{title}</h3>
-        <div className="my-3 flex w-full flex-row justify-between text-sm">
-          <p>{userId}</p>
-          <p className="font-bold text-black">
-            가격: {price.toLocaleString()}원
-          </p>
+      <div className="relative h-3/5 w-full overflow-hidden rounded-t-2xl">
+        <Image
+          src={thumbnail}
+          alt="thumbnail"
+          layout="fill"
+          objectFit="cover"
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
+          className="transition-all duration-500 hover:scale-110"
+        />
+      </div>
+      <div className="flex h-2/5 w-full flex-col justify-between rounded-b-2xl bg-white p-4">
+        <h3 className="truncate text-xl font-semibold text-gray-800">
+          {title}
+        </h3>
+        <div className="mt-2 flex items-center justify-between">
+          <p className="text-sm text-gray-500">{userId}</p>
+          <p className="font-bold text-green-600">{price.toLocaleString()}원</p>
         </div>
       </div>
     </Link>

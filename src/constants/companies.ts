@@ -122,7 +122,7 @@ export const COMPANIES: CompanyInfo[] = [
 ];
 
 export const CAROUSEL_CONFIG = {
-  itemsPerSlide: 7,
+  itemsPerSlide: 8,
   interval: 3000,
   transitionTime: 500
 };

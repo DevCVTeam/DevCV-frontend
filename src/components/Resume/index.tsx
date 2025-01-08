@@ -11,6 +11,7 @@ import { GrPowerReset } from 'react-icons/gr';
 import ReactPaginate from 'react-paginate';
 import CompanyBox from '../Box/CompanyBox';
 import ResumeBox from '../Box/ResumeBox';
+import { LoaderGrid } from '../Loader';
 export const CategoryResume: FC<ResumeResponse> = ({
   content: initialResumes,
   currentPage,
@@ -217,7 +218,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
           <span className="text-xs">선택 초기화</span>
         </div>
         {isFetching ? (
-          <div>Loading...</div>
+          <LoaderGrid />
         ) : isError ? (
           <div>Error: {error.message}</div>
         ) : (
