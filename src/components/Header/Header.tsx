@@ -16,7 +16,7 @@ const Header = () => {
   }
 
   return (
-    <header className="fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between border-b bg-white bg-opacity-[0.5] shadow-md pl-7 pr-7">
+    <header className="fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between border-b bg-white bg-opacity-[0.5] px-7 shadow-md">
       <Link href="/" className=" flex">
         <Image
           src="/logo.png"

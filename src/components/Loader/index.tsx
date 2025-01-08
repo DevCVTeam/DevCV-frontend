@@ -2,7 +2,7 @@ import { cn } from '@/utils/style';
 
 export function Loader({ className }: { className?: string }) {
   return (
-    <div className={cn('flex justify-center items-center gap-4', className)}>
+    <div className={cn('flex items-center justify-center gap-4', className)}>
       <div className="size-2 animate-ping rounded-full bg-gray-500" />
       <div className="size-2 animate-ping rounded-full bg-gray-500" />
       <div className="size-2 animate-ping rounded-full bg-gray-500" />

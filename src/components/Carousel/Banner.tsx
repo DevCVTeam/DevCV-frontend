@@ -15,7 +15,7 @@ const images = [
 const Banner: FC = () => {
   const router = useRouter();
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="flex w-full items-center justify-center">
       <Carousel
         showStatus
         showArrows

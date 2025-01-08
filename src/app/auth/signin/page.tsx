@@ -99,7 +99,7 @@ const SigninPage = () => {
     }
   };
   return (
-    <div className="mt-10 mb-40 flex flex-col items-center gap-4 border-2 border-gray-200 rounded-3xl shadow-lg w-2/5 justify-center self-center p-8 bg-white">
+    <div className="mb-40 mt-10 flex w-2/5 flex-col items-center justify-center gap-4 self-center rounded-3xl border-2 border-gray-200 bg-white p-8 shadow-lg">
       <AdminLoginModal
         isOpen={adminIsOpen}
         onClose={() => setAdminInOpen(false)}
@@ -131,17 +131,17 @@ const SigninPage = () => {
           placeholder="이메일을 입력해주세요."
           ref={emailRef}
           type="email"
-          className="border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-main focus:outline-none"
+          className="rounded-xl border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-main"
         />
         <Input
           placeholder="비밀번호를 입력해주세요."
           type="password"
           ref={pwdRef}
-          className="border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-main focus:outline-none"
+          className="rounded-xl border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-main"
         />
         <Button
           type="button"
-          className="w-full bg-main hover:bg-hover text-white rounded-xl py-3 font-semibold"
+          className="w-full rounded-xl bg-main py-3 font-semibold text-white hover:bg-hover"
           onClick={handleLogin}
         >
           로그인
@@ -149,13 +149,13 @@ const SigninPage = () => {
         <div className="flex justify-between gap-6 text-sm text-gray-600">
           <div className="flex gap-3">
             <span
-              className="cursor-pointer hover:text-main underline"
+              className="cursor-pointer underline hover:text-main"
               onClick={() => setAdminInOpen(true)}
             >
               관리자로그인
             </span>
             <span
-              className="cursor-pointer hover:text-main underline"
+              className="cursor-pointer underline hover:text-main"
               onClick={() => router.push('/auth/signup')}
             >
               회원가입
@@ -163,13 +163,13 @@ const SigninPage = () => {
           </div>
           <div className="flex gap-3">
             <span
-              className="cursor-pointer hover:text-main underline"
+              className="cursor-pointer underline hover:text-main"
               onClick={() => setIdFindIsOpen(true)}
             >
               ID 찾기
             </span>
             <span
-              className="cursor-pointer hover:text-main underline"
+              className="cursor-pointer underline hover:text-main"
               onClick={() => setPwdFindIsOpen(true)}
             >
               비밀번호 찾기
@@ -192,13 +192,13 @@ const SigninPage = () => {
         <div className="flex gap-10">
           <div
             onClick={kakaoLoginHandler}
-            className="cursor-pointer rounded-full p-3 bg-yellow-400 hover:bg-yellow-500 transition-all"
+            className="cursor-pointer rounded-full bg-yellow-400 p-3 transition-all hover:bg-yellow-500"
           >
             <SiKakaotalk className="text-neutral-800" size={32} />
           </div>
           <div
             onClick={googleLoginHandler}
-            className="cursor-pointer rounded-full p-3 bg-neutral-800 hover:bg-neutral-700 transition-all"
+            className="cursor-pointer rounded-full bg-neutral-800 p-3 transition-all hover:bg-neutral-700"
           >
             <FcGoogle size={32} />
           </div>
