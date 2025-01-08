@@ -30,22 +30,25 @@ const Banner: FC = () => {
         autoFocus={false}
         thumbWidth={100}
         selectedItem={0}
-        interval={2000}
+        interval={3000}
         transitionTime={500}
         swipeScrollTolerance={5}
-        className="cursor-pointer"
-        onClickItem={(item) => router.push(`/resume/${images[item].id}`)}
+        // onClickItem={(item) => router.push(`/resume/${images[item].id}`)}
         centerMode
         centerSlidePercentage={33.33}
       >
         {images.map((image) => (
-          <div key={image.id} className="px-2">
+          <div
+            key={image.id}
+            className="mx-2 cursor-pointer"
+            onClick={() => router.push(`/resume/${image.id}`)}
+          >
             <Image
               src={image.src}
               alt={image.alt}
               width={800}
               height={400}
-              className="object-cover"
+              className="mx-2 object-cover"
             />
           </div>
         ))}

@@ -34,7 +34,7 @@ const CompanyBox: FC<CompanyBoxProps> = ({
   );
 
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div className="flex flex-col gap-3">
       <h4 className="text-lg font-semibold">기업 및 기술 선택</h4>
       <Carousel
         showArrows={false}

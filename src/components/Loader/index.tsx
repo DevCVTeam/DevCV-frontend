@@ -17,7 +17,7 @@ export function LoaderGrid({ className }: { className?: string }) {
         <div
           key={i}
           className={cn(
-            'z-[0] h-72 w-full animate-pulse rounded-md bg-gray-200 object-cover md:h-64',
+            'z-[0] max-h-[340px] min-h-[240px] max-w-[340px] animate-pulse rounded-md bg-gray-200 object-cover',
             className
           )}
         />

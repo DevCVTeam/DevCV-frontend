@@ -15,14 +15,22 @@ export default function Layout({
 }) {
   return (
     <div className="flex flex-col gap-12">
-      <div>{children}</div>
+      <div className="mt-10 rounded-3xl border border-slate-300 p-4 shadow-lg transition-all duration-300 hover:shadow-2xl">
+        {children}
+      </div>
       <hr />
-      <div>{point}</div>
+      <div className="mt-10 rounded-3xl border border-slate-300 p-4 shadow-lg transition-all duration-300 hover:shadow-2xl">
+        {point}
+      </div>
       <hr />
-      <div>{orderlist}</div>
+      <div className="mt-10 rounded-3xl border border-slate-300 p-4 shadow-lg transition-all duration-300 hover:shadow-2xl">
+        {orderlist}
+      </div>
       {modal}
       <hr />
-      <div>{saleslist}</div>
+      <div className="mt-10 rounded-3xl border border-slate-300 p-4 shadow-lg transition-all duration-300 hover:shadow-2xl">
+        {saleslist}
+      </div>
     </div>
   );
 }

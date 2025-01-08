@@ -7,7 +7,10 @@ const Footer = () => {
   return (
     <footer className="mt-12 flex flex-col justify-between border-t pt-4">
       <nav className="flex flex-row justify-between text-wrap p-8 sm:text-xs">
-        <Link href="/" className="flex flex-row gap-2">
+        <Link
+          href="/"
+          className="flex flex-row gap-2 transition-all duration-300 hover:bg-slate-200"
+        >
           <Image
             src="/logo.png"
             alt="Logo"

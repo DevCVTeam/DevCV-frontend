@@ -43,7 +43,7 @@ export const NextLayout = ({ children }: Props) => {
       <div className="mx-4 flex flex-1 flex-col sm:mx-8 md:mx-16 lg:mx-32 xl:mx-32">
         <Script src="https://cdn.iamport.kr/v1/iamport.js" />
         <Header />
-        <main className="mt-20 flex flex-1 flex-col">{children}</main>
+        <main className="mt-20 flex flex-1 flex-col ">{children}</main>
         <ToasterContext />
         <Footer />
       </div>

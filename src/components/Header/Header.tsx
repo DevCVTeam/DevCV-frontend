@@ -17,7 +17,10 @@ const Header = () => {
 
   return (
     <header className="fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between border-b bg-white bg-opacity-[0.5] px-7 shadow-md">
-      <Link href="/" className=" flex">
+      <Link
+        href="/"
+        className="flex items-center rounded-md p-2 transition-all duration-300 hover:bg-slate-200"
+      >
         <Image
           src="/logo.png"
           alt="Logo"
@@ -27,6 +30,7 @@ const Header = () => {
         />
         <b className="ml-3 self-center text-xl">DevCV</b>
       </Link>
+
       {/* <div className="flex gap-6 items-center justify-between">
         <div>
           <div>기업 분류</div>
