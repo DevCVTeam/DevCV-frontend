@@ -3,8 +3,7 @@
 import { CAROUSEL_CONFIG, COMPANIES } from '@/constants/companies';
 import { CompanyType, JobType } from '@/utils/type';
 import { FC, useCallback, useMemo } from 'react';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // 캐러셀 기본 스타일 임포트
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 type CompanyBoxProps = {
   onClick: (e: CompanyType | JobType) => void;
   resetPage: (e: CompanyType | JobType) => void;
@@ -12,6 +11,7 @@ type CompanyBoxProps = {
   job: JobType;
 };
 
+// TODO: 기업 분류와 기술 분류를 개별적으로 선택할 수 있도록 기획이 되어있는데 이걸 어떻게 변경할지 고민.
 const CompanyBox: FC<CompanyBoxProps> = ({
   onClick,
   company,
@@ -34,9 +34,9 @@ const CompanyBox: FC<CompanyBoxProps> = ({
   );
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="sticky top-20 z-10 flex flex-col gap-3">
       <h4 className="text-lg font-semibold">기업 및 기술 선택</h4>
-      <Carousel
+      {/* <Carousel
         showArrows={false}
         showStatus={false}
         showThumbs={false}
@@ -48,29 +48,29 @@ const CompanyBox: FC<CompanyBoxProps> = ({
         interval={3000}
         transitionTime={500}
         className="w-full"
-      >
-        {groupedCompanies.map((group, index) => (
-          <div
-            key={index}
-            className="grid grid-cols-1 gap-4 md:grid-cols-4 xl:grid-cols-8"
-          >
-            {group.map(({ type, icon: Icon, name, color, size }) => (
-              <div
-                key={type}
-                className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all ${
-                  company === type ? 'border-hover' : 'hover:border-hover'
-                } ${job === type ? 'border-hover' : 'hover:border-hover'}`}
-                onClick={() => handleClick(type as CompanyType)}
-              >
-                <div className="flex items-center justify-center">
-                  {Icon && <Icon size={size} color={color} />}
-                </div>
-                <p className="text-center text-xl">{name}</p>
+      > */}
+      {groupedCompanies.map((group, index) => (
+        <div
+          key={index}
+          className="grid grid-cols-1 gap-4 md:grid-cols-4 xl:grid-cols-14"
+        >
+          {group.map(({ type, icon: Icon, name, color, size }) => (
+            <div
+              key={type}
+              className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all ${
+                company === type ? 'border-hover' : 'hover:border-hover'
+              } ${job === type ? 'border-hover' : 'hover:border-hover'}`}
+              onClick={() => handleClick(type as CompanyType)}
+            >
+              <div className="flex items-center justify-center">
+                {Icon && <Icon size={size} color={color} />}
               </div>
-            ))}
-          </div>
-        ))}
-      </Carousel>
+              <p className="whitespace-nowrap text-center text-sm">{name}</p>
+            </div>
+          ))}
+        </div>
+      ))}
+      {/* </Carousel> */}
     </div>
   );
 };

@@ -50,7 +50,7 @@ export default function RootLayout({
     <html lang="ko">
       <body
         className={cn(
-          'isolate grid place-items-center bg-white text-content ',
+          'flex min-h-screen flex-col bg-white text-content relative',
           pretendard.variable
         )}
       >
