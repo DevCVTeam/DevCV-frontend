@@ -26,6 +26,10 @@ const config: Config = {
         // xs: { max: '480px' }
         // => @media (max-width: 639px) { ... }
       },
+      gridTemplateColumns: {
+        // grid-cols-14 추가
+        '14': 'repeat(14, minmax(0, 1fr))'
+      },
       backgroundImage: {},
       // backgroundColor: {
       //   hover: '#6fff6f',
@@ -65,6 +69,9 @@ const config: Config = {
         subgray: '#F6F6F6',
         textColor: '#292929',
         content: 'hsl(217 32.6% 17.5%)'
+      },
+      fontFamily: {
+        Tenada: 'Tenada'
       }
     }
   },

@@ -100,7 +100,7 @@ const SigninPage = () => {
   };
   return (
     <div className="flex justify-center before:absolute before:-z-10 before:h-1/2 before:w-3/4 before:animate-spin-slower before:rounded-bl-full before:rounded-tr-full before:bg-accent-2 before:blur-3xl after:absolute after:-z-10 after:size-2/3 after:animate-spin-slow after:rounded-bl-full after:rounded-tr-full after:bg-accent-1/80 after:blur-3xl">
-      <div className="mb-40 mt-10 flex w-2/5 flex-col items-center justify-center gap-4 rounded-3xl border-2 border-gray-200 bg-white p-8 shadow-lg">
+      <div className="mb-40 mt-10 flex w-full flex-col items-center justify-center gap-4 rounded-3xl border-2 border-gray-200 bg-white p-8 shadow-lg transition-all xl:w-2/5">
         <AdminLoginModal
           isOpen={adminIsOpen}
           onClose={() => setAdminInOpen(false)}

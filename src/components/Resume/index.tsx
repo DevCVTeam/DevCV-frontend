@@ -2,7 +2,7 @@
 
 import { Company, Job } from '@/utils/constant';
 import { getResumes } from '@/utils/fetch';
-import { CompanyType, JobType, ResumeResponse } from '@/utils/type';
+import { CompanyType, JobType, type ResumeResponse } from '@/utils/type';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
@@ -12,6 +12,8 @@ import ReactPaginate from 'react-paginate';
 import CompanyBox from '../Box/CompanyBox';
 import ResumeBox from '../Box/ResumeBox';
 import { LoaderGrid } from '../Loader';
+
+// TODO: sticky 이 컴포넌트에서 문제
 export const CategoryResume: FC<ResumeResponse> = ({
   content: initialResumes,
   currentPage,
@@ -149,14 +151,8 @@ export const CategoryResume: FC<ResumeResponse> = ({
   };
 
   return (
-    <div className="flex w-auto flex-col gap-8">
-      <div className="flex w-auto flex-col gap-4 rounded-2xl bg-subgray p-8 xl:p-5">
-        {/* <span className="flex">
-          <h3 className="text-2xl font-semibold">기업 선택</h3>
-          <p className="ml-2 place-self-end text-sm">
-            원하시는 기업을 선택해주세요.
-          </p>
-        </span> */}
+    <div className="w-full">
+      <div className="w-full p-8 xl:p-5">
         <CompanyBox
           onClick={handleTypeClick}
           company={company!}
@@ -177,28 +173,9 @@ export const CategoryResume: FC<ResumeResponse> = ({
             }
           }}
         />
-        {/* <StackBox
-          onClick={handleJobClick}
-          job={job!}
-          resetPage={(jobType) => {
-            setPage(1);
-            if (company) {
-              router.push(
-                `/?jobType=${jobType}&companyType=${company}&page=1`,
-                {
-                  scroll: false
-                }
-              );
-            } else {
-              router.push(`/?jobType=${jobType}&page=1`, {
-                scroll: false
-              });
-            }
-          }}
-        /> */}
       </div>
       <hr />
-      <div className="flex flex-col justify-center gap-4 rounded-2xl bg-subgray p-8">
+      <div className="flex flex-col gap-4 rounded-2xl bg-subgray p-8">
         <div className="mt-4 flex gap-2">
           <h2 className="text-2xl font-semibold">
             {Company[company!]} {Job[job!]} 이력서
@@ -222,7 +199,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
         ) : isError ? (
           <div>Error: {error.message}</div>
         ) : (
-          <div className="grid grid-cols-1 grid-rows-2 gap-4 transition-all sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          <div className="grid grid-cols-1 grid-rows-2 gap-4 transition-all xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
             {resumePage?.resumes.map((resume) => (
               <ResumeBox
                 key={resume.resumeId}
