@@ -1,71 +1,49 @@
-# name: Next Build
+name: Next Build
 
-# on:
-#   push:
-#     branches:
-#       - develop
-#   pull_request:
-#     branches:
-#       - develop
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Check out code
-#         uses: actions/checkout@v3
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
 
-#       - name: Install Node.js
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: 20
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
 
-#       - name: Install pnpm
-#         uses: pnpm/action-setup@v2
-#         id: pnpm-install
-#         with:
-#           version: 8
-#           run_install: false
-#       - name: Get pnpm store directory
-#         id: pnpm-cache
-#         shell: bash
-#         run: |
-#           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-#       - name: project pnpm dependency install
-#         run: pnpm install
+      - name: project pnpm dependency install
+        run: pnpm install
 
-#       - name: project env file injection
-#         run: echo "${{ secrets.DEV_EC2_ENV }}" >> .env.local
+      - name: project env file injection
+        run: echo "${{ secrets.DEV_EC2_ENV }}" >> .env.local
 
-#       - name: Setup pnpm cache
-#         uses: actions/cache@v3
-#         with:
-#           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-#           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-#           restore-keys: |
-#             ${{ runner.os }}-pnpm-store-
-#       - name: Build next app
-#         run: pnpm build
-
-#       - name: Make tar file
-#         run: tar -cvzf deploy_next.tar.gz .next public next.config.* package*.json .env.local pnpm-lock.yaml
-#         shell: bash
-
-#       - name: scp to EC2
-#         uses: appleboy/scp-action@master
-#         with:
-#           host: ${{ secrets.DEV_EC2_IP_ADDRESS }}
-#           username: ${{ secrets.DEV_EC2_USER }}
-#           key: ${{ secrets.DEV_EC2_PRIVATE_KEY }}
-#           source: ./deploy_next.tar.gz
-#           target: ${{secrets.DEV_EC2_TARGET_DIRECTORY}}
-
-#       - name: Execute Server Init Script
-#         uses: appleboy/ssh-action@master
-#         with:
-#           host: ${{ secrets.DEV_EC2_IP_ADDRESS }}
-#           username: ${{ secrets.DEV_EC2_USER }}
-#           key: ${{ secrets.DEV_EC2_PRIVATE_KEY }}
-#           script_stop: true
-#           script: sudo /bin/sh ${{secrets.DEV_EC2_TARGET_DIRECTORY}}/deploy.sh
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      - name: Build next app
+        run: pnpm build
