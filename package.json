@@ -22,7 +22,6 @@
     "axios": "^1.7.9",
     "browser-image-compression": "^2.0.2",
     "class-variance-authority": "^0.7.1",
-    "google": "link:@next/third-parties/google",
     "jsonwebtoken": "^9.0.2",
     "next": "14.2.3",
     "next-auth": "^4.24.11",
