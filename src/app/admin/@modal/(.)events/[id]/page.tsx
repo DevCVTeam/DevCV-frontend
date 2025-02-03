@@ -6,19 +6,29 @@ import { getEvent } from '@/utils/fetch';
 import { authOptions } from '@/utils/next-auth';
 import { getServerSession } from 'next-auth';
 
-export default async function Events({
-  params: { id: eventId }
-}: {
-  params: { id: number };
-}) {
+// params.id는 동기적 string 타입으로 정의
+type PageProps = {
+  params: Promise<{
+    id: string;
+  }>;
+};
+
+export default async function Events({ params }: PageProps) {
+  const { id } = await params;
   const user = await getServerSession(authOptions);
-  const event = await getEvent({ token: user?.user.accessToken!, eventId });
-  if (event.errorCode)
+  const event = await getEvent({
+    token: user?.user.accessToken!,
+    eventId: Number(id) // id는 string 타입이므로 바로 사용할 수 있음
+  });
+
+  if (event.errorCode) {
     return (
       <Modal title="이벤트 목록" isOpen={true}>
         삭제완료
       </Modal>
     );
+  }
+
   return (
     <Modal title="이벤트 목록" isOpen={true}>
       <span className="text-sm text-slate-400">
@@ -66,7 +76,7 @@ export default async function Events({
           />
         </div>
       </div>
-      <EventButton eventId={eventId} user={user!} />
+      <EventButton eventId={Number(id)} user={user!} />
     </Modal>
   );
 }

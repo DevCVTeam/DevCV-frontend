@@ -50,7 +50,7 @@ export default function RootLayout({
     <html lang="ko">
       <body
         className={cn(
-          'flex min-h-screen flex-col bg-white text-content relative',
+          'relative flex min-h-screen flex-col bg-white text-content',
           pretendard.variable
         )}
       >
