@@ -1,4 +1,3 @@
-// Header.tsx
 'use client';
 
 import axios from 'axios';
@@ -6,6 +5,7 @@ import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Button from '../Button';
 
 const eventResume = [
@@ -17,13 +17,33 @@ const eventResume = [
 const Header = () => {
   const { status, data: session } = useSession();
   const router = useRouter();
+  const [isVisible, setIsVisible] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+
+      setIsVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      setPrevScrollPos(currentScrollPos);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [prevScrollPos]);
+
   if (status === 'authenticated') {
     axios.defaults.headers.common['Authorization'] =
-      `Bearer ${session?.user.accessToken}`;
+      `Bearer ${session?.user?.accessToken}`;
   }
 
   return (
-    <header className="fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between border-b bg-white bg-opacity-[0.5] px-7 shadow-sm">
+    <header
+      className={`fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between border-b bg-white bg-opacity-[0.5] px-7 shadow-sm transition-transform duration-300 ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
       <Link
         href="/"
         className="flex items-center rounded-md p-2 transition-all duration-300 hover:bg-slate-200"

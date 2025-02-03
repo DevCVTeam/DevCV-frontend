@@ -34,8 +34,7 @@ const CompanyBox: FC<CompanyBoxProps> = ({
   );
 
   return (
-    <div className="sticky top-20 z-10 flex flex-col gap-3">
-      <h4 className="text-lg font-semibold">기업 및 기술 선택</h4>
+    <>
       {/* <Carousel
         showArrows={false}
         showStatus={false}
@@ -57,7 +56,7 @@ const CompanyBox: FC<CompanyBoxProps> = ({
           {group.map(({ type, icon: Icon, name, color, size }) => (
             <div
               key={type}
-              className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-4 transition-all ${
+              className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-2 transition-all ${
                 company === type ? 'border-hover' : 'hover:border-hover'
               } ${job === type ? 'border-hover' : 'hover:border-hover'}`}
               onClick={() => handleClick(type as CompanyType)}
@@ -71,7 +70,7 @@ const CompanyBox: FC<CompanyBoxProps> = ({
         </div>
       ))}
       {/* </Carousel> */}
-    </div>
+    </>
   );
 };
 

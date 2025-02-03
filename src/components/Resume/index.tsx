@@ -5,7 +5,7 @@ import { getResumes } from '@/utils/fetch';
 import { CompanyType, JobType, type ResumeResponse } from '@/utils/type';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { GrPowerReset } from 'react-icons/gr';
 import ReactPaginate from 'react-paginate';
@@ -35,6 +35,10 @@ export const CategoryResume: FC<ResumeResponse> = ({
   );
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
+  const [isCompanyVisible, setIsCompanyVisible] = useState(true);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const companyRef = useRef<HTMLDivElement>(null);
+  const prevScrollPos = useRef(0);
 
   const {
     data: resumePage,
@@ -95,6 +99,38 @@ export const CategoryResume: FC<ResumeResponse> = ({
       setPage(1);
     }
   }, [params]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      setIsHeaderVisible(
+        prevScrollPos.current > currentScrollPos || currentScrollPos < 10
+      );
+      prevScrollPos.current = currentScrollPos;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsCompanyVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0,
+        rootMargin: '-80px 0px 0px 0px'
+      }
+    );
+
+    if (companyRef.current) {
+      observer.observe(companyRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const handleTypeClick = (selectedType: CompanyType | JobType) => {
     const COMPANY_TYPES = [
       'largeE',
@@ -151,31 +187,42 @@ export const CategoryResume: FC<ResumeResponse> = ({
   };
 
   return (
-    <div className="w-full">
-      <div className="w-full p-8 xl:p-5">
-        <CompanyBox
-          onClick={handleTypeClick}
-          company={company!}
-          job={job!}
-          resetPage={(companyType) => {
-            setPage(1);
-            if (job) {
-              router.push(
-                `/?jobType=${job}&companyType=${companyType}&page=1`,
-                {
+    <div className="relative w-full">
+      <h4 className="mb-4 text-lg font-semibold">기업 및 기술 선택</h4>
+      <div
+        ref={companyRef}
+        className={`sticky bg-white transition-all duration-300 ${
+          isHeaderVisible ? 'top-20' : 'top-0'
+        } z-20`}
+      >
+        <div className="mb-8 flex w-full gap-3 rounded-2xl border p-4">
+          <CompanyBox
+            onClick={handleTypeClick}
+            company={company!}
+            job={job!}
+            resetPage={(companyType) => {
+              setPage(1);
+              if (job) {
+                router.push(
+                  `/?jobType=${job}&companyType=${companyType}&page=1`,
+                  {
+                    scroll: false
+                  }
+                );
+              } else {
+                router.push(`/?companyType=${companyType}&page=1`, {
                   scroll: false
-                }
-              );
-            } else {
-              router.push(`/?companyType=${companyType}&page=1`, {
-                scroll: false
-              });
-            }
-          }}
-        />
+                });
+              }
+            }}
+          />
+        </div>
       </div>
-      <hr />
-      <div className="flex flex-col gap-4 rounded-2xl bg-subgray p-8">
+      <div
+        className={`relative mt-4 flex flex-col gap-4 rounded-2xl bg-subgray p-8 transition-all duration-300 ${
+          isCompanyVisible ? 'translate-y-0' : 'translate-y-4'
+        }`}
+      >
         <div className="mt-4 flex gap-2">
           <h2 className="text-2xl font-semibold">
             {Company[company!]} {Job[job!]} 이력서
