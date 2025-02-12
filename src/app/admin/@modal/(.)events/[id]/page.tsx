@@ -6,19 +6,16 @@ import { getEvent } from '@/utils/fetch';
 import { authOptions } from '@/utils/next-auth';
 import { getServerSession } from 'next-auth';
 
-// params.id는 동기적 string 타입으로 정의
-type PageProps = {
-  params: Promise<{
-    id: string;
-  }>;
+// 타입 정의 변경
+type Props = {
+  id: string;
 };
 
-export default async function Events({ params }: PageProps) {
-  const { id } = await params;
+export default async function Events({ params }: { params: Props }) {
   const user = await getServerSession(authOptions);
   const event = await getEvent({
     token: user?.user.accessToken!,
-    eventId: Number(id) // id는 string 타입이므로 바로 사용할 수 있음
+    eventId: Number(params.id)
   });
 
   if (event.errorCode) {
@@ -76,7 +73,7 @@ export default async function Events({ params }: PageProps) {
           />
         </div>
       </div>
-      <EventButton eventId={Number(id)} user={user!} />
+      <EventButton eventId={Number(params.id)} user={user!} />
     </Modal>
   );
 }

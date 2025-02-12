@@ -1,76 +1,103 @@
 'use client';
 
-import { CAROUSEL_CONFIG, COMPANIES } from '@/constants/companies';
+import { COMPANIES } from '@/constants/companies';
 import { CompanyType, JobType } from '@/utils/type';
-import { FC, useCallback, useMemo } from 'react';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-type CompanyBoxProps = {
-  onClick: (e: CompanyType | JobType) => void;
-  resetPage: (e: CompanyType | JobType) => void;
-  company: CompanyType;
-  job: JobType;
-};
+import { FC, useState } from 'react';
+import 'swiper/css';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-// TODO: 기업 분류와 기술 분류를 개별적으로 선택할 수 있도록 기획이 되어있는데 이걸 어떻게 변경할지 고민.
+interface CompanyBoxProps {
+  onClick: (type: CompanyType | JobType) => void;
+  company: CompanyType | undefined;
+  job: JobType | undefined;
+  resetPage: (type: CompanyType | JobType) => void;
+}
+
 const CompanyBox: FC<CompanyBoxProps> = ({
   onClick,
   company,
   job,
   resetPage
 }) => {
-  const groupedCompanies = useMemo(() => {
-    return [
-      COMPANIES.slice(0, CAROUSEL_CONFIG.itemsPerSlide),
-      COMPANIES.slice(CAROUSEL_CONFIG.itemsPerSlide)
-    ];
-  }, []);
-
-  const handleClick = useCallback(
-    (companyType: CompanyType) => {
-      onClick(companyType);
-      resetPage(companyType);
-    },
-    [onClick, resetPage]
+  const [selectedType, setSelectedType] = useState<'enterprise' | 'job'>(
+    'enterprise'
+  );
+  const [hoveredItem, setHoveredItem] = useState<CompanyType | JobType | null>(
+    null
   );
 
+  const items =
+    selectedType === 'enterprise' ? COMPANIES.enterprises : COMPANIES.jobs;
+
+  const handleTypeChange =
+    (type: 'enterprise' | 'job') => (e: React.MouseEvent) => {
+      e.preventDefault(); // 이벤트 전파 중단
+      setSelectedType(type);
+    };
+
   return (
-    <>
-      {/* <Carousel
-        showArrows={false}
-        showStatus={false}
-        showThumbs={false}
-        infiniteLoop={true}
-        useKeyboardArrows={true}
-        stopOnHover={true}
-        swipeable={true}
-        emulateTouch={true}
-        interval={3000}
-        transitionTime={500}
-        className="w-full"
-      > */}
-      {groupedCompanies.map((group, index) => (
-        <div
-          key={index}
-          className="grid grid-cols-1 gap-4 md:grid-cols-4 xl:grid-cols-14"
+    <div className="w-full space-y-4">
+      <div className="flex gap-4 mb-4">
+        <button
+          className={`px-4 py-2 rounded-lg ${
+            selectedType === 'enterprise'
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-100'
+          }`}
+          onClick={handleTypeChange('enterprise')}
         >
-          {group.map(({ type, icon: Icon, name, color, size }) => (
-            <div
-              key={type}
-              className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-4 border-white bg-white p-2 transition-all ${
-                company === type ? 'border-hover' : 'hover:border-hover'
-              } ${job === type ? 'border-hover' : 'hover:border-hover'}`}
-              onClick={() => handleClick(type as CompanyType)}
-            >
-              <div className="flex items-center justify-center">
-                {Icon && <Icon size={size} color={color} />}
+          기업 분류
+        </button>
+        <button
+          className={`px-4 py-2 rounded-lg ${
+            selectedType === 'job' ? 'bg-blue-600 text-white' : 'bg-gray-100'
+          }`}
+          onClick={handleTypeChange('job')}
+        >
+          직무 분류
+        </button>
+      </div>
+
+      <Swiper slidesPerView="auto" spaceBetween={8} className="w-full">
+        {items.map((item) => {
+          const isSelected =
+            selectedType === 'enterprise'
+              ? company === item.type
+              : job === item.type;
+          const isHovered = hoveredItem === item.type;
+          const Icon = item.icon;
+
+          return (
+            <SwiperSlide key={item.type} className="!w-auto">
+              <div
+                className={`flex cursor-pointer items-center justify-center gap-1.5 rounded-xl px-3 py-2 transition-all duration-300
+                  ${isSelected || isHovered ? 'bg-opacity-10 text-blue-600' : 'hover:bg-gray-100'}
+                  ${isSelected ? 'border-2 border-blue-600' : 'border border-gray-200'}
+                `}
+                onClick={() => {
+                  onClick(item.type as CompanyType | JobType);
+                  resetPage(item.type as CompanyType | JobType);
+                }}
+                onMouseEnter={() =>
+                  setHoveredItem(item.type as CompanyType | JobType)
+                }
+                onMouseLeave={() => setHoveredItem(null)}
+              >
+                <Icon
+                  size={18}
+                  className={
+                    isSelected || isHovered ? 'text-blue-600' : 'text-gray-600'
+                  }
+                />
+                <span className="whitespace-nowrap text-xs sm:text-sm font-medium">
+                  {item.name}
+                </span>
               </div>
-              <p className="whitespace-nowrap text-center text-sm">{name}</p>
-            </div>
-          ))}
-        </div>
-      ))}
-      {/* </Carousel> */}
-    </>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+    </div>
   );
 };
 

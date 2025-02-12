@@ -99,8 +99,18 @@ const SigninPage = () => {
     }
   };
   return (
-    <div className="flex justify-center before:absolute before:-z-10 before:h-1/2 before:w-3/4 before:animate-spin-slower before:rounded-bl-full before:rounded-tr-full before:bg-accent-2 before:blur-3xl after:absolute after:-z-10 after:size-2/3 after:animate-spin-slow after:rounded-bl-full after:rounded-tr-full after:bg-accent-1/80 after:blur-3xl">
-      <div className="mb-40 mt-10 flex w-full flex-col items-center justify-center gap-4 rounded-3xl border-2 border-gray-200 bg-white p-8 shadow-lg transition-all xl:w-2/5">
+    <div
+      className="min-h-screen flex justify-center items-center px-4 py-8 sm:px-6 lg:px-8
+      before:absolute before:-z-10 before:h-1/2 before:w-3/4 before:animate-spin-slower before:rounded-bl-full before:rounded-tr-full before:bg-accent-2 before:blur-3xl 
+      after:absolute after:-z-10 after:size-2/3 after:animate-spin-slow after:rounded-bl-full after:rounded-tr-full after:bg-accent-1/80 after:blur-3xl"
+    >
+      <div
+        className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl 
+        flex flex-col items-center justify-center gap-4 
+        rounded-2xl sm:rounded-3xl border-2 border-gray-200 
+        bg-white p-4 sm:p-6 md:p-8 
+        shadow-lg transition-all"
+      >
         <AdminLoginModal
           isOpen={adminIsOpen}
           onClose={() => setAdminInOpen(false)}
@@ -119,91 +129,108 @@ const SigninPage = () => {
           title="패스워드 찾기"
         />
 
-        <div className="flex flex-col items-center gap-6">
-          <Image width={48} height={48} src="/logo.png" alt="logoImage" />
+        <div className="flex flex-col items-center gap-4 sm:gap-6">
+          <Image
+            width={40}
+            height={40}
+            src="/logo.png"
+            alt="logoImage"
+            className="sm:w-12 sm:h-12"
+          />
           <div className="flex flex-col items-center">
-            <h2 className="text-3xl font-bold text-gray-800">안녕하세요!</h2>
-            <h2 className="text-3xl font-bold text-gray-800">DevCV 입니다.</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+              안녕하세요!
+            </h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+              DevCV 입니다.
+            </h2>
           </div>
         </div>
 
-        <form className="flex flex-col gap-6">
+        <form className="w-full flex flex-col gap-4 sm:gap-6 mt-4">
           <Input
             placeholder="이메일을 입력해주세요."
             ref={emailRef}
             type="email"
-            className="rounded-xl border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-main"
+            className="w-full rounded-xl border border-gray-300 p-2.5 sm:p-3 
+              text-sm sm:text-base
+              focus:outline-none focus:ring-2 focus:ring-main"
           />
           <Input
             placeholder="비밀번호를 입력해주세요."
             type="password"
             ref={pwdRef}
-            className="rounded-xl border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-main"
+            className="w-full rounded-xl border border-gray-300 p-2.5 sm:p-3 
+              text-sm sm:text-base
+              focus:outline-none focus:ring-2 focus:ring-main"
           />
           <Button
             type="button"
-            className="w-full rounded-xl bg-main py-3 font-semibold text-white hover:bg-hover"
+            className="w-full rounded-xl bg-main py-2.5 sm:py-3 
+              text-sm sm:text-base font-semibold text-white 
+              hover:bg-hover transition-colors"
             onClick={handleLogin}
           >
             로그인
           </Button>
-          <div className="flex justify-between gap-6 text-sm text-gray-600">
-            <div className="flex gap-3">
-              <span
-                className="cursor-pointer underline hover:text-main"
-                onClick={() => setAdminInOpen(true)}
-              >
-                관리자로그인
-              </span>
-              <span
-                className="cursor-pointer underline hover:text-main"
-                onClick={() => router.push('/auth/signup')}
-              >
-                회원가입
-              </span>
-            </div>
-            <div className="flex gap-3">
-              <span
-                className="cursor-pointer underline hover:text-main"
-                onClick={() => setIdFindIsOpen(true)}
-              >
-                ID 찾기
-              </span>
-              <span
-                className="cursor-pointer underline hover:text-main"
-                onClick={() => setPwdFindIsOpen(true)}
-              >
-                비밀번호 찾기
-              </span>
-            </div>
+          <div
+            className="flex sm:flex-row justify-between items-center gap-3 sm:gap-6 mt-4
+            text-xs sm:text-sm text-gray-600"
+          >
+            <span
+              className="cursor-pointer underline hover:text-main transition-colors"
+              onClick={() => setAdminInOpen(true)}
+            >
+              관리자로그인
+            </span>
+            <span
+              className="cursor-pointer underline hover:text-main transition-colors"
+              onClick={() => router.push('/auth/signup')}
+            >
+              회원가입
+            </span>
+            <span
+              className="cursor-pointer underline hover:text-main transition-colors"
+              onClick={() => setIdFindIsOpen(true)}
+            >
+              ID 찾기
+            </span>
+            <span
+              className="cursor-pointer underline hover:text-main transition-colors"
+              onClick={() => setPwdFindIsOpen(true)}
+            >
+              비밀번호 찾기
+            </span>
           </div>
         </form>
 
-        <div className="mt-6">
+        <div className="mt-4 sm:mt-6 transform scale-90 sm:scale-100">
           <ReCAPTCHA
             sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY!}
             onChange={onChange}
           />
         </div>
 
-        <hr className="my-6 w-1/4 border-gray-300" />
+        <hr className="my-4 sm:my-6 w-1/4 border-gray-300" />
 
-        <div className="flex flex-col items-center gap-6">
-          <span className="text-lg font-semibold text-gray-700">
+        <div className="flex flex-col items-center gap-4 sm:gap-6">
+          <span className="text-base sm:text-lg font-semibold text-gray-700">
             소셜 로그인
           </span>
-          <div className="flex gap-10">
+          <div className="flex gap-6 sm:gap-10">
             <div
               onClick={kakaoLoginHandler}
-              className="cursor-pointer rounded-full bg-yellow-400 p-3 transition-all hover:bg-yellow-500"
+              className="cursor-pointer rounded-full bg-yellow-400 p-2.5 sm:p-3 
+                transition-all hover:bg-yellow-500"
             >
-              <SiKakaotalk className="text-neutral-800" size={32} />
+              <SiKakaotalk className="text-neutral-800 w-6 h-6 sm:w-8 sm:h-8" />
             </div>
             <div
               onClick={googleLoginHandler}
-              className="cursor-pointer rounded-full bg-neutral-800 p-3 transition-all hover:bg-neutral-700"
+              className="cursor-pointer rounded-full bg-neutral-800 p-2.5 sm:p-3 
+                transition-all hover:bg-neutral-700"
             >
-              <FcGoogle size={32} />
+              <FcGoogle className="w-6 h-6 sm:w-8 sm:h-8" />
             </div>
           </div>
         </div>

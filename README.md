@@ -147,7 +147,7 @@ runner 는 아래와 같은 순서로 동작.
 5. scp 로 클라우드 서버에 전송
 6. ssh 서버 접속하여 쉘 스크립트 실행하여 docker-compose 컨테이너 빌드 후 백그라운드 실행
 
-배포 주소 : [DevCV](http://devcv.net)
+배포 주소 : [DevCV](https://devcv.net)
 
 ---
 

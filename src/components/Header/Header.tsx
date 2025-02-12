@@ -1,11 +1,19 @@
 'use client';
 
+import { cn } from '@/utils/style';
 import axios from 'axios';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import {
+  FaRegAddressCard,
+  FaRegCalendarCheck,
+  FaRegFileLines,
+  FaRegUser
+} from 'react-icons/fa6';
+import { FiLogOut } from 'react-icons/fi';
 import Button from '../Button';
 
 const eventResume = [
@@ -18,6 +26,7 @@ const Header = () => {
   const { status, data: session } = useSession();
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(true);
+  const [isNav, setIsNav] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
 
   useEffect(() => {
@@ -93,28 +102,71 @@ const Header = () => {
               </div>
             </div>
           ) : (
-            <div className="flex items-center gap-2 lg:gap-3">
-              <div>{session.user?.memberName}님</div>
-              <div>
-                <Link href={'/event'}>
-                  <Button className="w-24">이벤트</Button>
-                </Link>
+            <div className="flex items-center gap-2 lg:gap-3 relative">
+              <div className="hidden sm:block text-sm font-medium">
+                {session.user?.memberName}님
               </div>
-              <div>
-                <Link href={'/resume/register'}>
-                  <Button className="w-24">판매하기</Button>
-                </Link>
+              <div
+                className="flex items-center justify-center cursor-pointer rounded-full border border-gray-200 bg-white p-2 hover:bg-gray-50"
+                onClick={() => setIsNav((prev) => !prev)}
+              >
+                <FaRegUser size={20} className="text-gray-600" />
               </div>
-              <div>
-                <Link href={'/auth/profile'}>
-                  <Button className="w-24">마이페이지</Button>
-                </Link>
-              </div>
-              <div>
-                <Button className="w-24" onClick={() => signOut()}>
-                  로그아웃
-                </Button>
-              </div>
+              <nav
+                className={cn(
+                  'absolute right-0 top-12 min-w-[180px] rounded-lg border bg-white py-2 shadow-lg',
+                  'transition-all duration-200 z-50',
+                  'xs:min-w-[200px] sm:min-w-[220px] md:min-w-[240px]',
+                  isNav
+                    ? 'invisible opacity-0 translate-y-2'
+                    : 'visible opacity-100 translate-y-0'
+                )}
+              >
+                <div className="px-4 py-2 border-b border-gray-100">
+                  <p className="font-medium text-gray-900">내 계정</p>
+                  <p className="text-xs text-gray-500 sm:hidden mt-1">
+                    {session.user?.memberName}님
+                  </p>
+                </div>
+                <div className="py-1">
+                  <Link href={'/event'}>
+                    <button className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-gray-700 hover:bg-gray-50">
+                      <FaRegCalendarCheck
+                        size={16}
+                        className="hidden sm:block text-gray-500"
+                      />
+                      <span className="font-medium sm:text-sm">이벤트</span>
+                    </button>
+                  </Link>
+                  <Link href={'/resume/register'}>
+                    <button className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-gray-700 hover:bg-gray-50">
+                      <FaRegFileLines
+                        size={16}
+                        className="hidden sm:block text-gray-500"
+                      />
+                      <span className="font-medium sm:text-sm">판매하기</span>
+                    </button>
+                  </Link>
+                  <Link href={'/auth/profile'}>
+                    <button className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-gray-700 hover:bg-gray-50">
+                      <FaRegAddressCard
+                        size={16}
+                        className="hidden sm:block text-gray-500"
+                      />
+                      <span className="font-medium sm:text-sm">마이페이지</span>
+                    </button>
+                  </Link>
+                </div>
+                <div className="border-t border-gray-100 py-1">
+                  <button
+                    onClick={() => signOut()}
+                    className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-red-500 hover:bg-gray-50"
+                  >
+                    <FiLogOut size={16} className="hidden sm:block" />
+                    <span className="font-medium sm:text-sm">로그아웃</span>
+                  </button>
+                </div>
+              </nav>
             </div>
           )
         ) : null}
