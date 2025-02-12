@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   icons: {
     icon: '/logo.png'
   },
-  metadataBase: new URL('http://devcv.net'),
+  metadataBase: new URL('https://devcv.net'),
   alternates: {
     canonical: '/'
   },
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   applicationName: 'DevCV',
   authors: {
     name: 'DevCV Team',
-    url: 'http://github.com/DevCVTeam'
+    url: 'https://github.com/DevCVTeam'
   },
   creator: 'DevCV Team',
   category: '이력서'

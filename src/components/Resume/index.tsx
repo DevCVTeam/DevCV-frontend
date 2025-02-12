@@ -3,11 +3,12 @@
 import { Company, Job } from '@/utils/constant';
 import { getResumes } from '@/utils/fetch';
 import { CompanyType, JobType, type ResumeResponse } from '@/utils/type';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { GrPowerReset } from 'react-icons/gr';
+import { useInView } from 'react-intersection-observer';
 import ReactPaginate from 'react-paginate';
 import CompanyBox from '../Box/CompanyBox';
 import ResumeBox from '../Box/ResumeBox';
@@ -40,33 +41,59 @@ export const CategoryResume: FC<ResumeResponse> = ({
   const companyRef = useRef<HTMLDivElement>(null);
   const prevScrollPos = useRef(0);
 
+  // Intersection Observer hook for infinite scroll
+  const { ref: loadMoreRef, inView } = useInView();
+
   const {
-    data: resumePage,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
     isPending,
-    isError,
-    isLoading,
-    error,
-    isPlaceholderData,
-    isFetching
-  } = useQuery({
-    queryKey: ['resumes', company, job, page],
-    queryFn: async () => {
-      const { content, totalPages } = await getResumes({ page, company, job });
-      setTotalPage(totalPages);
-      if (!content)
-        return {
-          resumes: []
-        };
-      return {
-        resumes: content
-      };
+    error
+  } = useInfiniteQuery({
+    queryKey: ['resumes', company, job],
+    queryFn: async ({ pageParam = 1 }) => {
+      const response = await getResumes({
+        page: pageParam,
+        company,
+        job
+      });
+      return response;
     },
-    initialData: !!initialResumes
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.currentPage < lastPage.totalPages) {
+        return lastPage.currentPage + 1;
+      }
+      return undefined;
+    },
+    initialData: initialResumes
       ? {
-          resumes: initialResumes
+          pages: [
+            {
+              content: initialResumes,
+              totalElements,
+              numberOfElements,
+              currentPage,
+              totalPages,
+              startPage,
+              endPage,
+              size
+            }
+          ],
+          pageParams: [1]
         }
       : undefined
   });
+
+  // Fetch next page when bottom is visible
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage, hasNextPage]);
 
   const handlePageClick = async (event: any) => {
     setPage(event.selected + 1);
@@ -187,48 +214,58 @@ export const CategoryResume: FC<ResumeResponse> = ({
   };
 
   return (
-    <div className="relative w-full">
-      <h4 className="mb-4 text-lg font-semibold">기업 및 기술 선택</h4>
+    <div className="w-full relative">
+      {/* Company section - 모바일에서는 일반 스크롤, 태블릿 이상에서만 sticky */}
+      <h4 className="mb-2 sm:mb-4 text-base sm:text-lg font-semibold">
+        기업 및 기술 선택
+      </h4>
       <div
         ref={companyRef}
-        className={`sticky bg-white transition-all duration-300 ${
-          isHeaderVisible ? 'top-20' : 'top-0'
+        className={`bg-white transition-all duration-300 sm:sticky ${
+          isHeaderVisible ? 'sm:top-16 md:top-20' : 'sm:top-0'
         } z-20`}
       >
-        <div className="mb-8 flex w-full gap-3 rounded-2xl border p-4">
-          <CompanyBox
-            onClick={handleTypeClick}
-            company={company!}
-            job={job!}
-            resetPage={(companyType) => {
-              setPage(1);
-              if (job) {
-                router.push(
-                  `/?jobType=${job}&companyType=${companyType}&page=1`,
-                  {
-                    scroll: false
+        <div className="mb-4 sm:mb-8 w-full rounded-xl sm:rounded-2xl border p-2 sm:p-4">
+          <div className="w-full overflow-x-auto scrollbar-hide">
+            <div className="flex justify-center sm:min-w-full gap-2 sm:gap-3">
+              <CompanyBox
+                onClick={handleTypeClick}
+                company={company!}
+                job={job!}
+                resetPage={(companyType) => {
+                  setPage(1);
+                  if (job) {
+                    router.push(
+                      `/?jobType=${job}&companyType=${companyType}&page=1`,
+                      { scroll: false }
+                    );
+                  } else {
+                    router.push(`/?companyType=${companyType}&page=1`, {
+                      scroll: false
+                    });
                   }
-                );
-              } else {
-                router.push(`/?companyType=${companyType}&page=1`, {
-                  scroll: false
-                });
-              }
-            }}
-          />
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Resume section */}
       <div
-        className={`relative mt-4 flex flex-col gap-4 rounded-2xl bg-subgray p-8 transition-all duration-300 ${
+        className={`relative mt-2 sm:mt-4 flex flex-col gap-4 rounded-xl sm:rounded-2xl bg-subgray p-4 sm:p-8 transition-all duration-300 ${
           isCompanyVisible ? 'translate-y-0' : 'translate-y-4'
         }`}
       >
-        <div className="mt-4 flex gap-2">
-          <h2 className="text-2xl font-semibold">
+        <div className="mt-2 sm:mt-4 flex flex-col sm:flex-row gap-2 items-start sm:items-center">
+          <h2 className="text-lg sm:text-2xl font-semibold">
             {Company[company!]} {Job[job!]} 이력서
           </h2>
-          <span className="self-end text-sm">선택된 기업의 이력서입니다.</span>
+          <span className="text-xs sm:text-sm text-gray-500">
+            선택된 기업의 이력서입니다.
+          </span>
         </div>
+
         <div className="flex flex-col items-center justify-center gap-1">
           <GrPowerReset
             onClick={() => {
@@ -237,28 +274,50 @@ export const CategoryResume: FC<ResumeResponse> = ({
               router.push('/');
             }}
             className="cursor-pointer rounded-full"
-            size={24}
+            size={20}
           />
           <span className="text-xs">선택 초기화</span>
         </div>
-        {isFetching ? (
+
+        {isPending ? (
           <LoaderGrid />
-        ) : isError ? (
+        ) : status === 'error' ? (
           <div>Error: {error.message}</div>
         ) : (
-          <div className="grid grid-cols-1 grid-rows-2 gap-4 transition-all xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-            {resumePage?.resumes.map((resume) => (
-              <ResumeBox
-                key={resume.resumeId}
-                resumeId={resume.resumeId}
-                thumbnail={resume.imageList[0].resumeImgPath}
-                title={resume.title}
-                userId={resume.sellerNickname}
-                price={resume.price}
-              />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 sm:gap-4">
+              {data.pages.map((group, i) => (
+                <React.Fragment key={i}>
+                  {group.content?.map((resume) => (
+                    <ResumeBox
+                      key={resume.resumeId}
+                      resumeId={resume.resumeId}
+                      thumbnail={resume.imageList[0].resumeImgPath}
+                      title={resume.title}
+                      userId={resume.sellerNickname}
+                      price={resume.price}
+                    />
+                  ))}
+                </React.Fragment>
+              ))}
+            </div>
+
+            {/* Loading more indicator */}
+            <div ref={loadMoreRef} className="w-full flex justify-center p-4">
+              {isFetchingNextPage ? (
+                <LoaderGrid />
+              ) : hasNextPage ? (
+                <div className="h-10" /> // Spacer for intersection observer
+              ) : (
+                <p className="text-gray-500 text-sm">
+                  더 이상 이력서가 없습니다.
+                </p>
+              )}
+            </div>
+          </>
         )}
+
+        {/* Pagination */}
         <ReactPaginate
           breakLabel="..."
           nextLabel={
@@ -278,10 +337,9 @@ export const CategoryResume: FC<ResumeResponse> = ({
           pageCount={totalPage}
           forcePage={page - 1} // 현재 페이지를 강제로 설정
           renderOnZeroPageCount={() => <div>이력서 없음</div>}
-          containerClassName="flex list-none gap-3" // 페이지 네이션 컨테이너 클래스
-          pageClassName="flex justify-center items-center size-7 rounded-xl transition-colors" // 각 페이지 아이템 클래스
-          activeClassName="bg-main text-white" // 선택된 페이지 클래스
-          className="flex items-center justify-center gap-4"
+          containerClassName="flex items-center justify-center gap-2 sm:gap-4 text-sm sm:text-base"
+          pageClassName="flex justify-center items-center size-6 sm:size-7 rounded-xl transition-colors"
+          activeClassName="bg-main text-white"
         />
       </div>
     </div>
