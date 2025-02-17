@@ -328,3 +328,25 @@ export const getResumeId = async () => {
   const data = await res.json();
   return data;
 };
+
+// 포인트 조회, 저장
+export const getMemberPoint = async (
+  memberId: number | undefined,
+  token: string
+) => {
+  const res = await fetch(
+    `${process.env.SERVER_URL}/members/${memberId}/points`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+  if (!res.ok) {
+    return null;
+  }
+
+  const data = await res.json();
+  return data;
+};

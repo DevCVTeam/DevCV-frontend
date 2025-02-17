@@ -146,7 +146,7 @@ const ResumeList: FC<ResumeListProps> = ({ type, token }) => {
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount={totalPage}
-        renderOnZeroPageCount={() => <div>이력서 없음</div>}
+        // renderOnZeroPageCount={() => <div>이력서 없음</div>}
         containerClassName="flex list-none gap-3" // 페이지 네이션 컨테이너 클래스
         pageClassName="flex justify-center items-center size-7 rounded-xl transition-colors" // 각 페이지 아이템 클래스
         activeClassName="bg-main text-white" // 선택된 페이지 클래스

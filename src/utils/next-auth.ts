@@ -52,7 +52,6 @@ export const authOptions: NextAuthOptions = {
             }
           });
           const user: UserResponse = await res.json();
-          console.log(user);
           if (user.errorCode) {
             return null;
           }
@@ -125,8 +124,6 @@ export const authOptions: NextAuthOptions = {
           return false;
         }
         const data: SocialResponse = await res.json();
-        console.log(data);
-        console.log('data');
         const setCookieHeader = res.headers.get('Set-Cookie');
         const refreshTokenMatch =
           setCookieHeader?.match(/RefreshToken=([^;]+)/);
@@ -159,7 +156,6 @@ export const authOptions: NextAuthOptions = {
     // },
 
     session: ({ session, token }) => {
-      console.log(session, token);
       return {
         ...session,
         user: {
@@ -179,13 +175,10 @@ export const authOptions: NextAuthOptions = {
       const iat =
         decodeJwtResponse(token.accessToken).exp -
         (Math.floor(new Date().getTime() / 1000) + 10 * 60);
-      console.log(decodeJwtResponse(token.accessToken));
       if (iat <= 0) {
         const newToken = await refreshAccessToken(token.id);
-        console.log(newToken);
         return { ...token, accessToken: newToken };
       } else {
-        console.log({ ...token });
       }
 
       return token;

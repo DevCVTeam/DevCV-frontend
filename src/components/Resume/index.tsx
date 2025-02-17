@@ -336,7 +336,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
           pageRangeDisplayed={5}
           pageCount={totalPage}
           forcePage={page - 1} // 현재 페이지를 강제로 설정
-          renderOnZeroPageCount={() => <div>이력서 없음</div>}
+          // renderOnZeroPageCount={() => <div>이력서 없음</div>}
           containerClassName="flex items-center justify-center gap-2 sm:gap-4 text-sm sm:text-base"
           pageClassName="flex justify-center items-center size-6 sm:size-7 rounded-xl transition-colors"
           activeClassName="bg-main text-white"

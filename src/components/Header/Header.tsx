@@ -1,12 +1,14 @@
 'use client';
 
+import { useCartStore } from '@/store/useCartStore';
 import { cn } from '@/utils/style';
 import axios from 'axios';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { BsCart3 } from 'react-icons/bs';
 import {
   FaRegAddressCard,
   FaRegCalendarCheck,
@@ -28,7 +30,7 @@ const Header = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isNav, setIsNav] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
-
+  const cartItems = useCartStore((state) => state.resumes);
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
@@ -46,6 +48,10 @@ const Header = () => {
     axios.defaults.headers.common['Authorization'] =
       `Bearer ${session?.user?.accessToken}`;
   }
+
+  const handleNavClick = useCallback(() => {
+    setIsNav((prev) => !prev);
+  }, []);
 
   return (
     <header
@@ -85,7 +91,21 @@ const Header = () => {
           기술 분류
         </div>
       </div>
-      <nav className="">
+      <nav className="flex gap-4">
+        <Link
+          href="/cart"
+          className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+        >
+          <div className="relative">
+            <BsCart3 className="h-5 w-5" />
+            {cartItems.length > 0 && (
+              <span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+                {cartItems.length}
+              </span>
+            )}
+          </div>
+          <span className="hidden sm:block">장바구니</span>
+        </Link>
         {status === 'authenticated' ? (
           session?.user.role === 'admin' ? (
             <div className="flex items-center gap-2 lg:gap-3">
@@ -108,7 +128,7 @@ const Header = () => {
               </div>
               <div
                 className="flex items-center justify-center cursor-pointer rounded-full border border-gray-200 bg-white p-2 hover:bg-gray-50"
-                onClick={() => setIsNav((prev) => !prev)}
+                onClick={handleNavClick}
               >
                 <FaRegUser size={20} className="text-gray-600" />
               </div>
@@ -118,8 +138,8 @@ const Header = () => {
                   'transition-all duration-200 z-50',
                   'xs:min-w-[200px] sm:min-w-[220px] md:min-w-[240px]',
                   isNav
-                    ? 'invisible opacity-0 translate-y-2'
-                    : 'visible opacity-100 translate-y-0'
+                    ? 'visible opacity-100 translate-y-0'
+                    : 'invisible opacity-0 translate-y-2'
                 )}
               >
                 <div className="px-4 py-2 border-b border-gray-100">
