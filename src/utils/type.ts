@@ -228,3 +228,8 @@ export type ResumeStatus =
 export type SocialType = 'normal' | 'google' | 'kakao';
 
 export type RoleType = 'admin' | 'normal';
+
+export type UserPoint = {
+  memberId: number;
+  point: number;
+};

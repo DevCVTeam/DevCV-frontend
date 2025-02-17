@@ -1,8 +1,12 @@
+'use client';
+
 import Button from '@/components/Button';
+import { useCartStore } from '@/store/useCartStore';
 import { Resume } from '@/utils/type';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 import Detail from './Detail';
 import ProductInquiry from './ProductInquiry';
 import Reviews from './Reviews';
@@ -23,6 +27,21 @@ const ResumeDetail = ({
   status,
   title
 }: Resume) => {
+  const { addResume, resumes } = useCartStore();
+
+  const isInCart = resumes.some((resume) => resume.resumeId === resumeId);
+
+  const handleAddToCart = () => {
+    addResume({
+      resumeId,
+      title,
+      price,
+      imageList,
+      sellerNickname
+    });
+    toast.success('장바구니에 추가되었습니다.');
+  };
+
   return (
     <div>
       <div className="relative mb-12 h-full overflow-hidden rounded-xl">
@@ -59,9 +78,22 @@ const ResumeDetail = ({
             </span>
 
             <span>가격: {price.toLocaleString()} Point</span>
-            <Button className="bg-main text-black hover:bg-hover">
-              <Link href={`/order/${resumeId}`}>결제하기</Link>
-            </Button>
+            <div className="flex gap-2">
+              <Button className="bg-main text-black hover:bg-hover">
+                <Link href="/order">결제하기</Link>
+              </Button>
+              <button
+                onClick={handleAddToCart}
+                disabled={isInCart}
+                className={`${
+                  isInCart
+                    ? 'bg-gray-300 cursor-not-allowed'
+                    : 'bg-sub hover:bg-hover'
+                } h-12 w-40 rounded-md py-2 text-sm text-black`}
+              >
+                {isInCart ? '장바구니에 있음' : '장바구니 담기'}
+              </button>
+            </div>
           </div>
         </div>
       </div>
