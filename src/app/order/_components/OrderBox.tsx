@@ -2,7 +2,7 @@
 
 import { useCartStore } from '@/store/useCartStore';
 import Image from 'next/image';
-import { MdClose } from 'react-icons/md';
+import { BsTrash } from 'react-icons/bs';
 
 const OrderBox = ({ resumeResponse }: any) => {
   const { removeResume } = useCartStore();
@@ -34,10 +34,13 @@ const OrderBox = ({ resumeResponse }: any) => {
           </div>
         </div>
       </div>
-      <MdClose
+      <button
         onClick={() => removeResume(resumeResponse.resumeId)}
-        className="absolute top-2 right-2 hover:cursor-pointer"
-      />
+        className="self-end flex items-center gap-1 text-red-500 hover:text-red-600"
+      >
+        <BsTrash className="h-4 w-4 sm:h-5 sm:w-5" />
+        <span className="text-sm">삭제</span>
+      </button>
     </div>
   );
 };
