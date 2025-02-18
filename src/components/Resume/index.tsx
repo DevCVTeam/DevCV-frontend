@@ -6,10 +6,8 @@ import { CompanyType, JobType, type ResumeResponse } from '@/utils/type';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { GrPowerReset } from 'react-icons/gr';
 import { useInView } from 'react-intersection-observer';
-import ReactPaginate from 'react-paginate';
 import CompanyBox from '../Box/CompanyBox';
 import ResumeBox from '../Box/ResumeBox';
 import { LoaderGrid } from '../Loader';
@@ -34,8 +32,8 @@ export const CategoryResume: FC<ResumeResponse> = ({
   const [job, setJob] = useState<JobType | undefined>(
     params.get('jobType') as JobType
   );
-  const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(0);
+  // const [page, setPage] = useState(1);
+  // const [totalPage, setTotalPage] = useState(0);
   const [isCompanyVisible, setIsCompanyVisible] = useState(true);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const companyRef = useRef<HTMLDivElement>(null);
@@ -95,37 +93,37 @@ export const CategoryResume: FC<ResumeResponse> = ({
     }
   }, [inView, fetchNextPage, hasNextPage]);
 
-  const handlePageClick = async (event: any) => {
-    setPage(event.selected + 1);
-    if (job && company) {
-      router.push(
-        `/?jobType=${job}&companyType=${company}&page=${event.selected + 1}`,
+  // const handlePageClick = async (event: any) => {
+  //   setPage(event.selected + 1);
+  //   if (job && company) {
+  //     router.push(
+  //       `/?jobType=${job}&companyType=${company}&page=${event.selected + 1}`,
 
-        { scroll: false }
-      );
-    } else if (job) {
-      router.push(`/?jobType=${job}&page=${event.selected + 1}`, {
-        scroll: false
-      });
-    } else if (company) {
-      router.push(`/?companyType=${company}&page=${event.selected + 1}`, {
-        scroll: false
-      });
-    } else {
-      router.push(`/?page=${event.selected + 1}`, {
-        scroll: false
-      });
-    }
-  };
+  //       { scroll: false }
+  //     );
+  //   } else if (job) {
+  //     router.push(`/?jobType=${job}&page=${event.selected + 1}`, {
+  //       scroll: false
+  //     });
+  //   } else if (company) {
+  //     router.push(`/?companyType=${company}&page=${event.selected + 1}`, {
+  //       scroll: false
+  //     });
+  //   } else {
+  //     router.push(`/?page=${event.selected + 1}`, {
+  //       scroll: false
+  //     });
+  //   }
+  // };
 
-  useEffect(() => {
-    const pageNum = Number(params.get('page'));
-    if (pageNum) {
-      setPage(pageNum);
-    } else {
-      setPage(1);
-    }
-  }, [params]);
+  // useEffect(() => {
+  //   const pageNum = Number(params.get('page'));
+  //   if (pageNum) {
+  //     setPage(pageNum);
+  //   } else {
+  //     setPage(1);
+  //   }
+  // }, [params]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -179,7 +177,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
         router.push('/', { scroll: false });
       } else {
         setCompany(selectedType as CompanyType);
-        setPage(1);
+        // setPage(1);
         if (job) {
           router.push(`/?jobType=${job}&companyType=${selectedType}&page=1`, {
             scroll: false
@@ -196,7 +194,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
         router.push('/', { scroll: false });
       } else {
         setJob(selectedType as JobType);
-        setPage(1);
+        // setPage(1);
         if (company) {
           router.push(
             `/?jobType=${selectedType}&companyType=${company}&page=1`,
@@ -233,7 +231,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
                 company={company!}
                 job={job!}
                 resetPage={(companyType) => {
-                  setPage(1);
+                  // setPage(1);
                   if (job) {
                     router.push(
                       `/?jobType=${job}&companyType=${companyType}&page=1`,
@@ -318,7 +316,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
         )}
 
         {/* Pagination */}
-        <ReactPaginate
+        {/* <ReactPaginate
           breakLabel="..."
           nextLabel={
             <div className="flex items-center justify-center">
@@ -340,7 +338,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
           containerClassName="flex items-center justify-center gap-2 sm:gap-4 text-sm sm:text-base"
           pageClassName="flex justify-center items-center size-6 sm:size-7 rounded-xl transition-colors"
           activeClassName="bg-main text-white"
-        />
+        /> */}
       </div>
     </div>
   );
