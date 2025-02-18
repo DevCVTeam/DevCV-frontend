@@ -47,3 +47,25 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Build next app
         run: pnpm build
+
+      - name: Make tar file
+        run: tar -cvzf deploy_next.tar.gz .next public next.config.* package*.json .env.local pnpm-lock.yaml
+        shell: bash
+
+      - name: scp to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.DEV_EC2_IP_ADDRESS }}
+          username: ${{ secrets.DEV_EC2_USER }}
+          key: ${{ secrets.DEV_EC2_PRIVATE_KEY }}
+          source: ./deploy_next.tar.gz
+          target: ${{secrets.DEV_EC2_TARGET_DIRECTORY}}
+
+      - name: Execute Server Init Script
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEV_EC2_IP_ADDRESS }}
+          username: ${{ secrets.DEV_EC2_USER }}
+          key: ${{ secrets.DEV_EC2_PRIVATE_KEY }}
+          script_stop: true
+          script: sudo /bin/sh ${{secrets.DEV_EC2_TARGET_DIRECTORY}}/deploy.sh
