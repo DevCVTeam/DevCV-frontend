@@ -6,6 +6,7 @@ import { SessionProvider } from 'next-auth/react';
 import Script from 'next/script';
 import { Suspense } from 'react';
 import Footer from './Footer/Footer';
+import Header from './Header/Header';
 import { FullPageLoader } from './Loader';
 import ToasterContext from './ToasterContext';
 
@@ -40,6 +41,7 @@ export const NextLayout = ({ children }: Props) => {
     <div className="box-border max-h-screen min-h-screen w-full">
       <div className="px-4 flex flex-1 flex-col sm:px-8 md:px-16 lg:px-32 xl:px-32">
         <Script src="https://cdn.iamport.kr/v1/iamport.js" />
+        <Header />
         <main className="mt-20 flex flex-1 flex-col ">{children}</main>
         <ToasterContext />
         <Footer />
