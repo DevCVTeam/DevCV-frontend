@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
-import Script from 'next/script';
 import { Suspense } from 'react';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
@@ -43,7 +42,7 @@ export const NextLayout = ({ children }: Props) => {
     <div className="box-border max-h-screen min-h-screen w-full">
       <div className="px-4 flex flex-1 flex-col sm:px-8 md:px-16 lg:px-32 xl:px-32">
         <Head>
-          <Script src="https://cdn.iamport.kr/v1/iamport.js" />
+          <script src="https://cdn.iamport.kr/v1/iamport.js" async />
           {/* Google Analytics */}
           {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
             <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
@@ -56,11 +55,11 @@ export const NextLayout = ({ children }: Props) => {
 
           {/* Google AdSense */}
           {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID && (
-            <Script
+            <script
               async
-              src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID}`}
+              src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID}}`}
               crossOrigin="anonymous"
-            ></Script>
+            ></script>
           )}
         </Head>
 
