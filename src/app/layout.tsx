@@ -1,9 +1,7 @@
 import { NextLayout, NextProvider } from '@/components/Provider';
 import { pretendard } from '@/utils/fonts';
 import { cn } from '@/utils/style';
-import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -56,25 +54,6 @@ export default function RootLayout({
           pretendard.variable
         )}
       >
-        {/* Google Analytics */}
-        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
-        )}
-
-        {/* Google Tag Manager */}
-        {process.env.NEXT_PUBLIC_GOOGLE_TAG && (
-          <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG} />
-        )}
-
-        {/* Google AdSense */}
-        {process.env.GOOGLE_ADSENSE_CLIENT_ID && (
-          <Script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.GOOGLE_ADSENSE_CLIENT_ID}`}
-            crossOrigin="anonymous"
-          ></Script>
-        )}
-
         <NextProvider>
           <NextLayout>{children}</NextLayout>
         </NextProvider>
