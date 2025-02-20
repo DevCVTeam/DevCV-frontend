@@ -37,7 +37,7 @@ export const NextProvider = ({ children }: Props) => {
 };
 export const NextLayout = ({ children }: Props) => {
   return (
-    <div className="box-border max-h-screen min-h-screen w-full">
+    <div className="box-border max-h-screen min-h-screen w-full scroll-smooth">
       <div className="px-16 flex flex-1 flex-col sm:px-24 md:px-32 lg:px-40 xl:px-48">
         <Header />
         <main className="mt-20 flex flex-1 flex-col ">{children}</main>
