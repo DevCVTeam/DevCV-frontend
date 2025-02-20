@@ -1,10 +1,8 @@
 'use client';
 
-import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { SessionProvider } from 'next-auth/react';
-import Head from 'next/head';
 import { Suspense } from 'react';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
@@ -40,29 +38,7 @@ export const NextProvider = ({ children }: Props) => {
 export const NextLayout = ({ children }: Props) => {
   return (
     <div className="box-border max-h-screen min-h-screen w-full">
-      <div className="px-4 flex flex-1 flex-col sm:px-8 md:px-16 lg:px-32 xl:px-32">
-        <Head>
-          <script src="https://cdn.iamport.kr/v1/iamport.js" async />
-          {/* Google Analytics */}
-          {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
-            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
-          )}
-
-          {/* Google Tag Manager */}
-          {process.env.NEXT_PUBLIC_GOOGLE_TAG && (
-            <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG} />
-          )}
-
-          {/* Google AdSense */}
-          {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID && (
-            <script
-              async
-              src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID}}`}
-              crossOrigin="anonymous"
-            ></script>
-          )}
-        </Head>
-
+      <div className="px-16 flex flex-1 flex-col sm:px-24 md:px-32 lg:px-40 xl:px-48">
         <Header />
         <main className="mt-20 flex flex-1 flex-col ">{children}</main>
         <ToasterContext />
