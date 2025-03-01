@@ -84,10 +84,14 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ user, account, profile, credentials, email }) {
+      const baseURL =
+        process.env.NODE_ENV === 'development'
+          ? process.env.SERVER_URL
+          : process.env.CLOUD_FRONT_URL;
       const cookieStore = cookies();
       if (account?.provider === 'google') {
         const res = await fetch(
-          `${process.env.SERVER_URL}/members/google-login?token=${account.access_token}`,
+          `${baseURL}/members/google-login?token=${account.access_token}`,
           {
             method: 'GET'
           }
@@ -112,9 +116,10 @@ export const authOptions: NextAuthOptions = {
         user.refreshToken = refreshToken!;
         return true;
       }
+
       if (account?.provider === 'kakao') {
         const res = await fetch(
-          `${process.env.SERVER_URL}/members/kakao-login?token=${account.access_token}`,
+          `${baseURL}/members/kakao-login?token=${account.access_token}`,
           {
             method: 'GET'
           }
