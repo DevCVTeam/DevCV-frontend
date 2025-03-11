@@ -6,6 +6,7 @@ import PwdFindModal from '@/app/auth/_components/Modal/PwdFindModal';
 import Button from '@/components/Header/Button';
 import Input from '@/components/Input';
 import { signFn } from '@/utils/actions/jwt';
+import { AnimatePresence, motion } from 'framer-motion';
 import { signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -24,11 +25,13 @@ const SigninPage = () => {
   const pwdRef = useRef<HTMLInputElement>(null);
   const { status } = useSession();
   const router = useRouter();
+
   useEffect(() => {
     if (status === 'authenticated') {
       router.replace('/');
     }
   }, [router, status]);
+
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
@@ -60,9 +63,7 @@ const SigninPage = () => {
         password: token,
         redirect: false
       });
-      if (result?.error) {
-        toast.error('로그인에 실패하였습니다.');
-      } else if (result === null) {
+      if (result?.error || result === null) {
         toast.error('로그인에 실패하였습니다.');
       } else {
         toast.success('로그인에 성공하였습니다.');
@@ -73,7 +74,6 @@ const SigninPage = () => {
     }
   };
 
-  // 자동입력방지 ReCAPTCHA
   const onChange = () => {
     setRecaptcha(true);
   };
@@ -88,6 +88,7 @@ const SigninPage = () => {
       toast.error('로그인 실패하였습니다.');
     }
   };
+
   const googleLoginHandler = () => {
     try {
       signIn('google', {
@@ -98,145 +99,247 @@ const SigninPage = () => {
       toast.error('로그인 실패하였습니다.');
     }
   };
+
+  // 애니메이션 변형 정의
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } }
+  };
+
+  const buttonVariants = {
+    hover: { scale: 1.05 },
+    tap: { scale: 0.95 }
+  };
+
   return (
-    <div
+    <motion.div
       className="flex items-center justify-center px-4 pt-12 sm:px-6 lg:px-8 xl:px-0
       before:fixed before:-z-10 before:h-1/2 before:w-3/4 before:animate-spin-slower before:rounded-bl-full before:rounded-tr-full before:bg-accent-2 before:blur-3xl 
       after:fixed after:-z-10 after:size-2/3 after:animate-spin-slow after:rounded-bl-full after:rounded-tr-full after:bg-accent-1/80 after:blur-3xl"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
     >
-      <div
+      <motion.div
         className="w-full max-w-[360px] xs:max-w-[400px] sm:max-w-[520px] 
         flex flex-col items-center justify-center gap-4 
         rounded-2xl sm:rounded-3xl border-2 border-gray-200 
         bg-white p-4 sm:p-6 lg:p-8 
         shadow-lg transition-all"
+        variants={itemVariants}
       >
-        <AdminLoginModal
-          isOpen={adminIsOpen}
-          onClose={() => setAdminInOpen(false)}
-          title="관리자 로그인"
-        />
+        <AnimatePresence>
+          {adminIsOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+            >
+              <AdminLoginModal
+                isOpen={adminIsOpen}
+                onClose={() => setAdminInOpen(false)}
+                title="관리자 로그인"
+              />
+            </motion.div>
+          )}
+          {idFindIsOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+            >
+              <IdFindModal
+                isOpen={idFindIsOpen}
+                onClose={() => setIdFindIsOpen(false)}
+                title="아이디 찾기"
+              />
+            </motion.div>
+          )}
+          {pwdFindIsOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+            >
+              <PwdFindModal
+                isOpen={pwdFindIsOpen}
+                onClose={() => setPwdFindIsOpen(false)}
+                title="패스워드 찾기"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        <IdFindModal
-          isOpen={idFindIsOpen}
-          onClose={() => setIdFindIsOpen(false)}
-          title="아이디 찾기"
-        />
-
-        <PwdFindModal
-          isOpen={pwdFindIsOpen}
-          onClose={() => setPwdFindIsOpen(false)}
-          title="패스워드 찾기"
-        />
-
-        <div className="flex flex-col items-center gap-3 sm:gap-4">
-          <Image
-            width={36}
-            height={36}
-            src="/logo.png"
-            alt="logoImage"
-            className="sm:w-10 sm:h-10"
-          />
-          <div className="flex flex-col items-center">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
-              안녕하세요!
-            </h2>
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
-              DevCV 입니다.
-            </h2>
-          </div>
-        </div>
-
-        <form className="w-full flex flex-col gap-3 sm:gap-4 mt-2 sm:mt-4">
-          <Input
-            placeholder="이메일을 입력해주세요."
-            ref={emailRef}
-            type="email"
-            className="w-full rounded-xl border border-gray-300 p-2.5 
-              text-sm
-              focus:outline-none focus:ring-2 focus:ring-main"
-          />
-          <Input
-            placeholder="비밀번호를 입력해주세요."
-            type="password"
-            ref={pwdRef}
-            className="w-full rounded-xl border border-gray-300 p-2.5 
-              text-sm
-              focus:outline-none focus:ring-2 focus:ring-main"
-          />
-          <Button
-            type="button"
-            className="w-full rounded-xl bg-main py-2.5 
-              text-sm font-semibold text-white 
-              hover:bg-hover transition-colors"
-            onClick={handleLogin}
+        <motion.div
+          className="flex flex-col items-center gap-3 sm:gap-4"
+          variants={itemVariants}
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}
           >
-            로그인
-          </Button>
-          <div className="flex justify-between text-xs text-gray-600">
+            <Image
+              width={36}
+              height={36}
+              src="/logo.png"
+              alt="logoImage"
+              className="sm:w-10 sm:h-10"
+            />
+          </motion.div>
+          <motion.div
+            className="flex flex-col items-center"
+            variants={itemVariants}
+          >
+            <motion.h2
+              className="text-xl sm:text-2xl font-bold text-gray-800"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              안녕하세요!
+            </motion.h2>
+            <motion.h2
+              className="text-xl sm:text-2xl font-bold text-gray-800"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              DevCV 입니다.
+            </motion.h2>
+          </motion.div>
+        </motion.div>
+
+        <motion.form
+          className="w-full flex flex-col gap-3 sm:gap-4 mt-2 sm:mt-4"
+          variants={itemVariants}
+        >
+          <motion.div variants={itemVariants}>
+            <Input
+              placeholder="이메일을 입력해주세요."
+              ref={emailRef}
+              type="email"
+              className="w-full rounded-xl border border-gray-300 p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-main"
+            />
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <Input
+              placeholder="비밀번호를 입력해주세요."
+              type="password"
+              ref={pwdRef}
+              className="w-full rounded-xl border border-gray-300 p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-main"
+            />
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <Button
+              type="button"
+              className="w-full rounded-xl bg-main py-2.5 text-sm font-semibold text-slate-600 hover:bg-hover transition-colors"
+              onClick={handleLogin}
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+            >
+              로그인
+            </Button>
+          </motion.div>
+          <motion.div
+            className="flex justify-between text-xs text-gray-600"
+            variants={itemVariants}
+          >
             <div className="flex gap-3">
-              <span
+              <motion.span
                 className="cursor-pointer underline hover:text-main transition-colors"
                 onClick={() => setAdminInOpen(true)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 관리자로그인
-              </span>
-              <span
+              </motion.span>
+              <motion.span
                 className="cursor-pointer underline hover:text-main transition-colors"
                 onClick={() => router.push('/auth/signup')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 회원가입
-              </span>
+              </motion.span>
             </div>
             <div className="flex gap-3">
-              <span
+              <motion.span
                 className="cursor-pointer underline hover:text-main transition-colors"
                 onClick={() => setIdFindIsOpen(true)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 ID 찾기
-              </span>
-              <span
+              </motion.span>
+              <motion.span
                 className="cursor-pointer underline hover:text-main transition-colors"
-                onClick={() => setPwdFindIsOpen(false)}
+                onClick={() => setPwdFindIsOpen(true)} // 오타 수정: false -> true
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 비밀번호 찾기
-              </span>
+              </motion.span>
             </div>
-          </div>
-        </form>
+          </motion.div>
+        </motion.form>
 
-        <div className="mt-2 sm:mt-4 transform scale-[0.85] sm:scale-90">
+        <motion.div
+          className="mt-2 sm:mt-4 transform scale-[0.85] sm:scale-90"
+          variants={itemVariants}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+        >
           <ReCAPTCHA
             sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY!}
             onChange={onChange}
           />
-        </div>
+        </motion.div>
 
         <hr className="my-3 sm:my-4 w-1/4 border-gray-300" />
 
-        <div className="flex flex-col items-center gap-3 sm:gap-4">
+        <motion.div
+          className="flex flex-col items-center gap-3 sm:gap-4"
+          variants={itemVariants}
+        >
           <span className="text-sm sm:text-base font-semibold text-gray-700">
             소셜 로그인
           </span>
           <div className="flex gap-4 sm:gap-6">
-            <div
+            <motion.div
               onClick={kakaoLoginHandler}
-              className="cursor-pointer rounded-full bg-yellow-400 p-2 sm:p-2.5 
-                transition-all hover:bg-yellow-500"
+              className="cursor-pointer rounded-full bg-yellow-400 p-2 sm:p-2.5 transition-all hover:bg-yellow-500"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               <SiKakaotalk className="text-neutral-800 w-5 h-5 sm:w-6 sm:h-6" />
-            </div>
-            <div
+            </motion.div>
+            <motion.div
               onClick={googleLoginHandler}
-              className="cursor-pointer rounded-full bg-neutral-800 p-2 sm:p-2.5 
-                transition-all hover:bg-neutral-700"
+              className="cursor-pointer rounded-full bg-neutral-800 p-2 sm:p-2.5 transition-all hover:bg-neutral-700"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               <FcGoogle className="w-5 h-5 sm:w-6 sm:h-6" />
-            </div>
+            </motion.div>
           </div>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 
