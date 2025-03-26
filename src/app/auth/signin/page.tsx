@@ -25,12 +25,38 @@ const SigninPage = () => {
   const pwdRef = useRef<HTMLInputElement>(null);
   const { status } = useSession();
   const router = useRouter();
+  const [captchaSize, setCaptchaSize] = useState<'normal' | 'compact'>(
+    'normal'
+  );
 
   useEffect(() => {
     if (status === 'authenticated') {
       router.replace('/');
     }
   }, [router, status]);
+
+  // 화면 크기에 따라 captcha 크기 조정
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        // sm 브레이크포인트 (640px)
+        setCaptchaSize('compact');
+      } else {
+        setCaptchaSize('normal');
+      }
+    };
+
+    // 초기 로드 시 크기 설정
+    handleResize();
+
+    // 창 크기 변경 시 감지
+    window.addEventListener('resize', handleResize);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 정리
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -255,7 +281,7 @@ const SigninPage = () => {
             </Button>
           </motion.div>
           <motion.div
-            className="flex justify-between text-xs text-gray-600"
+            className="flex flex-col gap-6 items-center mt-2 sm:mt-0 justify-between text-xs text-gray-600 sm:flex-row sm:gap-2"
             variants={itemVariants}
           >
             <div className="flex gap-3">
@@ -298,16 +324,18 @@ const SigninPage = () => {
         </motion.form>
 
         <motion.div
-          className="mt-2 sm:mt-4 transform scale-[0.85] sm:scale-90"
-          variants={itemVariants}
+          className="mt-2 sm:mt-4 w-full flex justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
+          transition={{ delay: 0.3 }}
         >
-          <ReCAPTCHA
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY!}
-            onChange={onChange}
-          />
+          <div className="overflow-hidden">
+            <ReCAPTCHA
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY!}
+              onChange={onChange}
+              size={captchaSize}
+            />
+          </div>
         </motion.div>
 
         <hr className="my-3 sm:my-4 w-1/4 border-gray-300" />
