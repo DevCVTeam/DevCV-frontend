@@ -22,12 +22,11 @@ const ResumeBox: FC<ResumeBoxProps> = ({
   return (
     <Link
       href={`/resume/${resumeId}`}
-      className="flex flex-col items-center rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg
-        w-full xs:max-w-[340px] min-h-[200px] xs:min-h-[240px]"
+      className="flex flex-col items-center rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg w-full xs:max-w-[340px] min-h-[200px] xs:min-h-[240px]"
     >
-      <div className="relative w-full h-48 xs:h-3/5 overflow-hidden rounded-t-2xl">
+      <div className="relative w-full h-48 xs:h-35 overflow-hidden rounded-t-2xl">
         <Image
-          src={thumbnail}
+          src={thumbnail || '/default-thumbnail.png'} // 기본 이미지 추가
           alt="thumbnail"
           layout="fill"
           objectFit="cover"
