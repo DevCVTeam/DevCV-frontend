@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.json$/,
+      type: 'json'
+    });
+    return config;
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'devcv-bucket.s3.amazonaws.com' },

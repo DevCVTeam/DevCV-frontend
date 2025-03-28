@@ -24,6 +24,7 @@
     "class-variance-authority": "^0.7.1",
     "framer-motion": "^12.5.0",
     "jsonwebtoken": "^9.0.2",
+    "lottie-react": "^2.4.1",
     "next": "14.2.3",
     "next-auth": "^4.24.11",
     "react": "^18.3.1",

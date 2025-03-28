@@ -97,9 +97,9 @@ const Header = () => {
           className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
           <div className="relative">
-            <BsCart3 className="h-5 w-5" />
+            <BsCart3 className="size-5" />
             {cartItems.length > 0 && (
-              <span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+              <span className="absolute -right-2 -top-2 flex size-4 items-center justify-center rounded-full bg-red-500 text-xs text-white">
                 {cartItems.length}
               </span>
             )}
@@ -122,12 +122,12 @@ const Header = () => {
               </div>
             </div>
           ) : (
-            <div className="flex items-center gap-2 lg:gap-3 relative">
-              <div className="hidden sm:block text-sm font-medium">
+            <div className="relative flex items-center gap-2 lg:gap-3">
+              <div className="hidden text-sm font-medium sm:block">
                 {session.user?.memberName}님
               </div>
               <div
-                className="flex items-center justify-center cursor-pointer rounded-full border border-gray-200 bg-white p-2 hover:bg-gray-50"
+                className="flex cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-white p-2 hover:bg-gray-50"
                 onClick={handleNavClick}
               >
                 <FaRegUser size={20} className="text-gray-600" />
@@ -135,16 +135,16 @@ const Header = () => {
               <nav
                 className={cn(
                   'absolute right-0 top-12 min-w-[180px] rounded-lg border bg-white py-2 shadow-lg',
-                  'transition-all duration-200 z-50',
+                  'z-50 transition-all duration-200',
                   'xs:min-w-[200px] sm:min-w-[220px] md:min-w-[240px]',
                   isNav
-                    ? 'visible opacity-100 translate-y-0'
-                    : 'invisible opacity-0 translate-y-2'
+                    ? 'visible translate-y-0 opacity-100'
+                    : 'invisible translate-y-2 opacity-0'
                 )}
               >
-                <div className="px-4 py-2 border-b border-gray-100">
+                <div className="border-b border-gray-100 px-4 py-2">
                   <p className="font-medium text-gray-900">내 계정</p>
-                  <p className="text-xs text-gray-500 sm:hidden mt-1">
+                  <p className="mt-1 text-xs text-gray-500 sm:hidden">
                     {session.user?.memberName}님
                   </p>
                 </div>
@@ -153,7 +153,7 @@ const Header = () => {
                     <button className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-gray-700 hover:bg-gray-50">
                       <FaRegCalendarCheck
                         size={16}
-                        className="hidden sm:block text-gray-500"
+                        className="hidden text-gray-500 sm:block"
                       />
                       <span className="font-medium sm:text-sm">이벤트</span>
                     </button>
@@ -162,7 +162,7 @@ const Header = () => {
                     <button className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-gray-700 hover:bg-gray-50">
                       <FaRegFileLines
                         size={16}
-                        className="hidden sm:block text-gray-500"
+                        className="hidden text-gray-500 sm:block"
                       />
                       <span className="font-medium sm:text-sm">판매하기</span>
                     </button>
@@ -171,7 +171,7 @@ const Header = () => {
                     <button className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-gray-700 hover:bg-gray-50">
                       <FaRegAddressCard
                         size={16}
-                        className="hidden sm:block text-gray-500"
+                        className="hidden text-gray-500 sm:block"
                       />
                       <span className="font-medium sm:text-sm">마이페이지</span>
                     </button>
