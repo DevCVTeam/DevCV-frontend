@@ -6,40 +6,29 @@ import Link from 'next/link';
 
 const footerLinks = {
   product: [
-    { name: '템플릿', href: '/templates' },
-    { name: '이력서 작성', href: '/builder' },
-    { name: '가격 안내', href: '/pricing' },
-    { name: '기업 서비스', href: '/enterprise' }
+    { name: '채용 정보', href: '/jobs' },
+    { name: '기술 블로그', href: '/tech-blog' },
+    { name: '개발자 로드맵', href: '/roadmap' }
   ],
   company: [
     { name: '회사 소개', href: '/about' },
-    { name: '채용', href: '/careers' },
-    { name: '블로그', href: '/blog' },
-    { name: '보도자료', href: '/press' }
+    { name: '팀 블로그', href: 'https://toris-dev.tistory.com' },
+    { name: '채용 공고', href: '/careers' }
   ],
   support: [
-    { name: '고객센터', href: '/help' },
     { name: '이용가이드', href: '/guide' },
-    { name: '자주 묻는 질문', href: '/faq' },
+    { name: '개발자 인터뷰', href: '/interviews' },
     { name: '문의하기', href: '/contact' }
   ],
   legal: [
     { name: '이용약관', href: '/terms' },
-    { name: '개인정보처리방침', href: '/privacy' }
+    { name: '개인정보처리방침', href: '/privacy' },
+    { name: '오픈소스 라이선스', href: '/licenses' }
   ],
   social: [
     {
-      name: 'Twitter',
-      href: '#',
-      icon: (props: any) => (
-        <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-          <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-        </svg>
-      )
-    },
-    {
       name: 'GitHub',
-      href: 'http://github.com/devCVTeam',
+      href: 'https://github.com/devCVTeam',
       icon: (props: any) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -53,26 +42,62 @@ const footerLinks = {
   ]
 };
 
+const containerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, staggerChildren: 0.1 }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0 }
+};
+
 export default function Footer() {
   return (
-    <footer className="bg-slate-100" aria-labelledby="footer-heading">
+    <motion.footer
+      className="relative bg-gradient-to-b from-gray-50 to-gray-200 rounded-3xl overflow-hidden z-10"
+      aria-labelledby="footer-heading"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={containerVariants}
+    >
+      {/* 배경 장식 요소 */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-gradient-to-br from-gray-100 to-transparent rounded-full blur-3xl opacity-50" />
+        <div className="absolute bottom-0 right-0 w-1/3 h-1/3 bg-gradient-to-tl from-gray-200 to-transparent rounded-full blur-3xl opacity-50" />
+      </div>
+
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <div className="mx-auto max-w-7xl px-4 pb-6 pt-10 sm:px-6 sm:pb-8 sm:pt-16 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 pb-8 pt-12 sm:px-6 sm:pb-10 sm:pt-20 lg:px-8">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <div className="space-y-4 sm:space-y-6">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/logo.png"
-                alt="DevCV Logo"
-                width={40}
-                height={40}
-                className="h-8 w-auto"
-              />
-              <span className="ml-2 text-xl font-bold text-gray-900">
-                DevCV
-              </span>
+          <motion.div
+            className="space-y-4 sm:space-y-6"
+            variants={itemVariants}
+          >
+            <Link href="/" className="group flex items-center">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center"
+              >
+                <Image
+                  src="/logo.png"
+                  alt="DevCV Logo"
+                  width={40}
+                  height={40}
+                  className="h-8 w-auto transition-transform duration-300 group-hover:rotate-12"
+                />
+                <span className="ml-2 text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                  DevCV
+                </span>
+              </motion.div>
             </Link>
             <p className="text-sm leading-6 text-gray-600">
               DevCV와 함께라면 몇 분 만에 멋진 이력서를 만들 수 있습니다.
@@ -83,8 +108,8 @@ export default function Footer() {
                 <motion.a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-400 hover:text-gray-500"
-                  whileHover={{ scale: 1.1 }}
+                  className="text-gray-500 transition-colors hover:text-gray-900"
+                  whileHover={{ scale: 1.1, rotate: 10 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <span className="sr-only">{item.name}</span>
@@ -92,88 +117,110 @@ export default function Footer() {
                 </motion.a>
               ))}
             </div>
-          </div>
+          </motion.div>
+
           <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-6 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-6">
-              <div>
+              <motion.div variants={itemVariants}>
                 <h3 className="text-sm font-semibold leading-6 text-gray-900">
                   서비스
                 </h3>
                 <ul role="list" className="mt-4 space-y-2 sm:mt-6">
                   {footerLinks.product.map((item) => (
-                    <li key={item.name}>
+                    <motion.li
+                      key={item.name}
+                      whileHover={{ x: 5 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
                       <Link
                         href={item.href}
-                        className="text-sm leading-6 text-gray-600 transition-colors hover:text-main"
+                        className="text-sm leading-6 text-gray-600 transition-colors hover:text-gray-900 relative group"
                       >
                         {item.name}
+                        <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-gray-900 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
                       </Link>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
-              </div>
-              <div className="mt-6 md:mt-0">
+              </motion.div>
+              <motion.div className="mt-6 md:mt-0" variants={itemVariants}>
                 <h3 className="text-sm font-semibold leading-6 text-gray-900">
                   회사
                 </h3>
                 <ul role="list" className="mt-4 space-y-2 sm:mt-6">
                   {footerLinks.company.map((item) => (
-                    <li key={item.name}>
+                    <motion.li
+                      key={item.name}
+                      whileHover={{ x: 5 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
                       <Link
                         href={item.href}
-                        className="text-sm leading-6 text-gray-600 transition-colors hover:text-main"
+                        className="text-sm leading-6 text-gray-600 transition-colors hover:text-gray-900 relative group"
                       >
                         {item.name}
+                        <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-gray-900 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
                       </Link>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             </div>
             <div className="md:grid md:grid-cols-2 md:gap-6">
-              <div>
+              <motion.div variants={itemVariants}>
                 <h3 className="text-sm font-semibold leading-6 text-gray-900">
                   고객지원
                 </h3>
                 <ul role="list" className="mt-4 space-y-2 sm:mt-6">
                   {footerLinks.support.map((item) => (
-                    <li key={item.name}>
+                    <motion.li
+                      key={item.name}
+                      whileHover={{ x: 5 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
                       <Link
                         href={item.href}
-                        className="text-sm leading-6 text-gray-600 transition-colors hover:text-main"
+                        className="text-sm leading-6 text-gray-600 transition-colors hover:text-gray-900 relative group"
                       >
                         {item.name}
+                        <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-gray-900 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
                       </Link>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
-              </div>
-              <div className="mt-6 md:mt-0">
+              </motion.div>
+              <motion.div className="mt-6 md:mt-0" variants={itemVariants}>
                 <h3 className="text-sm font-semibold leading-6 text-gray-900">
                   법적 고지
                 </h3>
                 <ul role="list" className="mt-4 space-y-2 sm:mt-6">
                   {footerLinks.legal.map((item) => (
-                    <li key={item.name}>
+                    <motion.li
+                      key={item.name}
+                      whileHover={{ x: 5 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
                       <Link
                         href={item.href}
-                        className="text-sm leading-6 text-gray-600 transition-colors hover:text-main"
+                        className="text-sm leading-6 text-gray-600 transition-colors hover:text-gray-900 relative group"
                       >
                         {item.name}
+                        <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-gray-900 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
                       </Link>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
-        <div className="mt-6 border-t border-gray-900/10 pt-4 sm:mt-8 sm:pt-6">
-          <p className="text-xs leading-5 text-gray-500">
+        <motion.div className="mt-8 pt-6" variants={itemVariants}>
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
+          <p className="mt-4 text-xs leading-5 text-gray-500">
             &copy; {new Date().getFullYear()} DevCV. All rights reserved.
           </p>
-        </div>
+        </motion.div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }
