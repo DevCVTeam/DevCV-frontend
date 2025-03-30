@@ -1,7 +1,9 @@
 'use client';
 
-import Lottie from 'lottie-react';
+import dynamic from 'next/dynamic';
 import builderAnimation from '../../../public/animations/builder-animation.json';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 const templates = [
   {
