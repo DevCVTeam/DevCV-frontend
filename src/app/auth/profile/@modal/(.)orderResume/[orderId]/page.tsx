@@ -1,5 +1,5 @@
 import { MarkdownViewer } from '@/components/Markdown';
-import Modal from '@/components/Modal';
+import Modal from '@/components/common/Modal';
 import { authOptions } from '@/utils/next-auth';
 import { OrderList } from '@/utils/type';
 import { getServerSession } from 'next-auth';

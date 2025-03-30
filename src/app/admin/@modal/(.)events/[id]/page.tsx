@@ -1,7 +1,7 @@
 import EventButton from '@/app/admin/_components/EventButton';
-import Input from '@/components/Input';
-import Label from '@/components/Label';
-import Modal from '@/components/Modal';
+import Input from '@/components/common/Input';
+import Label from '@/components/common/Label';
+import Modal from '@/components/common/Modal';
 import { getEvent } from '@/utils/fetch';
 import { authOptions } from '@/utils/next-auth';
 import { getServerSession } from 'next-auth';

@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import { pendingModifiedResumeList } from '@/utils/fetch';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';

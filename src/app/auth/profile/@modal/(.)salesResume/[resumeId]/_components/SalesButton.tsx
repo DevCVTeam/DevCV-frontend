@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import axios from 'axios';
 import { Session } from 'next-auth';
 import toast from 'react-hot-toast';

@@ -1,4 +1,4 @@
-import { CategoryResume } from '@/components/Resume';
+import { CategoryResume } from '@/components/features/Resume';
 import { getResumes } from '@/utils/fetch';
 
 export default async function Home() {

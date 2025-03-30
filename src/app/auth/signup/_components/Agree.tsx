@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import { Checkbox, Field, Label } from '@headlessui/react';
 import { motion } from 'framer-motion';
 import { useContext, useState } from 'react';

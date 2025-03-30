@@ -1,10 +1,10 @@
 'use client';
 
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
+import Modal from '@/components/common/Modal';
 import { Authenticate } from '@/utils/imp';
 import { FC, useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
-import Modal from '../../../../components/Modal';
 import EmailFind from '../EmailFind';
 import PhoneFind from '../PhoneFind';
 

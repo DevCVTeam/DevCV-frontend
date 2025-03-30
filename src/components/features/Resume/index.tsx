@@ -1,5 +1,8 @@
 'use client';
 
+import CompanyBox from '@/components/Box/CompanyBox';
+import ResumeBox from '@/components/Box/ResumeBox';
+import { LoaderGrid } from '@/components/Loader';
 import { Company, Job } from '@/utils/constant';
 import { getResumes } from '@/utils/fetch';
 import { CompanyType, JobType, type ResumeResponse } from '@/utils/type';
@@ -9,9 +12,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { GrPowerReset } from 'react-icons/gr';
 import { useInView } from 'react-intersection-observer';
-import CompanyBox from '../Box/CompanyBox';
-import ResumeBox from '../Box/ResumeBox';
-import { LoaderGrid } from '../Loader';
 
 export const CategoryResume: FC<ResumeResponse> = ({
   content: initialResumes,

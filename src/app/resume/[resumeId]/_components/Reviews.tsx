@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import { getReviews } from '@/utils/fetch';
 import { cn } from '@/utils/style';
 import { Resume } from '@/utils/type';

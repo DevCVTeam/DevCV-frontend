@@ -1,5 +1,5 @@
-import Input from '@/components/Input';
-import Label from '@/components/Label';
+import Input from '@/components/common/Input';
+import Label from '@/components/common/Label';
 import { getEvent } from '@/utils/fetch';
 import { authOptions } from '@/utils/next-auth';
 import { getServerSession } from 'next-auth';

@@ -1,8 +1,8 @@
 'use client';
 
-import Button from '@/components/Button';
-import Input from '@/components/Input';
-import Label from '@/components/Label';
+import Button from '@/components/common/Button';
+import Input from '@/components/common/Input';
+import Label from '@/components/common/Label';
 import { signupAction } from '@/utils/actions/signup';
 import { Authenticate } from '@/utils/imp';
 import { companyOptions, jobOptions, techstackOptions } from '@/utils/option';

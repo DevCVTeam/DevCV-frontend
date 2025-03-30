@@ -1,12 +1,12 @@
 'use client';
 
+import Footer from '@/components/layout/Footer/Footer';
+import Header from '@/components/layout/Header/Header';
+import { FullPageLoader } from '@/components/Loader';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { SessionProvider } from 'next-auth/react';
 import { Suspense } from 'react';
-import Footer from './Footer/Footer';
-import Header from './Header/Header';
-import { FullPageLoader } from './Loader';
 import ToasterContext from './ToasterContext';
 
 interface Props {

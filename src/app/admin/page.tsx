@@ -1,4 +1,4 @@
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import { authOptions } from '@/utils/next-auth';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';

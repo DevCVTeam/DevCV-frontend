@@ -1,9 +1,9 @@
 'use client';
 
-import Button from '@/components/Button';
-import Input from '@/components/Input';
-import Label from '@/components/Label';
-import Modal from '@/components/Modal';
+import Button from '@/components/common/Button';
+import Input from '@/components/common/Input';
+import Label from '@/components/common/Label';
+import Modal from '@/components/common/Modal';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useRef } from 'react';

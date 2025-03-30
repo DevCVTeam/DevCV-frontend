@@ -1,6 +1,6 @@
 'use client';
 
-import { Badge } from '@/components/Badge';
+import { Badge } from '@/components/common/Badge';
 import { MarkdownViewer } from '@/components/Markdown';
 import { Company, Job } from '@/utils/constant';
 import { Resume } from '@/utils/type';

@@ -1,4 +1,4 @@
-import { NextLayout, NextProvider } from '@/components/Provider';
+import { NextLayout, NextProvider } from '@/lib/Provider';
 import { pretendard } from '@/utils/fonts';
 import { cn } from '@/utils/style';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';

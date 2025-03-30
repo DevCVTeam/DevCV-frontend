@@ -1,12 +1,12 @@
 'use client';
 
+import Button from '@/components/common/Button';
+import Modal from '@/components/common/Modal';
 import { SocialObj } from '@/utils/constant';
 import { Authenticate } from '@/utils/imp';
 import { SocialType } from '@/utils/type';
 import { FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import Button from '../../../../components/Button';
-import Modal from '../../../../components/Modal';
 type IdFindModalProps = {
   isOpen: boolean;
   onClose: () => void;

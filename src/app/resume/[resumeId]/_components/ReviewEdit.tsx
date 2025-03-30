@@ -1,7 +1,7 @@
 'use client';
 
-import Button from '@/components/Button';
-import Modal from '@/components/Modal';
+import Button from '@/components/common/Button';
+import Modal from '@/components/common/Modal';
 import { cn } from '@/utils/style';
 import { Textarea } from '@headlessui/react';
 import { useSession } from 'next-auth/react';

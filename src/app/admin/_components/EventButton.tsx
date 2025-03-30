@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import { Session } from 'next-auth';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';

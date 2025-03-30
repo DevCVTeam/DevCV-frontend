@@ -1,8 +1,8 @@
 'use client';
 
-import Button from '@/components/Button';
-import Input from '@/components/Input';
-import Label from '@/components/Label';
+import Button from '@/components/common/Button';
+import Input from '@/components/common/Input';
+import Label from '@/components/common/Label';
 import { emailRegex } from '@/utils/constant';
 import { getEmailSend } from '@/utils/fetch';
 import { useRef, useState } from 'react';

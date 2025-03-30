@@ -1,8 +1,8 @@
 'use client';
 
-import Button from '@/components/Button';
-import Input from '@/components/Input';
-import Label from '@/components/Label';
+import Button from '@/components/common/Button';
+import Input from '@/components/common/Input';
+import Label from '@/components/common/Label';
 import { MarkdownEditor } from '@/components/Markdown';
 import { Company } from '@/utils/constant';
 import { companyOptions, jobOptions, techstackOptions } from '@/utils/option';

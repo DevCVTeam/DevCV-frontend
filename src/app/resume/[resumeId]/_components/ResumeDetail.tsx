@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import { useCartStore } from '@/store/useCartStore';
 import { Resume } from '@/utils/type';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';

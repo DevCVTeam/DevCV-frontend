@@ -1,5 +1,6 @@
 'use client';
 
+import Button from '@/components/common/Button';
 import { useCartStore } from '@/store/useCartStore';
 import { cn } from '@/utils/style';
 import axios from 'axios';
@@ -16,7 +17,6 @@ import {
   FaRegUser
 } from 'react-icons/fa6';
 import { FiLogOut } from 'react-icons/fi';
-import Button from '../Button';
 
 const Header = () => {
   const { status, data: session } = useSession();

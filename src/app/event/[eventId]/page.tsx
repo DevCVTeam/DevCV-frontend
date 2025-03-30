@@ -1,6 +1,6 @@
 'use client';
 
-import Modal from '@/components/Modal';
+import Modal from '@/components/common/Modal';
 import type { TEvent } from '@/utils/type';
 import { format } from 'date-fns';
 import { AnimatePresence } from 'framer-motion';

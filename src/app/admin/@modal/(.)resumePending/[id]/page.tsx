@@ -1,6 +1,6 @@
 import ResumeButton from '@/app/admin/_components/ResumeButton';
 import { MarkdownViewer } from '@/components/Markdown';
-import Modal from '@/components/Modal';
+import Modal from '@/components/common/Modal';
 import { authOptions } from '@/utils/next-auth';
 import { Resume } from '@/utils/type';
 import { getServerSession } from 'next-auth';

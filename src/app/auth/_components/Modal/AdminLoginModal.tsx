@@ -1,13 +1,13 @@
 'use client';
 
+import Button from '@/components/common/Button';
+import Input from '@/components/common/Input';
+import Modal from '@/components/common/Modal';
 import { signFn } from '@/utils/actions/jwt';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FC, useRef } from 'react';
 import toast from 'react-hot-toast';
-import Button from '../../../../components/Button';
-import Input from '../../../../components/Input';
-import Modal from '../../../../components/Modal';
 
 type AdminLoginModalProps = {
   isOpen: boolean;

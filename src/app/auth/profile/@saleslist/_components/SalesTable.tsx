@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import { SalesResume } from '@/utils/type';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
