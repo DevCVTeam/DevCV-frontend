@@ -6,6 +6,6 @@ export const metadata: Metadata = {
   description: 'DevCV의 최신 소식과 이력서 작성 팁을 확인해보세요.'
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
   return <BlogClient />;
 }

@@ -1,12 +1,14 @@
 'use client';
 
+import Modal from '@/components/Modal';
 import type { TEvent } from '@/utils/type';
+import { format } from 'date-fns';
+import { AnimatePresence } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { FaDollarSign } from 'react-icons/fa';
-import { MdOutlineDateRange } from 'react-icons/md';
+import { FaRegCalendarAlt } from 'react-icons/fa';
 import AttendanceCheckIn from './_components/AttendanceCheckIn';
 import Pending from './_components/Pending';
 
@@ -119,7 +121,7 @@ const EventIdPage = ({
 
   const renderEventContent = () => {
     if (show) {
-      return <AttendanceCheckIn />;
+      return <AttendanceCheckIn onClose={() => setShow(false)} />;
     }
 
     switch (event?.eventCategory) {
@@ -193,29 +195,114 @@ const EventIdPage = ({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 rounded-2xl">
-      <div className="max-w-5xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl">
-          <div className="bg-gradient-to-r from-blue-600 to-blue-400 p-6 sm:p-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-              {event?.name}
-            </h2>
-            <div className="flex flex-col sm:flex-row gap-4 text-blue-50">
-              <span className="flex items-center gap-2">
-                <MdOutlineDateRange className="text-xl" />
-                {event?.startDate &&
-                  new Date(event.startDate).toLocaleDateString()}{' '}
-                ~{' '}
-                {event?.endDate && new Date(event.endDate).toLocaleDateString()}
-              </span>
-              <div className="flex items-center gap-2">
-                <FaDollarSign className="text-xl" />
-                <p className="font-semibold">{event?.point} Point</p>
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl">
+          <div className="overflow-hidden rounded-2xl bg-white shadow">
+            <div className="px-4 py-5 sm:p-6">
+              <div className="flex flex-col items-center space-y-6">
+                <div className="flex flex-col items-center space-y-4">
+                  <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+                    {event?.name}
+                  </h2>
+                  <p className="text-center text-base text-gray-600">
+                    {event?.message}
+                  </p>
+                </div>
+
+                <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
+                  <div className="rounded-lg bg-gray-50 p-6">
+                    <div className="flex items-center space-x-3">
+                      <div className="flex size-10 items-center justify-center rounded-full bg-blue-100">
+                        <FaRegCalendarAlt className="size-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">
+                          일시
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          {event?.startDate
+                            ? format(
+                                new Date(event.startDate),
+                                'yyyy년 MM월 dd일'
+                              )
+                            : '날짜 미정'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {questions && questions.length > 0 && (
+                  <div className="w-full space-y-6">
+                    <div className="border-t border-gray-200 pt-6">
+                      <h3 className="text-lg font-medium text-gray-900">
+                        참가 신청 질문
+                      </h3>
+                      <p className="mt-1 text-sm text-gray-600">
+                        이벤트 참가를 위해 다음 질문들에 답변해주세요.
+                      </p>
+                    </div>
+
+                    <div className="space-y-4">
+                      {questions.map((question, index) => (
+                        <div key={index}>
+                          <label
+                            htmlFor={`question-${index}`}
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            {question}
+                          </label>
+                          <div className="mt-1">
+                            <input
+                              type="text"
+                              id={`question-${index}`}
+                              value={answers[index] || ''}
+                              onChange={(e) =>
+                                setAnswers((prev) => {
+                                  const newAnswers = [...prev];
+                                  newAnswers[index] = e.target.value;
+                                  return newAnswers;
+                                })
+                              }
+                              className="block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                              placeholder="답변을 입력해주세요..."
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={handleSubmitAnswers}
+                      disabled={!answers.every((answer) => answer.trim())}
+                      className="flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-500 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-blue-400"
+                    >
+                      답변 제출하기
+                    </button>
+                  </div>
+                )}
+
+                {!questions?.length && (
+                  <button
+                    onClick={() => handleAttend()}
+                    className="flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-500 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  >
+                    출석체크 하기
+                  </button>
+                )}
               </div>
             </div>
           </div>
-          <div className="p-6 sm:p-10">{renderEventContent()}</div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {show && (
+          <Modal onClose={() => setShow(false)} title="출석체크">
+            <AttendanceCheckIn onClose={() => setShow(false)} />
+          </Modal>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

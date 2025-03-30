@@ -1,25 +1,20 @@
 'use client';
 
-import Button from '@/components/Button';
-import Input from '@/components/Input';
-import Label from '@/components/Label';
 import { signFn } from '@/utils/actions/jwt';
-import { passwordRegex } from '@/utils/constant';
 import { CompanyEnum, JobEnum } from '@/utils/enum';
 import { getEmailSend } from '@/utils/fetch';
 import { Authenticate } from '@/utils/imp';
-import { companyOptions, jobOptions, techstackOptions } from '@/utils/option';
-import { cn } from '@/utils/style';
 import { CompanyType, JobType } from '@/utils/type';
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useRef, useState } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import Select from 'react-select';
-import ReactSelect from 'react-select/creatable';
 import { SignupContext } from '../_components/SignupProvider';
+
 type TForm = {
   memberName: string;
   nickName: string;
@@ -187,279 +182,140 @@ const Begin = () => {
         className="flex w-full flex-col items-start gap-4"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Label htmlFor="memberName">
-          이름&nbsp;
-          {errors.memberName && (
-            <small role="alert" className="text-red-400">
-              ※{errors.memberName.message}※
-            </small>
-          )}
-        </Label>
-        <Input
-          {...register('memberName', { required: true })}
-          placeholder="이름을 작성해주세요."
-          id="memberName"
-          className="w-full"
-        />
-        <div className="flex w-full items-center gap-2">
-          <div className="flex w-full flex-col gap-2">
-            <Label htmlFor="email">
-              이메일 &nbsp;
-              {errors.email && (
-                <small role="alert" className="text-red-400">
-                  ※{errors.email.message}※
-                </small>
-              )}
-            </Label>
-            <div className="flex w-full gap-4">
-              <Input
-                {...register('email', {
-                  required: '이메일 입력은 필수입니다.',
-                  pattern: {
-                    value:
-                      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-                    message: '이메일 형식에 맞지 않습니다.'
-                  }
-                })}
-                placeholder="이메일을 작성해주세요."
-                id="email"
-                className="w-full"
-                disabled={emailCheck ? true : false}
+        <div className="flex flex-col items-center space-y-6">
+          <div className="flex flex-col items-center space-y-4">
+            <Link href="/" className="group">
+              <Image
+                src="/logo.png"
+                alt="DevCV Logo"
+                width={40}
+                height={40}
+                className="size-10 transition-transform duration-300 group-hover:rotate-12 sm:size-12"
               />
-              <Button
-                className="self-center"
-                type="button"
-                onClick={handleDuplicated}
-                disabled={duplicateCheck ? true : false}
-              >
-                중복확인
-              </Button>
-              <Button
-                className="self-end"
-                type="button"
-                onClick={handleEmailSend}
-                disabled={emailCheck ? true : false}
-              >
-                인증번호 전송
-              </Button>
-            </div>
-            <div className="flex w-full gap-4">
-              <Input
-                placeholder="인증번호"
-                ref={verificationRef}
-                className="w-full"
-                disabled={emailCheck ? true : false}
-              />
-              <Button
-                className="w-28 self-end"
-                type="button"
-                onClick={handleEmailCheck}
-                disabled={emailCheck ? true : false}
-              >
-                인증하기
-              </Button>
-            </div>
+            </Link>
+            <h2 className="text-center text-3xl font-bold tracking-tight text-gray-900">
+              회원가입
+            </h2>
           </div>
-        </div>
 
-        <Label htmlFor="password">
-          패스워드{' '}
-          {errors.password && (
-            <small role="alert" className="text-red-400">
-              ※{errors.password.message || '최소 8글자 최대 16자 입력'}※
-            </small>
-          )}
-        </Label>
-        <Input
-          {...register('password', { required: true })}
-          id="password"
-          type="password"
-          className="w-full"
-          placeholder={'최소 8글자 최대 16자 입력'}
-          {...register('password', {
-            required: true,
-            minLength: 8,
-            maxLength: 16,
-            pattern: {
-              value: passwordRegex,
-              message: '잘못된 패스워드 입니다.'
-            }
-          })}
-        />
-        <Label htmlFor="confirmPassword">
-          패스워드 확인 패스워드{' '}
-          {errors.confirmPassword && (
-            <small role="alert" className="text-red-400">
-              ※{errors.confirmPassword.message || '최소 8글자 최대 16자 입력'}※
-            </small>
-          )}
-        </Label>
-        <Input
-          {...register('confirmPassword', { required: true })}
-          placeholder="패스워드를 다시한번 작성해주세요."
-          id="confirmPassword"
-          type="password"
-          className="w-full"
-          {...register('confirmPassword', {
-            required: true,
-            minLength: 8,
-            maxLength: 16,
-            validate: {
-              check: (val) => {
-                if (getValues('password') !== val) {
-                  return '비밀번호가 일치하지 않습니다.';
-                }
-              }
-            }
-          })}
-        />
-
-        <Label htmlFor="nickName">닉네임</Label>
-        <Input
-          {...register('nickName', { required: true })}
-          placeholder="닉네임을 작성해주세요"
-          id="nickName"
-          className="w-full"
-        />
-
-        <hr className="w-full border-main" />
-        <div className="flex w-full flex-col gap-2">
-          <div className="flex gap-4">
-            <div className="flex w-3/4 flex-col">
-              <Label htmlFor="address">주소</Label>
-              <Input
-                {...register('address', { required: true })}
-                placeholder="주소를 작성해주세요"
-                id="address"
-                className="w-full self-start"
-                disabled
-              />
-            </div>
-
-            <Input
-              {...register('postalCode', { required: true })}
-              placeholder="도로명 주소"
-              id="address"
-              className="w-1/5 self-end"
-              disabled
-            />
-            <Button
-              className="w-1/4 self-end"
-              onClick={handleClick}
-              type="button"
+          <div className="w-full space-y-4">
+            <button
+              onClick={() => signIn('kakao', { callbackUrl: '/' })}
+              className="flex w-full items-center justify-center gap-3 rounded-lg bg-[#FEE500] px-4 py-3 text-sm font-semibold text-gray-900 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
             >
-              주소 찾기
-            </Button>
-          </div>
-          <Input
-            {...register('detailAddress', { required: true })}
-            placeholder="상세주소를 작성해주세요"
-            className="mt-4"
-          />
-        </div>
-        <Label htmlFor="phone">전화번호</Label>
-        <Button
-          onClick={handleAuthenticate}
-          type="button"
-          disabled={authenticate ? true : false}
-          className={cn(
-            authenticate ? 'bg-slate-400 hover:bg-slate-400' : null
-          )}
-        >
-          {authenticate ? '인증완료' : '본인인증'}
-        </Button>
-
-        <hr className="w-full border-main" />
-        <Label htmlFor="company">
-          기업종류
-          {errors.company && (
-            <small role="alert" className="text-red-400">
-              ※{errors.company.message || '선택해주세요'}※
-            </small>
-          )}
-        </Label>
-        <Controller
-          control={control}
-          name="company"
-          rules={{ required: true }}
-          render={({ field: { onChange, value, ref } }) => (
-            <Select
-              inputId="company"
-              options={companyOptions}
-              instanceId="company-select"
-              className="w-full"
-              ref={ref}
-              value={companyOptions.find(
-                (companyOption) => companyOption.value === value
-              )}
-              onChange={(companyOption) => onChange(companyOption?.value)}
-            />
-          )}
-        />
-        <Label htmlFor="job">
-          직무
-          {errors.job && (
-            <small role="alert" className="text-red-400">
-              ※{errors.job.message || '선택해주세요'}※
-            </small>
-          )}
-        </Label>
-        <Controller
-          control={control}
-          name="job"
-          rules={{ required: true }}
-          render={({ field: { onChange, value, ref } }) => (
-            <Select
-              inputId="job"
-              options={jobOptions}
-              instanceId="job-select"
-              className="w-full"
-              ref={ref}
-              value={jobOptions.find((jobOption) => jobOption.value === value)}
-              onChange={(jobOption) => onChange(jobOption?.value)}
-            />
-          )}
-        />
-
-        <div className="w-full">
-          <Label htmlFor="techStack">
-            기술 스택&nbsp;
-            {errors.stack && (
-              <small role="alert" className="text-red-400">
-                ※{errors.stack.message || '선택해주세요'}※
-              </small>
-            )}
-          </Label>
-          <Controller
-            control={control}
-            name="stack"
-            shouldUnregister={true}
-            render={({ field: { onChange, value, ref } }) => (
-              <ReactSelect
-                inputId="stack"
-                className="w-full"
-                options={techstackOptions}
-                ref={ref}
-                isMulti
-                instanceId="stack-select"
-                value={techstackOptions.find(
-                  (techstackOption) => techstackOption.value === value
-                )}
-                onChange={(selectedOptions) =>
-                  onChange(
-                    selectedOptions
-                      ? selectedOptions.map((option) => option.value)
-                      : []
-                  )
-                }
+              <Image
+                src="/icons/kakao.svg"
+                alt="Kakao Logo"
+                width={24}
+                height={24}
+                className="size-6 sm:size-7"
               />
-            )}
-          />
-        </div>
+              카카오로 시작하기
+            </button>
 
-        <Button className="my-4 w-full" type="submit">
-          다음
-        </Button>
+            <button
+              onClick={() => signIn('google', { callbackUrl: '/' })}
+              className="flex w-full items-center justify-center gap-3 rounded-lg bg-white px-4 py-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+            >
+              <Image
+                src="/icons/google.svg"
+                alt="Google Logo"
+                width={24}
+                height={24}
+                className="size-6 sm:size-7"
+              />
+              구글로 시작하기
+            </button>
+          </div>
+
+          <div className="relative w-full">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-200" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="bg-white px-2 text-gray-500">또는</span>
+            </div>
+          </div>
+
+          <div className="w-full space-y-4">
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                이메일
+              </label>
+              <div className="mt-1">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  placeholder="name@company.com"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                비밀번호
+              </label>
+              <div className="mt-1">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  className="block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  placeholder="••••••••"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="confirm-password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                비밀번호 확인
+              </label>
+              <div className="mt-1">
+                <input
+                  id="confirm-password"
+                  name="confirm-password"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  className="block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  placeholder="••••••••"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-500 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              다음
+            </button>
+          </div>
+
+          <p className="text-center text-sm text-gray-500">
+            이미 회원이신가요?{' '}
+            <Link
+              href="/auth/signin"
+              className="font-medium text-blue-600 transition-colors hover:text-blue-500"
+            >
+              로그인
+            </Link>
+          </p>
+        </div>
       </form>
     </div>
   );
