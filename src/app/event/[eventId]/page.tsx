@@ -33,7 +33,7 @@ const EventIdPage = ({
       const data = await res.json();
       setEvent(data);
 
-      if (eventId === 2) {
+      if (data.eventCategory === 'QUIZ') {
         const questionsRes = await fetch(
           `/server/events/${eventId}/questions`,
           {
@@ -47,27 +47,42 @@ const EventIdPage = ({
         setQuestions(questionsData);
       }
     })();
-  }, [eventId, session]);
+  }, [session]);
 
-  const handleAttend = async () => {
+  const handleAttend = async (feedback?: string) => {
+    const attendanceData = {
+      memberId: session?.user.memberId,
+      eventId: eventId,
+      ...(feedback && { feedback })
+    };
+
     const res = await fetch('/server/attendance', {
       method: 'POST',
-      body: JSON.stringify({
-        memberId: session?.user.memberId,
-        eventId: eventId
-      }),
+      body: JSON.stringify(attendanceData),
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${session?.user.accessToken}`
       }
     });
+
     if (!res.ok) {
       const data = await res.json();
       return toast.error(data.message);
     }
+
     toast.success('출석체크에 성공했습니다.');
     setShow(true);
-    return router.push('/');
+
+    if (feedback) {
+      toast.success('소중한 의견 감사합니다!', {
+        duration: 3000,
+        icon: '💌'
+      });
+    }
+
+    setTimeout(() => {
+      router.push('/');
+    }, 3000);
   };
 
   const handleAnswerChange = (index: number, value: string) => {
@@ -102,6 +117,80 @@ const EventIdPage = ({
     handleAttend();
   };
 
+  const renderEventContent = () => {
+    if (show) {
+      return <AttendanceCheckIn />;
+    }
+
+    switch (event?.eventCategory) {
+      case 'ATTENDANCE':
+        return (
+          <div className="flex flex-col gap-8">
+            <div className="text-center">
+              <h4 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
+                출석 이벤트
+              </h4>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                오늘의 소감을 남기고 출석체크를 완료해주세요!
+              </p>
+            </div>
+            <div className="transform transition-transform hover:scale-105">
+              <Pending onClick={handleAttend} />
+            </div>
+          </div>
+        );
+
+      case 'QUIZ':
+        return (
+          <div className="flex flex-col gap-8">
+            <div className="text-center">
+              <h4 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
+                퀴즈 이벤트
+              </h4>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                모든 질문에 답변하신 후 제출 버튼을 클릭해주세요.
+              </p>
+            </div>
+            <div className="space-y-6 flex flex-col items-center">
+              {questions.map((question, index) => (
+                <div
+                  key={index}
+                  className="w-full max-w-2xl transform transition-all duration-300 hover:translate-x-2"
+                >
+                  <label className="block text-gray-700 font-semibold mb-3">
+                    {question}
+                  </label>
+                  <textarea
+                    className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-white resize-none"
+                    rows={3}
+                    placeholder="답변을 입력해주세요..."
+                    value={answers[index] || ''}
+                    onChange={(e) => handleAnswerChange(index, e.target.value)}
+                  />
+                </div>
+              ))}
+              <button
+                onClick={handleSubmitAnswers}
+                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl 
+                hover:from-blue-700 hover:to-blue-800 focus:ring-4 focus:ring-blue-200 
+                transform transition-all duration-300 hover:translate-y-[-2px] active:translate-y-[0px]
+                shadow-md hover:shadow-lg"
+              >
+                답변 제출 및 출석체크
+              </button>
+            </div>
+          </div>
+        );
+
+      default:
+        return (
+          <div className="text-center text-gray-600">
+            지원하지 않는 이벤트 유형입니다.
+          </div>
+        );
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 rounded-2xl">
       <div className="max-w-5xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
@@ -113,8 +202,10 @@ const EventIdPage = ({
             <div className="flex flex-col sm:flex-row gap-4 text-blue-50">
               <span className="flex items-center gap-2">
                 <MdOutlineDateRange className="text-xl" />
-                {new Date(event?.startDate!).toLocaleDateString()} ~{' '}
-                {new Date(event?.endDate!).toLocaleDateString()}
+                {event?.startDate &&
+                  new Date(event.startDate).toLocaleDateString()}{' '}
+                ~{' '}
+                {event?.endDate && new Date(event.endDate).toLocaleDateString()}
               </span>
               <div className="flex items-center gap-2">
                 <FaDollarSign className="text-xl" />
@@ -122,59 +213,7 @@ const EventIdPage = ({
               </div>
             </div>
           </div>
-          <div className="p-6 sm:p-10">
-            {show ? (
-              <AttendanceCheckIn />
-            ) : (
-              <div className="flex flex-col gap-8">
-                <div className="text-center">
-                  <h4 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
-                    {eventId === 8
-                      ? '이력서 공유 출석체크'
-                      : '이력서 공유 질문'}
-                  </h4>
-                  <p className="text-gray-600 max-w-2xl mx-auto">
-                    {eventId === 8
-                      ? '이력서 공유 세션 출석체크를 위해 아래 아이콘을 클릭해주세요!'
-                      : '이력서에 대한 모든 질문에 답변하신 후 제출 버튼을 클릭해주세요.'}
-                  </p>
-                </div>
-                {eventId === 8 ? (
-                  <div className="transform transition-transform hover:scale-105">
-                    <Pending onClick={handleAttend} />
-                  </div>
-                ) : (
-                  <div className="space-y-6 flex justify-center">
-                    {questions.map((question, index) => (
-                      <div
-                        key={index}
-                        className="transform transition-all duration-300 hover:translate-x-2"
-                      >
-                        <label className="block text-gray-700 font-semibold mb-3">
-                          {question}
-                        </label>
-                        <textarea
-                          className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-white resize-none"
-                          rows={3}
-                          placeholder="답변을 입력해주세요..."
-                          value={answers[index] || ''}
-                          onChange={(e) =>
-                            handleAnswerChange(index, e.target.value)
-                          }
-                        />
-                      </div>
-                    ))}
-                    <button
-                      onClick={handleSubmitAnswers}
-                      className="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-500 focus:ring-4 focus:ring-blue-200 transform transition-all duration-300 hover:translate-y-[-2px] active:translate-y-[0px]"
-                    >
-                      답변 제출 및 출석체크
-                    </button>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
+          <div className="p-6 sm:p-10">{renderEventContent()}</div>
         </div>
       </div>
     </div>

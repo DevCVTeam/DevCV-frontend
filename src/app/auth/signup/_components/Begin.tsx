@@ -91,7 +91,8 @@ const Begin = () => {
       }
     );
     if (!res.ok) {
-      return toast.error('중복체크를 다시시도해주세요.');
+      const data = await res.json();
+      return toast.error(data.message);
     }
     if (res.status < 300) {
       setDuplicateCheck(true);

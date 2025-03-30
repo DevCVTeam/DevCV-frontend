@@ -2,8 +2,10 @@
 
 import Button from '@/components/Button';
 import { Checkbox, Field, Label } from '@headlessui/react';
+import { motion } from 'framer-motion';
 import { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
+import { FiCheck } from 'react-icons/fi';
 import { SignupContext } from '../_components/SignupProvider';
 
 const Agree = () => {
@@ -14,6 +16,7 @@ const Agree = () => {
   const [policyInfoProvisionAgreement, setPolicyInfoProvisionAgreement] =
     useState(false);
   const { agreements, setAgreements } = useContext(SignupContext);
+
   const handleNext = () => {
     if (
       termsOfServiceAgreement &&
@@ -25,36 +28,105 @@ const Agree = () => {
       toast.error('약관에 동의해주세요');
     }
   };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const checkboxVariants = {
+    checked: { scale: 1, opacity: 1 },
+    unchecked: { scale: 0.8, opacity: 0 }
+  };
+
   return (
-    <div className="flex flex-col gap-12">
-      <div className="mt-20 flex flex-col gap-4">
-        <Field className="flex items-center gap-2">
-          <Checkbox
-            checked={allChecked}
-            onChange={() => {
-              setPersonalInfoCollectionAgreement((prev) => !prev);
-              setPolicyInfoProvisionAgreement((prev) => !prev);
-              setTermsOfServiceAgreement((prev) => !prev);
-              setAllChecked((prev) => !prev);
-            }}
-            className="group block size-4 rounded border border-main bg-white data-[checked]:bg-main"
-          />
-          <Label>약관 전체 동의</Label>
+    <motion.div
+      className="flex flex-col gap-6"
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: { staggerChildren: 0.1 }
+        }
+      }}
+    >
+      <motion.div className="flex flex-col gap-4" variants={itemVariants}>
+        <Field className="flex items-center gap-3 p-4 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition-colors duration-300">
+          <div className="relative">
+            <Checkbox
+              checked={allChecked}
+              onChange={() => {
+                setPersonalInfoCollectionAgreement(!allChecked);
+                setPolicyInfoProvisionAgreement(!allChecked);
+                setTermsOfServiceAgreement(!allChecked);
+                setAllChecked(!allChecked);
+              }}
+              className="size-5 rounded-md border-2 border-gray-300 bg-white 
+              transition-colors duration-300
+              data-[checked]:border-blue-600 data-[checked]:bg-blue-600
+              focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+            />
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center text-white pointer-events-none"
+              variants={checkboxVariants}
+              initial="unchecked"
+              animate={allChecked ? 'checked' : 'unchecked'}
+              transition={{ duration: 0.2 }}
+            >
+              <FiCheck className="size-4" />
+            </motion.div>
+          </div>
+          <Label className="text-lg font-medium">약관 전체 동의</Label>
         </Field>
-        <hr className="m-0 w-full border border-main" />
-      </div>
-      <div>
-        <h4 className="text-2xl font-semibold">약관동의</h4>
-        <Field className="my-4 flex items-center gap-2">
-          <Checkbox
-            checked={termsOfServiceAgreement}
-            onChange={setTermsOfServiceAgreement}
-            className="group block size-4 rounded border border-main bg-white data-[checked]:bg-main"
-          />
-          <Label>이용약관에 동의합니다.</Label>
+        <motion.div
+          className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        />
+      </motion.div>
+
+      <motion.div className="flex flex-col gap-6" variants={itemVariants}>
+        <h4 className="text-2xl font-semibold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          약관동의
+        </h4>
+
+        <Field className="flex items-center gap-3 p-4 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition-colors duration-300">
+          <div className="relative">
+            <Checkbox
+              checked={termsOfServiceAgreement}
+              onChange={() =>
+                setTermsOfServiceAgreement(!termsOfServiceAgreement)
+              }
+              className="size-5 rounded-md border-2 border-gray-300 bg-white 
+              transition-colors duration-300
+              data-[checked]:border-blue-600 data-[checked]:bg-blue-600
+              focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+            />
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center text-white pointer-events-none"
+              variants={checkboxVariants}
+              initial="unchecked"
+              animate={termsOfServiceAgreement ? 'checked' : 'unchecked'}
+              transition={{ duration: 0.2 }}
+            >
+              <FiCheck className="size-4" />
+            </motion.div>
+          </div>
+          <Label className="font-medium">이용약관에 동의합니다.</Label>
         </Field>
-        <article className="h-80 w-full overflow-y-scroll rounded-md border-2 p-4">
-          <h1 className="mb-4 text-2xl font-bold">제1장 총칙</h1>
+
+        <motion.article
+          className="h-80 w-full overflow-y-scroll rounded-xl border border-gray-200 p-6
+          bg-white/50 backdrop-blur-sm
+          shadow-sm hover:shadow-md transition-all duration-300"
+          variants={itemVariants}
+        >
+          <h1 className="mb-4 text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+            제1장 총칙
+          </h1>
 
           <h2 className="mb-2 text-xl font-semibold">제1조(목적)</h2>
           <p className="mb-4 text-base">
@@ -287,27 +359,56 @@ const Agree = () => {
               내용에 관하여는 책임을 지지 않습니다.
             </p>
           </div>
-        </article>
-      </div>
+        </motion.article>
+      </motion.div>
 
-      <div>
-        <h4 className="text-2xl font-semibold">개인정보 수집 이용 조회 동의</h4>
-        <Field className="my-4 flex items-center gap-2">
-          <Checkbox
-            checked={personalInfoCollectionAgreement}
-            onChange={setPersonalInfoCollectionAgreement}
-            className="group block size-4 rounded border border-main bg-white data-[checked]:bg-main"
-          />
-          <Label>
+      <motion.div className="flex flex-col gap-6" variants={itemVariants}>
+        <h4 className="text-2xl font-semibold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          개인정보 수집 이용 조회 동의
+        </h4>
+
+        <Field className="flex items-center gap-3 p-4 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition-colors duration-300">
+          <div className="relative">
+            <Checkbox
+              checked={personalInfoCollectionAgreement}
+              onChange={() =>
+                setPersonalInfoCollectionAgreement(
+                  !personalInfoCollectionAgreement
+                )
+              }
+              className="size-5 rounded-md border-2 border-gray-300 bg-white 
+              transition-colors duration-300
+              data-[checked]:border-blue-600 data-[checked]:bg-blue-600
+              focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+            />
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center text-white pointer-events-none"
+              variants={checkboxVariants}
+              initial="unchecked"
+              animate={
+                personalInfoCollectionAgreement ? 'checked' : 'unchecked'
+              }
+              transition={{ duration: 0.2 }}
+            >
+              <FiCheck className="size-4" />
+            </motion.div>
+          </div>
+          <Label className="font-medium">
             위와 같이 본인의 개인정보를 수집·이용하는 것에 동의합니다.(필수)
           </Label>
         </Field>
-        <article className="h-80 w-full overflow-y-scroll rounded-md border-2 p-4">
-          <h1 className="mb-4 text-2xl font-bold">
+
+        <motion.article
+          className="h-80 w-full overflow-y-scroll rounded-xl border border-gray-200 p-6
+          bg-white/50 backdrop-blur-sm
+          shadow-sm hover:shadow-md transition-all duration-300"
+          variants={itemVariants}
+        >
+          <h1 className="mb-4 text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
             개인정보의 수집 및 이용 동의
           </h1>
           <p className="mb-2">
-            대·중소기업·농어업협력재단(이하 “재단” 이라 한다)은
+            대·중소기업·농어업협력재단(이하 "재단" 이라 한다)은
             「개인정보보호법」 제15조 제1항 제1호, 제17조 제1항 제1호, 제23조
             제1호 따라 아래와 같이 개인정보의 수집. 이용에 관하여 귀하의 동의를
             얻고자 합니다.
@@ -442,25 +543,48 @@ const Agree = () => {
               수 없습니다.
             </p>
           </div>
-        </article>
-      </div>
+        </motion.article>
+      </motion.div>
 
-      <div>
-        <h4 className="text-2xl font-semibold">
+      <motion.div className="flex flex-col gap-6" variants={itemVariants}>
+        <h4 className="text-2xl font-semibold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
           정책정보 제공을 위한 수집 및 이용 동의
         </h4>
-        <Field className="my-4 flex items-center gap-2">
-          <Checkbox
-            checked={policyInfoProvisionAgreement}
-            onChange={setPolicyInfoProvisionAgreement}
-            className="group block size-4 rounded border border-main bg-white data-[checked]:bg-main"
-          />
-          <Label>
-            정책정보 제공을 위한 개인정보 수집 및 이용에 동의합니다.(선택)
+
+        <Field className="flex items-center gap-3 p-4 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition-colors duration-300">
+          <div className="relative">
+            <Checkbox
+              checked={policyInfoProvisionAgreement}
+              onChange={() =>
+                setPolicyInfoProvisionAgreement(!policyInfoProvisionAgreement)
+              }
+              className="size-5 rounded-md border-2 border-gray-300 bg-white 
+              transition-colors duration-300
+              data-[checked]:border-blue-600 data-[checked]:bg-blue-600
+              focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+            />
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center text-white pointer-events-none"
+              variants={checkboxVariants}
+              initial="unchecked"
+              animate={policyInfoProvisionAgreement ? 'checked' : 'unchecked'}
+              transition={{ duration: 0.2 }}
+            >
+              <FiCheck className="size-4" />
+            </motion.div>
+          </div>
+          <Label className="font-medium">
+            정책정보 제공을 위한 개인정보 수집 및 이용에 동의합니다.(필수)
           </Label>
         </Field>
-        <article className="h-80 w-full overflow-y-scroll rounded-md border-2 p-4">
-          <h1 className="mb-4 text-2xl font-bold">
+
+        <motion.article
+          className="h-80 w-full overflow-y-scroll rounded-xl border border-gray-200 p-6
+          bg-white/50 backdrop-blur-sm
+          shadow-sm hover:shadow-md transition-all duration-300"
+          variants={itemVariants}
+        >
+          <h1 className="mb-4 text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
             개인정보 수집 및 이용 안내
           </h1>
 
@@ -503,12 +627,22 @@ const Agree = () => {
               있습니다.
             </p>
           </section>
-        </article>
-        <Button className="my-4 w-full" onClick={handleNext} type="button">
-          다음
-        </Button>
-      </div>
-    </div>
+        </motion.article>
+        <motion.div className="flex justify-end" variants={itemVariants}>
+          <Button
+            type="button"
+            onClick={handleNext}
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 
+            text-white font-semibold shadow-lg
+            hover:shadow-xl hover:-translate-y-0.5 
+            focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+            transition-all duration-300"
+          >
+            다음
+          </Button>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 

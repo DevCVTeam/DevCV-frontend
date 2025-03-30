@@ -11,7 +11,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'devcv-bucket.s3.amazonaws.com' },
-      { protocol: 'http', hostname: 'devcv-bucket.s3.amazonaws.com' }
+      { protocol: 'http', hostname: 'devcv-bucket.s3.amazonaws.com' },
+      { protocol: 'https', hostname: 'github.com' }
     ]
   },
   async rewrites() {

@@ -18,12 +18,6 @@ import {
 import { FiLogOut } from 'react-icons/fi';
 import Button from '../Button';
 
-const eventResume = [
-  { id: '25', alt: '[네카라쿠배당토] 백엔드 이력서', src: '/bigtech.png' },
-  { id: '4', alt: '[대기업] 프론트엔드 이력서', src: '/frontend.png' },
-  { id: '26', alt: '[대기업] 백엔드 이력서', src: '/backend.png' }
-];
-
 const Header = () => {
   const { status, data: session } = useSession();
   const router = useRouter();
@@ -74,15 +68,6 @@ const Header = () => {
       </Link>
 
       <div className="flex items-center justify-between gap-6 font-Tenada">
-        {eventResume.map((resume) => (
-          <div
-            className="hidden cursor-pointer px-3 hover:text-stone-500 xl:flex"
-            onClick={() => router.push(`/resume/${resume.id}`)}
-            key={resume.id}
-          >
-            {resume.alt}
-          </div>
-        ))}
         <div className="hidden cursor-pointer whitespace-nowrap px-3 hover:text-stone-500 md:block">
           기업 분류
         </div>
