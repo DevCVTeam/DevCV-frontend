@@ -3,44 +3,74 @@ import { pretendard } from '@/utils/fonts';
 import { cn } from '@/utils/style';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
+import { MetadataRoute } from 'next';
 import Script from 'next/script';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'DevCV',
-  description: '개발자의 이력서를 공유하며 성장하세요',
+  metadataBase: new URL('https://devcv.com'),
+  title: {
+    default: 'DevCV - 개발자 이력서 플랫폼',
+    template: '%s | DevCV'
+  },
+  description:
+    '개발자를 위한 이력서 작성 플랫폼. AI 기반 이력서 분석과 맞춤형 템플릿을 제공합니다.',
   icons: {
     icon: '/logo.png'
   },
-  metadataBase: new URL('https://devcv.net'),
   alternates: {
     canonical: '/'
   },
-  keywords: ['Devcv', '개발자', '이력서', '취업', '취뽀', '네카라쿠배'],
+  keywords: ['개발자', '이력서', '채용', '커리어', '포트폴리오', 'DevCV'],
+  authors: [{ name: 'DevCV Team' }],
+  creator: 'DevCV',
+  publisher: 'DevCV',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false
+  },
   openGraph: {
-    title: 'devcv로 이력서 공유하기',
-    description: 'devcv로 취뽀하세요',
-    url: 'https://devcv.net',
+    title: 'DevCV - 개발자 이력서 플랫폼',
+    description:
+      '개발자를 위한 이력서 작성 플랫폼. AI 기반 이력서 분석과 맞춤형 템플릿을 제공합니다.',
+    url: 'https://devcv.com',
     siteName: 'DevCV',
+    images: [
+      {
+        url: '/logo.png',
+        width: 170,
+        height: 130,
+        alt: 'DevCV - 개발자 이력서 플랫폼'
+      }
+    ],
     locale: 'ko_KR',
     type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'DevCV - 개발자 이력서 플랫폼',
+    description:
+      '개발자를 위한 이력서 작성 플랫폼. AI 기반 이력서 분석과 맞춤형 템플릿을 제공합니다.',
+    images: ['/logo.png']
   },
   robots: {
     index: true,
     follow: true,
     googleBot: {
       index: true,
-      follow: true
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1
     }
   },
   appleWebApp: true,
   applicationName: 'DevCV',
-  authors: {
-    name: 'DevCV Team',
-    url: 'https://github.com/DevCVTeam'
-  },
-  creator: 'DevCV Team',
-  category: '이력서'
+  category: '이력서',
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION
+  }
 };
 
 export default function RootLayout({
@@ -87,4 +117,15 @@ export default function RootLayout({
       </body>
     </html>
   );
+}
+
+export function robots(): MetadataRoute.Robots {
+  return {
+    rules: {
+      userAgent: '*',
+      allow: '/',
+      disallow: ['/api/', '/admin/', '/private/', '/_next/', '/*.json$']
+    },
+    sitemap: 'https://devcv.com/sitemap.xml'
+  };
 }
