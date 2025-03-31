@@ -37,8 +37,8 @@ export const NextProvider = ({ children }: Props) => {
 };
 export const NextLayout = ({ children }: Props) => {
   return (
-    <div className="box-border max-h-screen min-h-screen w-full scroll-smooth">
-      <div className="px-16 flex flex-1 flex-col sm:px-24 md:px-32 lg:px-40 xl:px-48">
+    <div className="box-border max-h-screen min-h-screen w-full scroll-smooth ">
+      <div className="mx-auto flex min-h-screen flex-col px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24">
         <Header />
         <main className="mt-20 flex flex-1 flex-col ">{children}</main>
         <ToasterContext />

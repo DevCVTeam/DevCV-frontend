@@ -11,9 +11,13 @@ const footerLinks = {
     { name: '개발자 로드맵', href: '/roadmap' }
   ],
   company: [
-    { name: '회사 소개', href: '/about' },
-    { name: '팀 블로그', href: 'https://toris-dev.tistory.com' },
-    { name: '채용 공고', href: '/careers' }
+    { name: '회사 소개', href: '/about', target: '_self' },
+    {
+      name: '팀 블로그',
+      href: 'https://toris-dev.tistory.com',
+      target: '_blank'
+    },
+    { name: '채용 공고', href: '/careers', target: '_self' }
   ],
   support: [
     { name: '이용가이드', href: '/guide' },
@@ -156,6 +160,7 @@ export default function Footer() {
                     >
                       <Link
                         href={item.href}
+                        target={item.target}
                         className="text-sm leading-6 text-gray-600 transition-colors hover:text-gray-900 relative group"
                       >
                         {item.name}

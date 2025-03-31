@@ -179,22 +179,6 @@ export const CategoryResume: FC<ResumeResponse> = ({
     hidden: { opacity: 0, y: -20 }
   };
 
-  // 데이터 디버깅
-  useEffect(() => {
-    if (data?.pages) {
-      console.log('Fetched Resumes:', data.pages);
-      data.pages.forEach((page, index) => {
-        console.log(`Page ${index} Content:`, page.content);
-        page.content?.forEach((resume) => {
-          console.log(
-            `Resume ${resume.resumeId} Thumbnail:`,
-            resume.imageList[0]?.resumeImgPath
-          );
-        });
-      });
-    }
-  }, [data]);
-
   return (
     <motion.div
       className="w-full relative"
