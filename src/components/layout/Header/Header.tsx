@@ -213,10 +213,43 @@ const Header = () => {
         ) : null}
         {status === 'unauthenticated' ? (
           <div className="flex items-center gap-2 lg:gap-3">
-            <div>
+            <div className="relative h-10 w-[88px]">
               <Link href={'/auth/signin'}>
-                <Button className="transform bg-gradient-to-r from-blue-600 to-main px-4 py-2 text-sm font-medium text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                  로그인
+                <Button className="group absolute left-0 flex h-10 w-[96px] items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-sm font-medium text-white shadow-lg transition-all duration-300 hover:w-[96px] hover:shadow-blue-500/25 active:scale-95">
+                  <div className="absolute inset-0 flex translate-x-0 items-center justify-center transition-all duration-300 group-hover:translate-x-[88px]">
+                    <span className="flex items-center">
+                      <svg
+                        className="mr-2 size-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                        />
+                      </svg>
+                      로그인
+                    </span>
+                  </div>
+                  <div className="absolute inset-0 flex -translate-x-[88px] items-center justify-center transition-all duration-300 group-hover:translate-x-0">
+                    <svg
+                      className="size-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      />
+                    </svg>
+                  </div>
+                  <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-blue-600 to-indigo-700 blur-lg opacity-40 transition-opacity duration-300 group-hover:opacity-60" />
                 </Button>
               </Link>
             </div>
