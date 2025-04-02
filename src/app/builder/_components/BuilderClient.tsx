@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import builderAnimation from '../../../public/animations/builder-animation.json';
+import builderAnimation from '../../../../public/animations/builder-animation.json';
 
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 

@@ -33,9 +33,9 @@ export const CategoryResume: FC<ResumeResponse> = ({
     params.get('jobType') as JobType
   );
   const [isCompanyVisible, setIsCompanyVisible] = useState(true);
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const companyRef = useRef<HTMLDivElement>(null);
   const prevScrollPos = useRef(0);
+  const [isScrollingUp, setIsScrollingUp] = useState(false);
 
   const { ref: loadMoreRef, inView } = useInView();
 
@@ -86,19 +86,6 @@ export const CategoryResume: FC<ResumeResponse> = ({
   }, [inView, fetchNextPage, hasNextPage]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.scrollY;
-      setIsHeaderVisible(
-        prevScrollPos.current > currentScrollPos || currentScrollPos < 10
-      );
-      prevScrollPos.current = currentScrollPos;
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsCompanyVisible(entry.isIntersecting);
@@ -111,6 +98,17 @@ export const CategoryResume: FC<ResumeResponse> = ({
     }
 
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      setIsScrollingUp(prevScrollPos.current > currentScrollPos);
+      prevScrollPos.current = currentScrollPos;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleTypeClick = (selectedType: CompanyType | JobType) => {
@@ -200,10 +198,9 @@ export const CategoryResume: FC<ResumeResponse> = ({
       <motion.div
         ref={companyRef}
         className={`bg-white transition-all duration-300 sm:sticky ${
-          isHeaderVisible ? 'sm:top-16 md:top-20' : 'sm:top-0'
+          isScrollingUp ? 'sm:top-20' : 'sm:top-0'
         } z-20`}
         variants={headerVariants}
-        animate={isHeaderVisible ? 'visible' : 'hidden'}
         transition={{ duration: 0.3 }}
       >
         <div className="mb-4 sm:mb-8 w-full rounded-xl sm:rounded-2xl border p-2 sm:p-4">
@@ -278,7 +275,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
             <AnimatePresence mode="wait">
               <motion.div
                 key={`${company}-${job}`}
-                className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 sm:gap-4"
+                className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 gap-3 sm:gap-4"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
@@ -290,6 +287,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
                       <motion.div
                         key={resume.resumeId}
                         variants={itemVariants}
+                        className="flex justify-center"
                         // layout 속성 제거
                       >
                         <ResumeBox

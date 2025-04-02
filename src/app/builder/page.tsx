@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import BuilderClient from './BuilderClient';
+import BuilderClient from './_components/BuilderClient';
 
 export const metadata: Metadata = {
   title: '이력서 작성 | DevCV',

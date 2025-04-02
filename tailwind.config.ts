@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss';
-import defaultTheme from 'tailwindcss/defaultTheme';
+
 const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -7,12 +7,29 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   theme: {
+    screens: {
+      xs: '280px', // Galaxy Fold
+      sm: '360px', // 일반 모바일
+      fold: '400px', // Z Flip 접힌 상태
+      md: '540px', // Z Flip 펼친 상태
+      lg: '768px', // 태블릿
+      xl: '1024px', // 작은 데스크탑
+      '2xl': '1280px', // 큰 데스크탑
+      '3xl': '1536px' // 초큰 데스크탑
+    },
     extend: {
-      screens: {
-        ...defaultTheme.screens
-      },
       gridTemplateColumns: {
         '14': 'repeat(14, minmax(0, 1fr))'
+      },
+      spacing: {
+        'safe-top': 'env(safe-area-inset-top)',
+        'safe-bottom': 'env(safe-area-inset-bottom)',
+        'safe-left': 'env(safe-area-inset-left)',
+        'safe-right': 'env(safe-area-inset-right)'
+      },
+      padding: {
+        'screen-x': 'var(--screen-x, 1rem)',
+        'screen-y': 'var(--screen-y, 1rem)'
       },
       backgroundImage: {},
       animation: {
@@ -38,6 +55,49 @@ const config: Config = {
       }
     }
   },
-  plugins: []
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    function ({ addComponents }: { addComponents: any }) {
+      addComponents({
+        '.container-responsive': {
+          width: '100%',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          paddingLeft: '1rem',
+          paddingRight: '1rem',
+          '@screen xs': {
+            paddingLeft: '1.25rem',
+            paddingRight: '1.25rem'
+          },
+          '@screen sm': {
+            paddingLeft: '1.5rem',
+            paddingRight: '1.5rem'
+          },
+          '@screen fold': {
+            paddingLeft: '2rem',
+            paddingRight: '2rem'
+          },
+          '@screen md': {
+            paddingLeft: '2.5rem',
+            paddingRight: '2.5rem'
+          },
+          '@screen lg': {
+            paddingLeft: '3rem',
+            paddingRight: '3rem',
+            maxWidth: '100%'
+          },
+          '@screen xl': {
+            paddingLeft: '4rem',
+            paddingRight: '4rem',
+            maxWidth: '100%'
+          },
+          '@screen 2xl': {
+            maxWidth: '100%'
+          }
+        }
+      });
+    }
+  ]
 };
+
 export default config;

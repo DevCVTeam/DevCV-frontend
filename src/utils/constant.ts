@@ -1,7 +1,7 @@
 export const scriptUrl =
   '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
 
-export const PAGESIZE = 12; // 페이지에 노출할 콘텐츠 갯수
+export const PAGESIZE = 20; // 페이지에 노출할 콘텐츠 갯수
 export const passwordRegex: RegExp = /^[a-zA-Z\d@$!%*?&]{8,16}$/;
 export const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

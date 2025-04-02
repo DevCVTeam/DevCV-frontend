@@ -7,7 +7,6 @@ import axios from 'axios';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { BsCart3 } from 'react-icons/bs';
 import {
@@ -20,7 +19,6 @@ import { FiLogOut } from 'react-icons/fi';
 
 const Header = () => {
   const { status, data: session } = useSession();
-  const router = useRouter();
   const [isVisible, setIsVisible] = useState(true);
   const [isNav, setIsNav] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -49,73 +47,100 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between border-b bg-white bg-opacity-[0.5] px-7 shadow-sm transition-transform duration-300 ${
+      className={`fixed left-0 top-0 z-50 mx-auto flex h-20 w-full items-center justify-between border-b bg-white bg-opacity-[0.5] px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 shadow-sm transition-transform duration-300 ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
       <Link
         href="/"
-        className="flex items-center rounded-md p-2 transition-all duration-300 hover:bg-slate-200"
+        className="group relative flex items-center rounded-lg p-2 transition-all duration-300"
       >
-        <Image
-          src="/logo.png"
-          alt="Logo"
-          width={30}
-          height={50}
-          className="size-auto"
-        />
-        <b className="ml-3 self-center text-xl">DevCV</b>
+        <div className="relative overflow-hidden">
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width={30}
+            height={50}
+            className="size-auto transform transition-transform duration-300 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-main/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        </div>
+        <b className="ml-3 self-center text-xl tracking-tight transition-colors duration-300 group-hover:text-sub">
+          DevCV
+        </b>
       </Link>
 
       <div className="flex items-center justify-between gap-6 font-Tenada">
-        <div className="hidden cursor-pointer whitespace-nowrap px-3 hover:text-stone-500 md:block">
-          기업 분류
+        <div className="group hidden cursor-pointer whitespace-nowrap px-3 md:block">
+          <span className="relative">
+            기업 분류
+            <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sub transition-all duration-300 group-hover:w-full" />
+          </span>
         </div>
 
-        <div className="hidden cursor-pointer whitespace-nowrap px-3 hover:text-stone-500 md:block">
-          기술 분류
+        <div className="group hidden cursor-pointer whitespace-nowrap px-3 md:block">
+          <span className="relative">
+            기술 분류
+            <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sub transition-all duration-300 group-hover:w-full" />
+          </span>
         </div>
       </div>
-      <nav className="flex gap-4">
+
+      <nav className="flex items-center gap-4">
         <Link
           href="/cart"
-          className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          className="group flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-300 hover:text-sub"
         >
           <div className="relative">
-            <BsCart3 className="size-5" />
+            <div className="transform transition-transform duration-300 group-hover:scale-110">
+              <BsCart3 className="size-5" />
+            </div>
             {cartItems.length > 0 && (
-              <span className="absolute -right-2 -top-2 flex size-4 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+              <span className="absolute -right-2 -top-2 flex size-4 items-center justify-center rounded-full bg-red-500 text-xs font-semibold text-white ring-2 ring-white">
                 {cartItems.length}
               </span>
             )}
           </div>
-          <span className="hidden sm:block">장바구니</span>
+          <span className="hidden transform transition-transform duration-300 group-hover:scale-105 sm:block">
+            장바구니
+          </span>
         </Link>
+
         {status === 'authenticated' ? (
           session?.user.role === 'admin' ? (
             <div className="flex items-center gap-2 lg:gap-3">
-              <div>{session.user?.memberName}님</div>
+              <div className="text-sm font-medium text-gray-700">
+                {session.user?.memberName}님
+              </div>
               <div>
                 <Link href={'/admin'}>
-                  <Button className="w-32">관리자 페이지</Button>
+                  <Button className="transform bg-gradient-to-r from-blue-600 to-main px-4 py-2 text-sm font-medium text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                    관리자 페이지
+                  </Button>
                 </Link>
               </div>
               <div>
-                <Button className="w-24" onClick={() => signOut()}>
+                <Button
+                  className="transform bg-red-500 px-4 py-2 text-sm font-medium text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-red-600 hover:shadow-lg"
+                  onClick={() => signOut()}
+                >
                   로그아웃
                 </Button>
               </div>
             </div>
           ) : (
             <div className="relative flex items-center gap-2 lg:gap-3">
-              <div className="hidden text-sm font-medium sm:block">
+              <div className="hidden text-sm font-medium text-gray-700 sm:block">
                 {session.user?.memberName}님
               </div>
               <div
-                className="flex cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-white p-2 hover:bg-gray-50"
+                className="group flex cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-white p-2 transition-all duration-300 hover:border-main hover:bg-main/5"
                 onClick={handleNavClick}
               >
-                <FaRegUser size={20} className="text-gray-600" />
+                <FaRegUser
+                  size={20}
+                  className="text-gray-600 transition-colors duration-300 group-hover:text-sub"
+                />
               </div>
               <nav
                 className={cn(
@@ -135,40 +160,51 @@ const Header = () => {
                 </div>
                 <div className="py-1">
                   <Link href={'/event'}>
-                    <button className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-gray-700 hover:bg-gray-50">
+                    <button className="group flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-gray-700 transition-colors duration-300 hover:bg-main/5">
                       <FaRegCalendarCheck
                         size={16}
-                        className="hidden text-gray-500 sm:block"
+                        className="hidden text-gray-900 transition-colors duration-300 group-hover:text-sub sm:block"
                       />
-                      <span className="font-medium sm:text-sm">이벤트</span>
+                      <span className="font-medium transition-colors duration-300 group-hover:text-sub sm:text-sm">
+                        이벤트
+                      </span>
                     </button>
                   </Link>
                   <Link href={'/resume/register'}>
-                    <button className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-gray-700 hover:bg-gray-50">
+                    <button className="group flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-gray-700 transition-colors duration-300 hover:bg-main/5">
                       <FaRegFileLines
                         size={16}
-                        className="hidden text-gray-500 sm:block"
+                        className="hidden text-gray-900 transition-colors duration-300 group-hover:text-sub sm:block"
                       />
-                      <span className="font-medium sm:text-sm">판매하기</span>
+                      <span className="font-medium transition-colors duration-300 group-hover:text-sub sm:text-sm">
+                        판매하기
+                      </span>
                     </button>
                   </Link>
                   <Link href={'/auth/profile'}>
-                    <button className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-gray-700 hover:bg-gray-50">
+                    <button className="group flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-gray-700 transition-colors duration-300 hover:bg-main/5">
                       <FaRegAddressCard
                         size={16}
-                        className="hidden text-gray-500 sm:block"
+                        className="hidden text-gray-900 transition-colors duration-300 group-hover:text-sub sm:block"
                       />
-                      <span className="font-medium sm:text-sm">마이페이지</span>
+                      <span className="font-medium transition-colors duration-300 group-hover:text-sub sm:text-sm">
+                        마이페이지
+                      </span>
                     </button>
                   </Link>
                 </div>
                 <div className="border-t border-gray-100 py-1">
                   <button
                     onClick={() => signOut()}
-                    className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-red-500 hover:bg-gray-50"
+                    className="group flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-red-500 transition-colors duration-300 hover:bg-red-50"
                   >
-                    <FiLogOut size={16} className="hidden sm:block" />
-                    <span className="font-medium sm:text-sm">로그아웃</span>
+                    <FiLogOut
+                      size={16}
+                      className="hidden transition-colors duration-300 group-hover:text-red-600 sm:block"
+                    />
+                    <span className="font-medium transition-colors duration-300 group-hover:text-red-600 sm:text-sm">
+                      로그아웃
+                    </span>
                   </button>
                 </div>
               </nav>
@@ -179,7 +215,9 @@ const Header = () => {
           <div className="flex items-center gap-2 lg:gap-3">
             <div>
               <Link href={'/auth/signin'}>
-                <Button>로그인</Button>
+                <Button className="transform bg-gradient-to-r from-blue-600 to-main px-4 py-2 text-sm font-medium text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                  로그인
+                </Button>
               </Link>
             </div>
           </div>
