@@ -318,8 +318,10 @@ export const salesResumes = async ({
 
 // sitemap.xml
 export const getResumeId = async () => {
-  const res = await fetch(`${process.env.SERVER_URL}/`, {
-    method: 'GET'
+  const res = await fetch(`${process.env.SERVER_URL}/resumes/sitemap`, {
+    method: 'GET',
+    cache: 'force-cache',
+    next: { revalidate: 3600 } // 1시간마다 재검증
   });
   if (!res.ok) {
     return null;

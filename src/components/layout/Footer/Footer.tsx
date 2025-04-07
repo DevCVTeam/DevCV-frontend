@@ -9,22 +9,22 @@ import { HiSparkles } from 'react-icons/hi';
 
 const footerLinks = {
   product: [
-    { name: '채용 정보', href: '/jobs', icon: '🎯' },
+    { name: '이력서 템플릿', href: '/templates', icon: '📄' },
     { name: '기술 블로그', href: '/tech-blog', icon: '📝' },
     { name: '개발자 로드맵', href: '/roadmap', icon: '🗺️' }
   ],
-  company: [
-    { name: '회사 소개', href: '/about', target: '_self', icon: '🏢' },
+  service: [
+    { name: '서비스 소개', href: '/about', target: '_self', icon: '💡' },
     {
-      name: '팀 블로그',
+      name: '개발 블로그',
       href: 'https://toris-dev.tistory.com',
       target: '_blank',
       icon: '✍️'
     },
-    { name: '채용 공고', href: '/careers', target: '_self', icon: '💼' }
+    { name: '기여하기', href: '/contribute', target: '_self', icon: '🤝' }
   ],
   support: [
-    { name: '이용가이드', href: '/guide', icon: '📖' },
+    { name: '이용가이드', href: '/docs', icon: '📖' },
     { name: '개발자 인터뷰', href: '/interviews', icon: '🎤' },
     { name: '문의하기', href: '/contact', icon: '💌' }
   ],
@@ -160,7 +160,7 @@ export default function Footer() {
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <motion.div variants={itemVariants}>
                 <h3 className="text-sm font-semibold leading-6 text-gray-900">
-                  서비스
+                  제품
                 </h3>
                 <ul role="list" className="mt-6 space-y-4">
                   {footerLinks.product.map((item) => (
@@ -187,10 +187,10 @@ export default function Footer() {
               </motion.div>
               <motion.div className="mt-10 md:mt-0" variants={itemVariants}>
                 <h3 className="text-sm font-semibold leading-6 text-gray-900">
-                  회사
+                  서비스
                 </h3>
                 <ul role="list" className="mt-6 space-y-4">
-                  {footerLinks.company.map((item) => (
+                  {footerLinks.service.map((item) => (
                     <motion.li
                       key={item.name}
                       whileHover={{ x: 5 }}

@@ -5,8 +5,16 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: '/admin'
+      disallow: [
+        '/api/',
+        '/auth/signin',
+        '/auth/signup',
+        '/profile/',
+        '/_next/',
+        '/static/'
+      ]
     },
-    sitemap: 'https://devcv.net/sitemap.xml'
+    sitemap: 'https://devcv.net/sitemap.xml',
+    host: 'https://devcv.net'
   };
 }

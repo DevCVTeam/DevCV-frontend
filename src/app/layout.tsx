@@ -3,12 +3,11 @@ import { pretendard } from '@/utils/fonts';
 import { cn } from '@/utils/style';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
-import { MetadataRoute } from 'next';
 import Script from 'next/script';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://devcv.com'),
+  metadataBase: new URL('https://devcv.net'),
   title: {
     default: 'DevCV - 개발자 이력서 플랫폼',
     template: '%s | DevCV'
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
     title: 'DevCV - 개발자 이력서 플랫폼',
     description:
       '개발자를 위한 이력서 작성 플랫폼. AI 기반 이력서 분석과 맞춤형 템플릿을 제공합니다.',
-    url: 'https://devcv.com',
+    url: 'https://devcv.net',
     siteName: 'DevCV',
     images: [
       {
@@ -53,17 +52,6 @@ export const metadata: Metadata = {
     description:
       '개발자를 위한 이력서 작성 플랫폼. AI 기반 이력서 분석과 맞춤형 템플릿을 제공합니다.',
     images: ['/logo.png']
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1
-    }
   },
   appleWebApp: true,
   applicationName: 'DevCV',
@@ -117,15 +105,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
-
-export function robots(): MetadataRoute.Robots {
-  return {
-    rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: ['/api/', '/admin/', '/private/', '/_next/', '/*.json$']
-    },
-    sitemap: 'https://devcv.com/sitemap.xml'
-  };
 }
