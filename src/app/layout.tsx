@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: '%s | DevCV'
   },
   description:
-    '개발자를 위한 이력서 작성 플랫폼. AI 기반 이력서 분석과 맞춤형 템플릿을 제공합니다.',
+    '개발자를 위한 이력서 작성 플랫폼. 이력서 판매 및 맞춤형 템플릿을 제공합니다.',
   icons: {
     icon: '/logo.png'
   },
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'DevCV - 개발자 이력서 플랫폼',
     description:
-      '개발자를 위한 이력서 작성 플랫폼. AI 기반 이력서 분석과 맞춤형 템플릿을 제공합니다.',
+      '개발자를 위한 이력서 작성 플랫폼. 이력서 판매 및 맞춤형 템플릿을 제공합니다.',
     url: 'https://devcv.net',
     siteName: 'DevCV',
     images: [
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'DevCV - 개발자 이력서 플랫폼',
     description:
-      '개발자를 위한 이력서 작성 플랫폼. AI 기반 이력서 분석과 맞춤형 템플릿을 제공합니다.',
+      '개발자를 위한 이력서 작성 플랫폼. 이력서 판매 및 맞춤형 템플릿을 제공합니다.',
     images: ['/logo.png']
   },
   appleWebApp: true,
