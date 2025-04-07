@@ -11,8 +11,14 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import toast from 'react-hot-toast';
 import { FcGoogle } from 'react-icons/fc';
 import { SiKakao } from 'react-icons/si';
+import AdminLoginModal from '../_components/Modal/AdminLoginModal';
+import IdFindModal from '../_components/Modal/IdFindModal';
+import PwdFindModal from '../_components/Modal/PwdFindModal';
 
 const SigninPage = () => {
+  const [adminIsOpen, setAdminInOpen] = useState(false);
+  const [idFindIsOpen, setIdFindIsOpen] = useState(false);
+  const [pwdFindIsOpen, setPwdFindIsOpen] = useState(false);
   const [recaptcha, setRecaptcha] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);
   const pwdRef = useRef<HTMLInputElement>(null);
@@ -143,6 +149,50 @@ const SigninPage = () => {
         animate="visible"
         exit="hidden"
       >
+        <AnimatePresence>
+          {adminIsOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+            >
+              <AdminLoginModal
+                isOpen={adminIsOpen}
+                onClose={() => setAdminInOpen(false)}
+                title="관리자 로그인"
+              />
+            </motion.div>
+          )}
+          {idFindIsOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+            >
+              <IdFindModal
+                isOpen={idFindIsOpen}
+                onClose={() => setIdFindIsOpen(false)}
+                title="아이디 찾기"
+              />
+            </motion.div>
+          )}
+          {pwdFindIsOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+            >
+              <PwdFindModal
+                isOpen={pwdFindIsOpen}
+                onClose={() => setPwdFindIsOpen(false)}
+                title="패스워드 찾기"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
         {/* 배경 장식 요소들 */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute size-1/2 animate-float" />
@@ -235,32 +285,51 @@ const SigninPage = () => {
                   />
                 </div>
               </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <input
-                    id="remember-me"
-                    name="remember-me"
-                    type="checkbox"
-                    className="size-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 sm:size-5"
-                  />
-                  <label
-                    htmlFor="remember-me"
-                    className="ml-2 block text-sm text-gray-900"
+              <motion.div
+                className="flex flex-col gap-6 items-center mt-2 justify-between text-sm text-gray-600 sm:flex-row sm:gap-2"
+                variants={itemVariants}
+              >
+                <div className="flex gap-4">
+                  <motion.span
+                    className="cursor-pointer hover:text-gray-900 transition-colors relative group"
+                    onClick={() => setAdminInOpen(true)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    로그인 상태 유지
-                  </label>
+                    관리자로그인
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                  </motion.span>
+                  <motion.span
+                    className="cursor-pointer hover:text-gray-900 transition-colors relative group"
+                    onClick={() => router.push('/auth/signup')}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    회원가입
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                  </motion.span>
                 </div>
-
-                <div className="text-sm">
-                  <Link
-                    href="/auth/forgot-password"
-                    className="font-medium text-blue-600 transition-colors hover:text-blue-500"
+                <div className="flex gap-4">
+                  <motion.span
+                    className="cursor-pointer hover:text-gray-900 transition-colors relative group"
+                    onClick={() => setIdFindIsOpen(true)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    ID 찾기
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                  </motion.span>
+                  <motion.span
+                    className="cursor-pointer hover:text-gray-900 transition-colors relative group"
+                    onClick={() => setPwdFindIsOpen(true)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     비밀번호 찾기
-                  </Link>
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                  </motion.span>
                 </div>
-              </div>
+              </motion.div>
 
               <div className="flex justify-center">
                 <ReCAPTCHA

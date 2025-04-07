@@ -48,7 +48,7 @@ const ReviewBox = ({
     }
   };
   return (
-    <div className="flex justify-between rounded-xl border-2 p-4">
+    <div className="flex flex-col sm:flex-row justify-between gap-4 rounded-xl border border-gray-200 p-3 sm:p-4 hover:shadow-sm transition-shadow">
       <CommentEdit
         resumeId={resumeId}
         isOpen={editOpen}
@@ -65,19 +65,23 @@ const ReviewBox = ({
         onClose={() => setWriteOpen(false)}
         refetch={refetch}
       />
-      <div className="flex">
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center">
-            <span className="mr-2 font-semibold">{reviewerNickname}</span>
-            {[...Array(grade)].map((_, index) => (
-              <div key={index} className="m-0 p-0">
-                <FaStar className="text-main" />
-              </div>
-            ))}
-            <div className="ml-1">{grade}</div>
+      <div className="flex-1">
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-sm sm:text-base font-semibold text-gray-900">
+              {reviewerNickname}
+            </span>
+            <div className="flex items-center gap-1">
+              {[...Array(grade)].map((_, index) => (
+                <div key={index} className="text-yellow-400">
+                  <FaStar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </div>
+              ))}
+              <span className="text-sm text-gray-600 ml-1">{grade}</span>
+            </div>
           </div>
-          <div>{text}</div>
-          <span className="text-xs text-slate-400">
+          <div className="text-sm sm:text-base text-gray-700">{text}</div>
+          <span className="text-xs text-gray-400">
             {new Date(updatedDate).toLocaleString('ko-KR', {
               year: 'numeric',
               month: 'short',
@@ -87,35 +91,31 @@ const ReviewBox = ({
         </div>
       </div>
 
-      <div className="flex justify-between text-default">
+      <div className="flex flex-row sm:flex-col justify-end gap-2 text-sm">
         {status === 'authenticated' && memberId === session.user.memberId ? (
-          <div className="flex gap-2 text-default">
-            <p
+          <div className="flex gap-2">
+            <button
               onClick={() => setEditOpen(true)}
-              className="flex h-8 w-20 cursor-pointer items-center justify-center rounded-lg border-2 hover:bg-slate-100"
+              className="px-3 py-1.5 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors"
             >
               수정
-            </p>
-            <p
+            </button>
+            <button
               onClick={handleRemove}
-              className="flex h-8 w-20 cursor-pointer items-center justify-center rounded-lg border-2 hover:bg-slate-100"
+              className="px-3 py-1.5 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors"
             >
               삭제
-            </p>
+            </button>
           </div>
         ) : null}
         {sellerEmail === session?.user.email ? (
-          <p
+          <button
             onClick={() => setWriteOpen(true)}
-            className="flex h-8 w-20 cursor-pointer items-center justify-center rounded-lg border-2 hover:bg-slate-100"
+            className="px-3 py-1.5 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors"
           >
             댓글 작성
-          </p>
+          </button>
         ) : null}
-        {/* <div className="flex items-center"> // 좋아요는 없는걸
-          <CiHeart />
-          45
-        </div> */}
       </div>
     </div>
   );
