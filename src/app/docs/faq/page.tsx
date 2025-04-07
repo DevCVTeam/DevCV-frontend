@@ -213,7 +213,7 @@ export default function FaqPage() {
               GitHub 이슈 등록
             </a>
             <a
-              href="https://discord.gg/devcv"
+              href="https://discord.gg/AhcUF2zB"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 bg-white text-gray-600 rounded-lg hover:bg-gray-50 transition-colors"

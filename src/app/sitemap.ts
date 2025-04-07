@@ -60,6 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 정보 페이지 (Informational)
   const infoSitemap: SitemapURL[] = [
     createURL('/about', 0.7, 'monthly'),
+    createURL('/interviews', 0.7, 'monthly'),
     createURL('/roadmap', 0.7, 'monthly'),
     createURL('/tech-blog', 0.7, 'weekly'),
     createURL('/contribute', 0.7, 'monthly')
