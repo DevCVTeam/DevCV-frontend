@@ -7,13 +7,15 @@ import toast from 'react-hot-toast';
 import OrderBox from './OrderBox';
 import PaymentBox from './PaymentBox';
 import PaymentButton from './PaymentButton';
+
 interface ClientOrderActionsProps {
   user: Session['user'];
   userPoint: { point: number };
 }
 
 const ClientOrderActions = ({ user, userPoint }: ClientOrderActionsProps) => {
-  const { resumes, getTotalPrice } = useCartStore();
+  const { getOrderItems, getTotalPrice } = useCartStore();
+  const orderItems = getOrderItems();
   const totalPrice = getTotalPrice();
   const router = useRouter();
 
@@ -21,9 +23,9 @@ const ClientOrderActions = ({ user, userPoint }: ClientOrderActionsProps) => {
     const res = await fetch(`/server/orders`, {
       method: 'POST',
       body: JSON.stringify({
-        resumeCount: resumes.length,
+        resumeCount: orderItems.length,
         totalPrice: totalPrice,
-        cartList: resumes.map((resume) => ({
+        cartList: orderItems.map((resume) => ({
           resumeId: resume.resumeId,
           price: resume.price
         }))
@@ -48,19 +50,19 @@ const ClientOrderActions = ({ user, userPoint }: ClientOrderActionsProps) => {
     <div>
       <div className="flex justify-around gap-4">
         <div className="flex gap-4 flex-col w-3/5">
-          {resumes.length === 0 ? (
+          {orderItems.length === 0 ? (
             <div className="flex flex-col items-center justify-center w-full h-64 text-gray-500">
-              <p>장바구니에 상품이 없습니다.</p>
+              <p>결제할 상품이 없습니다.</p>
               <button
-                onClick={() => router.push('/')}
+                onClick={() => router.push('/resume')}
                 className="mt-4 text-blue-500"
               >
                 이력서 구경하기
               </button>
             </div>
           ) : (
-            resumes.map((resume) => (
-              <OrderBox key={resume.resumeId} resumeResponse={resume} />
+            orderItems.map((resume) => (
+              <OrderBox key={resume.resumeId} resume={resume} />
             ))
           )}
         </div>

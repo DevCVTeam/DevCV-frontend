@@ -6,7 +6,7 @@ import { Resume } from '@/utils/type';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { FiShoppingCart } from 'react-icons/fi';
@@ -30,7 +30,8 @@ const ResumeDetail = ({
   status,
   title
 }: Resume) => {
-  const { addResume, resumes } = useCartStore();
+  const router = useRouter();
+  const { addResume, resumes, setDirectPurchaseItem } = useCartStore();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const isInCart = resumes.some((resume) => resume.resumeId === resumeId);
 
@@ -43,6 +44,17 @@ const ResumeDetail = ({
       sellerNickname
     });
     toast.success('장바구니에 추가되었습니다.');
+  };
+
+  const handleDirectPurchase = () => {
+    setDirectPurchaseItem({
+      resumeId,
+      title,
+      price,
+      imageList,
+      sellerNickname
+    });
+    router.push('/order');
   };
 
   return (
@@ -139,15 +151,14 @@ const ResumeDetail = ({
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start w-full">
-                  <Link href="/order" className="w-full sm:w-[240px]">
-                    <Button
-                      className="w-full h-[56px] bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 
-                      text-white px-8 text-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-blue-200 
-                      hover:-translate-y-0.5 rounded-lg whitespace-nowrap"
-                    >
-                      결제하기
-                    </Button>
-                  </Link>
+                  <Button
+                    onClick={handleDirectPurchase}
+                    className="w-full sm:w-[240px] h-[56px] bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 
+                    text-white px-8 text-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-blue-200 
+                    hover:-translate-y-0.5 rounded-lg whitespace-nowrap"
+                  >
+                    결제하기
+                  </Button>
                   <button
                     onClick={handleAddToCart}
                     disabled={isInCart}

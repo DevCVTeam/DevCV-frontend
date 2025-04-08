@@ -1,25 +1,25 @@
 import { getMemberPoint } from '@/utils/fetch';
 import { authOptions } from '@/utils/next-auth';
-import { type UserPoint } from '@/utils/type';
 import { getServerSession } from 'next-auth';
-import ClientOrderActions from './_components/ClientOrderActions';
+import { redirect } from 'next/navigation';
+import ClientOrder from './_components/ClientOrder';
 
-const OrderPage = async () => {
+export default async function OrderPage() {
   const session = await getServerSession(authOptions);
+
   if (!session) {
-    return <p>로그인이 필요합니다.</p>;
+    redirect('/auth/signin');
   }
 
-  const userPoint: UserPoint = await getMemberPoint(
+  const userPoint = await getMemberPoint(
     session.user.memberId,
     session.user.accessToken
   );
+
   return (
-    <div className="flex flex-col gap-8">
-      <h4 className="text-2xl font-semibold text-sub">주문 결제</h4>
-      <ClientOrderActions user={session.user} userPoint={userPoint} />
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-2xl font-bold mb-8">주문/결제</h1>
+      <ClientOrder user={session.user} userPoint={userPoint} />
     </div>
   );
-};
-
-export default OrderPage;
+}

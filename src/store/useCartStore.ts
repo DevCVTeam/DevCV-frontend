@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface CartResume {
+export interface CartResume {
   resumeId: number;
   title: string;
   price: number;
@@ -11,9 +11,12 @@ interface CartResume {
 
 interface CartStore {
   resumes: CartResume[];
+  directPurchaseItem: CartResume | null;
   addResume: (resume: CartResume) => void;
   removeResume: (resumeId: number) => void;
   clearCart: () => void;
+  setDirectPurchaseItem: (resume: CartResume | null) => void;
+  getOrderItems: () => CartResume[];
   getTotalPrice: () => number;
 }
 
@@ -21,13 +24,15 @@ export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
       resumes: [],
+      directPurchaseItem: null,
       addResume: (resume) =>
-        set((state) => {
-          if (state.resumes.some((r) => r.resumeId === resume.resumeId)) {
-            return state;
-          }
-          return { resumes: [...state.resumes, resume] };
-        }),
+        set((state) => ({
+          resumes: state.resumes.some(
+            (item) => item.resumeId === resume.resumeId
+          )
+            ? state.resumes
+            : [...state.resumes, resume]
+        })),
       removeResume: (resumeId) =>
         set((state) => ({
           resumes: state.resumes.filter(
@@ -35,13 +40,20 @@ export const useCartStore = create<CartStore>()(
           )
         })),
       clearCart: () => set({ resumes: [] }),
-      getTotalPrice: () => {
+      setDirectPurchaseItem: (resume) => set({ directPurchaseItem: resume }),
+      getOrderItems: () => {
         const state = get();
-        return state.resumes.reduce((total, resume) => total + resume.price, 0);
+        return state.directPurchaseItem
+          ? [state.directPurchaseItem]
+          : state.resumes;
+      },
+      getTotalPrice: () => {
+        const items = get().getOrderItems();
+        return items.reduce((total, item) => total + item.price, 0);
       }
     }),
     {
-      name: 'resume-cart-storage'
+      name: 'cart-storage'
     }
   )
 );
