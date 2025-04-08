@@ -45,6 +45,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     createURL('/docs', 0.8, 'weekly'),
     createURL('/docs/getting-started', 0.8, 'weekly'),
     createURL('/docs/user-guide', 0.8, 'weekly'),
+    createURL('/docs/user-guide/resume-creation', 0.8, 'weekly'),
+    createURL('/docs/user-guide/resume-sharing', 0.8, 'weekly'),
+    createURL('/docs/user-guide/review-system', 0.8, 'weekly'),
+    createURL('/docs/user-guide/templates', 0.8, 'weekly'),
     createURL('/docs/api', 0.8, 'weekly'),
     createURL('/docs/contributing', 0.8, 'weekly'),
     createURL('/docs/faq', 0.8, 'weekly')

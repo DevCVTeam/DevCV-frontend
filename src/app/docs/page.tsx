@@ -2,14 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import {
-  FaBook,
-  FaCode,
-  FaGithub,
-  FaLightbulb,
-  FaQuestion,
-  FaRocket
-} from 'react-icons/fa';
+import { FaBook, FaCode, FaGithub, FaQuestion, FaRocket } from 'react-icons/fa';
 
 const documentationSections = [
   {
@@ -36,14 +29,7 @@ const documentationSections = [
     href: '/docs/contributing',
     color: 'from-purple-500 to-purple-600'
   },
-  {
-    id: 'api',
-    title: 'API 문서',
-    description: 'DevCV API의 엔드포인트와 사용 방법을 설명합니다.',
-    icon: <FaLightbulb className="w-6 h-6" />,
-    href: '/docs/api',
-    color: 'from-yellow-500 to-yellow-600'
-  },
+
   {
     id: 'faq',
     title: '자주 묻는 질문',
@@ -152,7 +138,7 @@ export default function DocsPage() {
               리뷰 시스템 이용하기
             </Link>
             <Link
-              href="/docs/user-guide/templates"
+              href="/templates"
               className="p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors"
             >
               템플릿 활용하기
