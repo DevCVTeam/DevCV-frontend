@@ -14,7 +14,7 @@ const AttendanceCheckIn = ({ onClose }: AttendanceCheckInProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="flex flex-col items-center justify-center gap-8 py-10 px-6"
+      className="flex flex-col items-center justify-center gap-8 px-6 py-10"
     >
       <div className="flex flex-col items-center space-y-8">
         <div className="flex flex-col items-center space-y-6">

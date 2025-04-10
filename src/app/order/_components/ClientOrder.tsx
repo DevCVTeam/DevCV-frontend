@@ -68,27 +68,27 @@ export default function ClientOrder({ user, userPoint }: ClientOrderProps) {
       variants={containerVariants}
       className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-indigo-50"
     >
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
+      <div className="container mx-auto max-w-7xl px-4 py-8">
         <div className="mb-8 flex items-center gap-4">
           <button
             onClick={() => router.back()}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+            className="flex items-center gap-2 text-gray-600 transition-colors hover:text-gray-900"
           >
             <BsArrowLeft className="text-xl" />
             <span>뒤로가기</span>
           </button>
-          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+          <h1 className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-3xl font-bold text-transparent">
             주문/결제
           </h1>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col gap-8 lg:flex-row">
           <motion.div
             variants={itemVariants}
-            className="w-full lg:w-2/3 space-y-6"
+            className="w-full space-y-6 lg:w-2/3"
           >
-            <div className="bg-white p-6 rounded-2xl shadow-lg ring-1 ring-black/5">
-              <h2 className="text-xl font-semibold mb-6 text-gray-900">
+            <div className="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-black/5">
+              <h2 className="mb-6 text-xl font-semibold text-gray-900">
                 주문 상품 ({orderItems.length}개)
               </h2>
               <div className="space-y-4">
@@ -101,7 +101,7 @@ export default function ClientOrder({ user, userPoint }: ClientOrderProps) {
 
           <motion.div
             variants={itemVariants}
-            className="w-full lg:w-1/3 lg:sticky lg:top-8 space-y-6"
+            className="w-full space-y-6 lg:sticky lg:top-8 lg:w-1/3"
           >
             <PaymentBox resumePrice={totalPrice} point={userPoint.point} />
             <PaymentButton

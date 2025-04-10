@@ -7,12 +7,12 @@ import { FaGithub } from 'react-icons/fa';
 export default function ContributePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         <div className="text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-3xl font-bold text-gray-900 mb-6"
+            className="mb-6 text-4xl font-bold text-gray-900 sm:text-3xl"
           >
             프로젝트에 기여하기
           </motion.h1>
@@ -20,7 +20,7 @@ export default function ContributePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto"
+            className="mx-auto mb-12 max-w-2xl text-lg text-gray-600"
           >
             DevCV는 오픈소스 프로젝트입니다. 여러분의 기여를 환영합니다!
           </motion.p>
@@ -30,14 +30,14 @@ export default function ContributePage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12"
+          className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
           {/* 코드 기여 */}
-          <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-            <h3 className="text-xl font-semibold mb-4 text-gray-900">
+          <div className="rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+            <h3 className="mb-4 text-xl font-semibold text-gray-900">
               코드 기여
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className="mb-4 text-gray-600">
               버그 수정, 새로운 기능 개발, 성능 개선 등 코드 기여를 통해
               프로젝트를 발전시켜주세요.
             </p>
@@ -52,9 +52,9 @@ export default function ContributePage() {
           </div>
 
           {/* 문서화 */}
-          <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-            <h3 className="text-xl font-semibold mb-4 text-gray-900">문서화</h3>
-            <p className="text-gray-600 mb-4">
+          <div className="rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+            <h3 className="mb-4 text-xl font-semibold text-gray-900">문서화</h3>
+            <p className="mb-4 text-gray-600">
               문서 개선, 번역, 예제 추가 등을 통해 더 많은 사용자들이 쉽게
               이용할 수 있도록 도와주세요.
             </p>
@@ -64,11 +64,11 @@ export default function ContributePage() {
           </div>
 
           {/* 커뮤니티 */}
-          <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-            <h3 className="text-xl font-semibold mb-4 text-gray-900">
+          <div className="rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+            <h3 className="mb-4 text-xl font-semibold text-gray-900">
               커뮤니티
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className="mb-4 text-gray-600">
               이슈 리포팅, 기능 제안, 다른 사용자 돕기 등 커뮤니티 활동에
               참여해주세요.
             </p>
@@ -87,9 +87,9 @@ export default function ContributePage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="mt-16 bg-white p-8 rounded-xl shadow-sm"
+          className="mt-16 rounded-xl bg-white p-8 shadow-sm"
         >
-          <h2 className="text-2xl font-semibold mb-6 text-gray-900">
+          <h2 className="mb-6 text-2xl font-semibold text-gray-900">
             기여 가이드
           </h2>
           <div className="space-y-4 text-gray-600">
@@ -102,7 +102,7 @@ export default function ContributePage() {
           <div className="mt-8">
             <Link
               href="/docs/contributing"
-              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+              className="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-blue-700"
             >
               자세한 기여 가이드 보기
             </Link>

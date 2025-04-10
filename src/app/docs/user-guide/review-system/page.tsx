@@ -78,9 +78,9 @@ export default function ReviewSystemGuidePage() {
               className="flex items-start space-x-4 rounded-lg bg-white p-6 shadow-md"
             >
               <div
-                className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full ${step.color}`}
+                className={`flex size-12 shrink-0 items-center justify-center rounded-full ${step.color}`}
               >
-                <step.icon className="h-6 w-6" />
+                <step.icon className="size-6" />
               </div>
               <div>
                 <h3 className="mb-2 text-xl font-semibold text-gray-900">

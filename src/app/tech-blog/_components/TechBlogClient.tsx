@@ -61,20 +61,20 @@ export default function TechBlogClient() {
         initial="hidden"
         animate="visible"
       >
-        <motion.div className="text-center mb-12" variants={itemVariants}>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">기술 블로그</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <motion.div className="mb-12 text-center" variants={itemVariants}>
+          <h1 className="mb-4 text-4xl font-bold text-gray-900">기술 블로그</h1>
+          <p className="mx-auto max-w-2xl text-lg text-gray-600">
             최신 개발 트렌드와 기술적 인사이트를 공유합니다. DevCV 개발팀의 실제
             경험과 노하우를 만나보세요.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
             <motion.article
               key={post.id}
               variants={itemVariants}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col"
+              className="flex flex-col overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl"
             >
               <div className="relative h-48">
                 <Image
@@ -85,22 +85,22 @@ export default function TechBlogClient() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-4 left-4">
-                  <span className="px-3 py-1 bg-white/90 text-gray-900 rounded-full text-sm font-medium">
+                  <span className="rounded-full bg-white/90 px-3 py-1 text-sm font-medium text-gray-900">
                     {post.category}
                   </span>
                 </div>
               </div>
 
-              <div className="p-6 flex-1 flex flex-col">
-                <h2 className="text-xl font-semibold text-gray-900 mb-2 line-clamp-2">
+              <div className="flex flex-1 flex-col p-6">
+                <h2 className="mb-2 line-clamp-2 text-xl font-semibold text-gray-900">
                   {post.title}
                 </h2>
-                <p className="text-gray-600 mb-4 line-clamp-3">
+                <p className="mb-4 line-clamp-3 text-gray-600">
                   {post.excerpt}
                 </p>
 
                 <div className="mt-auto space-y-3">
-                  <div className="flex items-center text-sm text-gray-500 gap-4">
+                  <div className="flex items-center gap-4 text-sm text-gray-500">
                     <div className="flex items-center">
                       <FaUser className="mr-2" />
                       <span>{post.author}</span>
@@ -126,7 +126,7 @@ export default function TechBlogClient() {
 
                 <Link
                   href={`/tech-blog/${post.id}`}
-                  className="mt-4 inline-flex items-center justify-center w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
+                  className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 font-semibold text-white transition-colors duration-300 hover:from-blue-600 hover:to-blue-700"
                 >
                   자세히 보기
                 </Link>

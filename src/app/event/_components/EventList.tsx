@@ -48,8 +48,8 @@ const EventList = ({ events }: EventListProps) => {
       initial="hidden"
       animate="visible"
     >
-      <motion.div className="text-center mb-12" variants={itemVariants}>
-        <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent sm:text-5xl md:text-6xl">
+      <motion.div className="mb-12 text-center" variants={itemVariants}>
+        <h1 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl">
           이벤트
         </h1>
         <p className="mt-4 text-xl text-gray-600">
@@ -59,7 +59,7 @@ const EventList = ({ events }: EventListProps) => {
 
       {/* 이벤트 이력서 섹션 */}
       <motion.div variants={itemVariants} className="mb-16">
-        <h2 className="text-2xl font-bold mb-8 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+        <h2 className="mb-8 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-2xl font-bold text-transparent">
           추천 이력서
         </h2>
         <motion.div
@@ -71,12 +71,12 @@ const EventList = ({ events }: EventListProps) => {
               key={resume.id}
               variants={itemVariants}
               whileHover={{ scale: 1.02 }}
-              className="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-lg hover:shadow-xl transition-all duration-300
+              className="group relative cursor-pointer overflow-hidden rounded-2xl bg-white p-6 shadow-lg transition-all duration-300
               before:absolute before:inset-0 before:bg-gradient-to-r before:from-blue-500/5 before:to-purple-500/5 before:opacity-0 before:transition-opacity before:duration-300
-              hover:before:opacity-100 cursor-pointer"
+              hover:shadow-xl hover:before:opacity-100"
               onClick={() => router.push(`/resume/${resume.id}`)}
             >
-              <div className="aspect-[4/3] relative mb-6 overflow-hidden rounded-xl">
+              <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-xl">
                 <Image
                   src={resume.src}
                   alt={resume.alt}
@@ -85,7 +85,7 @@ const EventList = ({ events }: EventListProps) => {
                 />
               </div>
               <div className="relative">
-                <h3 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
+                <h3 className="text-xl font-semibold text-gray-900 transition-colors duration-300 group-hover:text-blue-600">
                   {resume.alt}
                 </h3>
                 <div className="mt-4 flex items-center gap-2">
@@ -101,14 +101,14 @@ const EventList = ({ events }: EventListProps) => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-2 text-sm font-semibold text-white shadow-md
-                    hover:from-blue-700 hover:to-blue-800 hover:shadow-lg
-                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-                    transition-all duration-300"
+                    transition-all duration-300 hover:from-blue-700
+                    hover:to-blue-800 hover:shadow-lg focus:outline-none focus:ring-2
+                    focus:ring-blue-500 focus:ring-offset-2"
                   >
                     자세히 보기
                   </motion.button>
                   <div className="flex items-center gap-2">
-                    <div className="size-2 rounded-full bg-green-500 animate-pulse" />
+                    <div className="size-2 animate-pulse rounded-full bg-green-500" />
                     <span className="text-sm text-gray-600">
                       실시간 구매 가능
                     </span>
@@ -122,7 +122,7 @@ const EventList = ({ events }: EventListProps) => {
 
       {/* 출석 이벤트 섹션 */}
       <motion.div variants={itemVariants}>
-        <h2 className="text-2xl font-bold mb-8 bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
+        <h2 className="mb-8 bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-2xl font-bold text-transparent">
           진행중인 이벤트
         </h2>
         <motion.div
@@ -136,9 +136,9 @@ const EventList = ({ events }: EventListProps) => {
                 key={index}
                 variants={itemVariants}
                 whileHover={{ scale: 1.02 }}
-                className="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-lg hover:shadow-xl transition-all duration-300
+                className="group relative cursor-pointer overflow-hidden rounded-2xl bg-white p-6 shadow-lg transition-all duration-300
                 before:absolute before:inset-0 before:bg-gradient-to-r before:from-purple-500/5 before:to-pink-500/5 before:opacity-0 before:transition-opacity before:duration-300
-                hover:before:opacity-100 cursor-pointer"
+                hover:shadow-xl hover:before:opacity-100"
                 onClick={() => router.push(`/event/${event.eventId}`)}
               >
                 <div className="flex flex-col gap-4">
@@ -147,7 +147,7 @@ const EventList = ({ events }: EventListProps) => {
                       {event.point.toLocaleString()} Point
                     </span>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 group-hover:text-purple-600 transition-colors duration-300">
+                  <h3 className="text-xl font-semibold text-gray-900 transition-colors duration-300 group-hover:text-purple-600">
                     {event.name}
                   </h3>
                   <div className="flex items-center gap-2 text-gray-600">

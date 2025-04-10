@@ -91,7 +91,7 @@ export default function Footer() {
 
   return (
     <motion.footer
-      className="relative bg-gradient-to-b from-gray-50 to-gray-100 rounded-t-3xl overflow-hidden z-10"
+      className="relative z-10 overflow-hidden rounded-t-3xl bg-gradient-to-b from-gray-50 to-gray-100"
       aria-labelledby="footer-heading"
       initial="hidden"
       whileInView="visible"
@@ -99,15 +99,15 @@ export default function Footer() {
       variants={containerVariants}
     >
       {/* 배경 장식 요소 */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 right-0 w-2/3 h-2/3 bg-gradient-to-bl from-blue-50 via-green-50 to-transparent rounded-full blur-3xl opacity-30 animate-pulse" />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute right-0 top-0 size-2/3 animate-pulse rounded-full bg-gradient-to-bl from-blue-50 via-green-50 to-transparent opacity-30 blur-3xl" />
         <motion.div
-          className="absolute top-12 right-12"
+          className="absolute right-12 top-12"
           variants={sparkleVariants}
           initial="initial"
           animate={controls}
         >
-          <HiSparkles className="text-yellow-400 size-8 animate-pulse" />
+          <HiSparkles className="size-8 animate-pulse text-yellow-400" />
         </motion.div>
       </div>
 
@@ -130,12 +130,12 @@ export default function Footer() {
                   height={40}
                   className="h-8 w-auto transition-transform duration-300 group-hover:rotate-12"
                 />
-                <span className="ml-2 text-xl font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent bg-size-200 animate-gradient">
+                <span className="ml-2 animate-gradient bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-size-200 bg-clip-text text-xl font-bold text-transparent">
                   DevCV
                 </span>
               </motion.div>
             </Link>
-            <p className="text-sm leading-6 text-gray-600 max-w-md">
+            <p className="max-w-md text-sm leading-6 text-gray-600">
               DevCV와 함께라면 몇 분 만에 멋진 이력서를 만들 수 있습니다.
               전문가급 이력서로 여러분의 커리어를 한 단계 발전시켜보세요.
             </p>
@@ -145,7 +145,7 @@ export default function Footer() {
                   key={item.name}
                   href={item.href}
                   target={item.target}
-                  className="text-gray-500 hover:text-gray-900 transition-colors"
+                  className="text-gray-500 transition-colors hover:text-gray-900"
                   whileHover={{ scale: 1.1, rotate: 10 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -173,12 +173,12 @@ export default function Footer() {
                         href={item.href}
                         className="group flex items-center space-x-2 text-sm leading-6 text-gray-600 hover:text-gray-900"
                       >
-                        <span className="opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="opacity-0 transition-opacity group-hover:opacity-100">
                           {item.icon}
                         </span>
                         <span className="relative">
                           {item.name}
-                          <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-gray-900 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+                          <span className="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-gray-900 transition-transform duration-300 group-hover:scale-x-100" />
                         </span>
                       </Link>
                     </motion.li>
@@ -201,12 +201,12 @@ export default function Footer() {
                         target={item.target}
                         className="group flex items-center space-x-2 text-sm leading-6 text-gray-600 hover:text-gray-900"
                       >
-                        <span className="opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="opacity-0 transition-opacity group-hover:opacity-100">
                           {item.icon}
                         </span>
                         <span className="relative">
                           {item.name}
-                          <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-gray-900 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+                          <span className="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-gray-900 transition-transform duration-300 group-hover:scale-x-100" />
                         </span>
                       </Link>
                     </motion.li>
@@ -230,12 +230,12 @@ export default function Footer() {
                         href={item.href}
                         className="group flex items-center space-x-2 text-sm leading-6 text-gray-600 hover:text-gray-900"
                       >
-                        <span className="opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="opacity-0 transition-opacity group-hover:opacity-100">
                           {item.icon}
                         </span>
                         <span className="relative">
                           {item.name}
-                          <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-gray-900 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+                          <span className="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-gray-900 transition-transform duration-300 group-hover:scale-x-100" />
                         </span>
                       </Link>
                     </motion.li>
@@ -257,12 +257,12 @@ export default function Footer() {
                         href={item.href}
                         className="group flex items-center space-x-2 text-sm leading-6 text-gray-600 hover:text-gray-900"
                       >
-                        <span className="opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="opacity-0 transition-opacity group-hover:opacity-100">
                           {item.icon}
                         </span>
                         <span className="relative">
                           {item.name}
-                          <span className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-gray-900 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+                          <span className="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-gray-900 transition-transform duration-300 group-hover:scale-x-100" />
                         </span>
                       </Link>
                     </motion.li>
@@ -272,8 +272,8 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t border-gray-900/10">
-          <p className="text-xs leading-5 text-gray-500 text-center">
+        <div className="mt-8 border-t border-gray-900/10 pt-8">
+          <p className="text-center text-xs leading-5 text-gray-500">
             &copy; {new Date().getFullYear()} DevCV. All rights reserved.
           </p>
         </div>

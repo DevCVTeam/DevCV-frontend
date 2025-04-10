@@ -5,11 +5,11 @@ import { FiMail } from 'react-icons/fi';
 
 const ProductInquiry = ({ sellerEmail }: { sellerEmail: string }) => {
   return (
-    <div className="flex flex-col items-center justify-center py-12 px-4">
+    <div className="flex flex-col items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-lg w-full text-center space-y-6"
+        className="w-full max-w-lg space-y-6 text-center"
       >
         <h3 className="text-2xl font-semibold text-gray-900">상품 문의하기</h3>
         <p className="text-gray-600">
@@ -21,8 +21,8 @@ const ProductInquiry = ({ sellerEmail }: { sellerEmail: string }) => {
           href={`mailto:${sellerEmail}`}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-main text-black rounded-lg 
-          hover:bg-hover transition-colors duration-200 font-medium shadow-sm hover:shadow-md"
+          className="inline-flex items-center gap-2 rounded-lg bg-main px-6 py-3 font-medium 
+          text-black shadow-sm transition-colors duration-200 hover:bg-hover hover:shadow-md"
         >
           <FiMail className="text-xl" />
           <span>이메일로 문의하기</span>

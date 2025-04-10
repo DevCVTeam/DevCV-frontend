@@ -51,19 +51,19 @@ const ReviewWrite = ({
       isOpen={isOpen}
       onClose={onClose}
       title={'댓글 작성'}
-      className="w-full max-w-lg mx-auto p-4 sm:p-6"
+      className="mx-auto w-full max-w-lg p-4 sm:p-6"
     >
       <form
         method="post"
         onSubmit={handleSubmit}
-        className="mt-4 sm:mt-6 flex flex-col items-center justify-center gap-4"
+        className="mt-4 flex flex-col items-center justify-center gap-4 sm:mt-6"
       >
         <div className="flex items-center gap-2 text-sm sm:text-base">
           <span className="font-medium text-gray-700">별점:</span>
           {[...Array(5)].map((a, i) => (
             <FaStar
               className={cn(
-                'cursor-pointer text-xl sm:text-2xl transition-colors',
+                'cursor-pointer text-xl transition-colors sm:text-2xl',
                 i + 1 <= grade
                   ? 'text-yellow-400'
                   : 'text-gray-200 hover:text-yellow-300'
@@ -72,10 +72,10 @@ const ReviewWrite = ({
               onClick={() => setGrade(i + 1)}
             />
           ))}
-          <span className="text-sm text-gray-600 ml-1">({grade}점)</span>
+          <span className="ml-1 text-sm text-gray-600">({grade}점)</span>
         </div>
         <Textarea
-          className="w-full min-h-[200px] rounded-lg border border-gray-300 bg-white p-3 sm:p-4 text-sm sm:text-base focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="min-h-[200px] w-full rounded-lg border border-gray-300 bg-white p-3 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500 sm:p-4 sm:text-base"
           id="commentContent"
           placeholder="이력서 후기입력"
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -85,7 +85,7 @@ const ReviewWrite = ({
         />
         <Button
           type="submit"
-          className="w-full sm:w-2/3 md:w-1/2 py-2.5 sm:py-3 mt-4 sm:mt-6 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+          className="mt-4 w-full rounded-lg bg-blue-600 py-2.5 text-white transition-colors hover:bg-blue-700 sm:mt-6 sm:w-2/3 sm:py-3 md:w-1/2"
           onClick={onClose}
         >
           후기 등록하기

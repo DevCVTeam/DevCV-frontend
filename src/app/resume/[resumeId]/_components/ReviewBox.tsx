@@ -48,7 +48,7 @@ const ReviewBox = ({
     }
   };
   return (
-    <div className="flex flex-col sm:flex-row justify-between gap-4 rounded-xl border border-gray-200 p-3 sm:p-4 hover:shadow-sm transition-shadow">
+    <div className="flex flex-col justify-between gap-4 rounded-xl border border-gray-200 p-3 transition-shadow hover:shadow-sm sm:flex-row sm:p-4">
       <CommentEdit
         resumeId={resumeId}
         isOpen={editOpen}
@@ -68,19 +68,19 @@ const ReviewBox = ({
       <div className="flex-1">
         <div className="flex flex-col gap-3">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-sm sm:text-base font-semibold text-gray-900">
+            <span className="text-sm font-semibold text-gray-900 sm:text-base">
               {reviewerNickname}
             </span>
             <div className="flex items-center gap-1">
               {[...Array(grade)].map((_, index) => (
                 <div key={index} className="text-yellow-400">
-                  <FaStar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <FaStar className="size-3.5 sm:size-4" />
                 </div>
               ))}
-              <span className="text-sm text-gray-600 ml-1">{grade}</span>
+              <span className="ml-1 text-sm text-gray-600">{grade}</span>
             </div>
           </div>
-          <div className="text-sm sm:text-base text-gray-700">{text}</div>
+          <div className="text-sm text-gray-700 sm:text-base">{text}</div>
           <span className="text-xs text-gray-400">
             {new Date(updatedDate).toLocaleString('ko-KR', {
               year: 'numeric',
@@ -91,18 +91,18 @@ const ReviewBox = ({
         </div>
       </div>
 
-      <div className="flex flex-row sm:flex-col justify-end gap-2 text-sm">
+      <div className="flex flex-row justify-end gap-2 text-sm sm:flex-col">
         {status === 'authenticated' && memberId === session.user.memberId ? (
           <div className="flex gap-2">
             <button
               onClick={() => setEditOpen(true)}
-              className="px-3 py-1.5 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors"
+              className="rounded-lg border border-gray-200 px-3 py-1.5 text-gray-700 transition-colors hover:bg-gray-50"
             >
               수정
             </button>
             <button
               onClick={handleRemove}
-              className="px-3 py-1.5 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors"
+              className="rounded-lg border border-gray-200 px-3 py-1.5 text-gray-700 transition-colors hover:bg-gray-50"
             >
               삭제
             </button>
@@ -111,7 +111,7 @@ const ReviewBox = ({
         {sellerEmail === session?.user.email ? (
           <button
             onClick={() => setWriteOpen(true)}
-            className="px-3 py-1.5 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors"
+            className="rounded-lg border border-gray-200 px-3 py-1.5 text-gray-700 transition-colors hover:bg-gray-50"
           >
             댓글 작성
           </button>

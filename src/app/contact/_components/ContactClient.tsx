@@ -79,29 +79,29 @@ export default function ContactClient() {
         animate="visible"
       >
         {/* Hero Section */}
-        <motion.section className="text-center mb-16" variants={itemVariants}>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        <motion.section className="mb-16 text-center" variants={itemVariants}>
+          <h1 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
             문의하기
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-xl text-gray-600">
             궁금한 점이나 제안사항이 있으시다면
             <br />
             언제든지 문의해주세요.
           </p>
         </motion.section>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
           {/* Contact Form */}
           <motion.section variants={itemVariants}>
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            <div className="rounded-xl bg-white p-8 shadow-lg">
+              <h2 className="mb-6 text-2xl font-bold text-gray-900">
                 메시지 보내기
               </h2>
               <form className="space-y-6">
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="mb-2 block text-sm font-medium text-gray-700"
                   >
                     이름
                   </label>
@@ -109,13 +109,13 @@ export default function ContactClient() {
                     type="text"
                     id="name"
                     name="name"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="mb-2 block text-sm font-medium text-gray-700"
                   >
                     이메일
                   </label>
@@ -123,13 +123,13 @@ export default function ContactClient() {
                     type="email"
                     id="email"
                     name="email"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="subject"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="mb-2 block text-sm font-medium text-gray-700"
                   >
                     제목
                   </label>
@@ -137,13 +137,13 @@ export default function ContactClient() {
                     type="text"
                     id="subject"
                     name="subject"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="mb-2 block text-sm font-medium text-gray-700"
                   >
                     메시지
                   </label>
@@ -151,12 +151,12 @@ export default function ContactClient() {
                     id="message"
                     name="message"
                     rows={4}
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+                  className="w-full rounded-lg bg-blue-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-600"
                 >
                   보내기
                 </button>
@@ -168,8 +168,8 @@ export default function ContactClient() {
           <motion.section variants={itemVariants}>
             <div className="space-y-8">
               {/* Contact Methods */}
-              <div className="bg-white rounded-xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              <div className="rounded-xl bg-white p-8 shadow-lg">
+                <h2 className="mb-6 text-2xl font-bold text-gray-900">
                   연락처 정보
                 </h2>
                 <div className="space-y-6">
@@ -179,11 +179,11 @@ export default function ContactClient() {
                       href={item.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-4 text-gray-600 hover:text-blue-500 transition-colors"
+                      className="flex items-center gap-4 text-gray-600 transition-colors hover:text-blue-500"
                       variants={itemVariants}
                     >
-                      <div className="p-3 bg-blue-100 rounded-lg">
-                        <item.icon className="text-blue-600 text-xl" />
+                      <div className="rounded-lg bg-blue-100 p-3">
+                        <item.icon className="text-xl text-blue-600" />
                       </div>
                       <div>
                         <div className="font-medium text-gray-900">
@@ -197,8 +197,8 @@ export default function ContactClient() {
               </div>
 
               {/* Social Links */}
-              <div className="bg-white rounded-xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              <div className="rounded-xl bg-white p-8 shadow-lg">
+                <h2 className="mb-6 text-2xl font-bold text-gray-900">
                   소셜 미디어
                 </h2>
                 <div className="space-y-6">
@@ -208,11 +208,11 @@ export default function ContactClient() {
                       href={item.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-4 text-gray-600 hover:text-blue-500 transition-colors"
+                      className="flex items-center gap-4 text-gray-600 transition-colors hover:text-blue-500"
                       variants={itemVariants}
                     >
-                      <div className="p-3 bg-blue-100 rounded-lg">
-                        <item.icon className="text-blue-600 text-xl" />
+                      <div className="rounded-lg bg-blue-100 p-3">
+                        <item.icon className="text-xl text-blue-600" />
                       </div>
                       <div className="font-medium text-gray-900">
                         {item.label}

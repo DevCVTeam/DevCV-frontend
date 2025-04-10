@@ -55,10 +55,10 @@ export default function ResumeCreationGuidePage() {
             transition={{ delay: index * 0.2 }}
             className="relative flex items-start space-x-6"
           >
-            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 text-2xl">
+            <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-blue-100 text-2xl">
               {step.icon}
             </div>
-            <div className="flex-grow">
+            <div className="grow">
               <h3 className="mb-2 text-xl font-semibold text-gray-900">
                 {step.title}
               </h3>

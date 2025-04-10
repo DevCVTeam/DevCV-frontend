@@ -53,7 +53,7 @@ const Agree = () => {
       }}
     >
       <motion.div className="flex flex-col gap-4" variants={itemVariants}>
-        <Field className="flex items-center gap-3 p-4 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition-colors duration-300">
+        <Field className="flex items-center gap-3 rounded-xl bg-gray-50/50 p-4 transition-colors duration-300 hover:bg-gray-100/50">
           <div className="relative">
             <Checkbox
               checked={allChecked}
@@ -65,11 +65,11 @@ const Agree = () => {
               }}
               className="size-5 rounded-md border-2 border-gray-300 bg-white 
               transition-colors duration-300
-              data-[checked]:border-blue-600 data-[checked]:bg-blue-600
-              focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+              focus:ring-2 focus:ring-blue-600
+              focus:ring-offset-2 data-[checked]:border-blue-600 data-[checked]:bg-blue-600"
             />
             <motion.div
-              className="absolute inset-0 flex items-center justify-center text-white pointer-events-none"
+              className="pointer-events-none absolute inset-0 flex items-center justify-center text-white"
               variants={checkboxVariants}
               initial="unchecked"
               animate={allChecked ? 'checked' : 'unchecked'}
@@ -89,11 +89,11 @@ const Agree = () => {
       </motion.div>
 
       <motion.div className="flex flex-col gap-6" variants={itemVariants}>
-        <h4 className="text-2xl font-semibold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+        <h4 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-2xl font-semibold text-transparent">
           약관동의
         </h4>
 
-        <Field className="flex items-center gap-3 p-4 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition-colors duration-300">
+        <Field className="flex items-center gap-3 rounded-xl bg-gray-50/50 p-4 transition-colors duration-300 hover:bg-gray-100/50">
           <div className="relative">
             <Checkbox
               checked={termsOfServiceAgreement}
@@ -102,11 +102,11 @@ const Agree = () => {
               }
               className="size-5 rounded-md border-2 border-gray-300 bg-white 
               transition-colors duration-300
-              data-[checked]:border-blue-600 data-[checked]:bg-blue-600
-              focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+              focus:ring-2 focus:ring-blue-600
+              focus:ring-offset-2 data-[checked]:border-blue-600 data-[checked]:bg-blue-600"
             />
             <motion.div
-              className="absolute inset-0 flex items-center justify-center text-white pointer-events-none"
+              className="pointer-events-none absolute inset-0 flex items-center justify-center text-white"
               variants={checkboxVariants}
               initial="unchecked"
               animate={termsOfServiceAgreement ? 'checked' : 'unchecked'}
@@ -119,12 +119,12 @@ const Agree = () => {
         </Field>
 
         <motion.article
-          className="h-80 w-full overflow-y-scroll rounded-xl border border-gray-200 p-6
-          bg-white/50 backdrop-blur-sm
-          shadow-sm hover:shadow-md transition-all duration-300"
+          className="h-80 w-full overflow-y-scroll rounded-xl border border-gray-200 bg-white/50
+          p-6 shadow-sm
+          backdrop-blur-sm transition-all duration-300 hover:shadow-md"
           variants={itemVariants}
         >
-          <h1 className="mb-4 text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          <h1 className="mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-2xl font-bold text-transparent">
             제1장 총칙
           </h1>
 
@@ -363,11 +363,11 @@ const Agree = () => {
       </motion.div>
 
       <motion.div className="flex flex-col gap-6" variants={itemVariants}>
-        <h4 className="text-2xl font-semibold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+        <h4 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-2xl font-semibold text-transparent">
           개인정보 수집 이용 조회 동의
         </h4>
 
-        <Field className="flex items-center gap-3 p-4 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition-colors duration-300">
+        <Field className="flex items-center gap-3 rounded-xl bg-gray-50/50 p-4 transition-colors duration-300 hover:bg-gray-100/50">
           <div className="relative">
             <Checkbox
               checked={personalInfoCollectionAgreement}
@@ -378,11 +378,11 @@ const Agree = () => {
               }
               className="size-5 rounded-md border-2 border-gray-300 bg-white 
               transition-colors duration-300
-              data-[checked]:border-blue-600 data-[checked]:bg-blue-600
-              focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+              focus:ring-2 focus:ring-blue-600
+              focus:ring-offset-2 data-[checked]:border-blue-600 data-[checked]:bg-blue-600"
             />
             <motion.div
-              className="absolute inset-0 flex items-center justify-center text-white pointer-events-none"
+              className="pointer-events-none absolute inset-0 flex items-center justify-center text-white"
               variants={checkboxVariants}
               initial="unchecked"
               animate={
@@ -399,12 +399,12 @@ const Agree = () => {
         </Field>
 
         <motion.article
-          className="h-80 w-full overflow-y-scroll rounded-xl border border-gray-200 p-6
-          bg-white/50 backdrop-blur-sm
-          shadow-sm hover:shadow-md transition-all duration-300"
+          className="h-80 w-full overflow-y-scroll rounded-xl border border-gray-200 bg-white/50
+          p-6 shadow-sm
+          backdrop-blur-sm transition-all duration-300 hover:shadow-md"
           variants={itemVariants}
         >
-          <h1 className="mb-4 text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          <h1 className="mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-2xl font-bold text-transparent">
             개인정보의 수집 및 이용 동의
           </h1>
           <p className="mb-2">
@@ -547,11 +547,11 @@ const Agree = () => {
       </motion.div>
 
       <motion.div className="flex flex-col gap-6" variants={itemVariants}>
-        <h4 className="text-2xl font-semibold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+        <h4 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-2xl font-semibold text-transparent">
           정책정보 제공을 위한 수집 및 이용 동의
         </h4>
 
-        <Field className="flex items-center gap-3 p-4 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition-colors duration-300">
+        <Field className="flex items-center gap-3 rounded-xl bg-gray-50/50 p-4 transition-colors duration-300 hover:bg-gray-100/50">
           <div className="relative">
             <Checkbox
               checked={policyInfoProvisionAgreement}
@@ -560,11 +560,11 @@ const Agree = () => {
               }
               className="size-5 rounded-md border-2 border-gray-300 bg-white 
               transition-colors duration-300
-              data-[checked]:border-blue-600 data-[checked]:bg-blue-600
-              focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+              focus:ring-2 focus:ring-blue-600
+              focus:ring-offset-2 data-[checked]:border-blue-600 data-[checked]:bg-blue-600"
             />
             <motion.div
-              className="absolute inset-0 flex items-center justify-center text-white pointer-events-none"
+              className="pointer-events-none absolute inset-0 flex items-center justify-center text-white"
               variants={checkboxVariants}
               initial="unchecked"
               animate={policyInfoProvisionAgreement ? 'checked' : 'unchecked'}
@@ -579,12 +579,12 @@ const Agree = () => {
         </Field>
 
         <motion.article
-          className="h-80 w-full overflow-y-scroll rounded-xl border border-gray-200 p-6
-          bg-white/50 backdrop-blur-sm
-          shadow-sm hover:shadow-md transition-all duration-300"
+          className="h-80 w-full overflow-y-scroll rounded-xl border border-gray-200 bg-white/50
+          p-6 shadow-sm
+          backdrop-blur-sm transition-all duration-300 hover:shadow-md"
           variants={itemVariants}
         >
-          <h1 className="mb-4 text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          <h1 className="mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-2xl font-bold text-transparent">
             개인정보 수집 및 이용 안내
           </h1>
 
@@ -631,11 +631,11 @@ const Agree = () => {
           <Button
             type="button"
             onClick={handleNext}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 
-            text-white font-semibold shadow-lg
-            hover:shadow-xl hover:-translate-y-0.5 
-            focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-            transition-all duration-300"
+            className="rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-3 
+            font-semibold text-white shadow-lg
+            transition-all duration-300 
+            hover:-translate-y-0.5 hover:shadow-xl focus:ring-2
+            focus:ring-blue-500 focus:ring-offset-2"
           >
             다음
           </Button>

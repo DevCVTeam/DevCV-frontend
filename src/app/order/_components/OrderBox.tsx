@@ -12,7 +12,7 @@ const OrderBox = ({ resume }: OrderBoxProps) => {
   const { removeResume } = useCartStore();
 
   return (
-    <div className="flex flex-col justify-start gap-2 rounded-xl border bg-subgray p-4 text-lg relative">
+    <div className="relative flex flex-col justify-start gap-2 rounded-xl border bg-subgray p-4 text-lg">
       <div className="mt-0 font-semibold text-sub">주문 정보</div>
       <div className="mt-2 flex justify-self-center">
         <Image
@@ -43,9 +43,9 @@ const OrderBox = ({ resume }: OrderBoxProps) => {
       </div>
       <button
         onClick={() => removeResume(resume.resumeId)}
-        className="self-end flex items-center gap-1 text-red-500 hover:text-red-600"
+        className="flex items-center gap-1 self-end text-red-500 hover:text-red-600"
       >
-        <BsTrash className="h-4 w-4 sm:h-5 sm:w-5" />
+        <BsTrash className="size-4 sm:size-5" />
         <span className="text-sm">삭제</span>
       </button>
     </div>

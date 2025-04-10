@@ -32,7 +32,7 @@ export default function InterviewCard({ interview }: InterviewCardProps) {
             rel="noopener noreferrer"
             className="rounded-full bg-white/90 p-2 text-gray-600 transition-colors hover:bg-white hover:text-gray-900"
           >
-            <FaGithub className="h-5 w-5" />
+            <FaGithub className="size-5" />
           </a>
         )}
         {interview.links.linkedin && (
@@ -42,7 +42,7 @@ export default function InterviewCard({ interview }: InterviewCardProps) {
             rel="noopener noreferrer"
             className="rounded-full bg-white/90 p-2 text-gray-600 transition-colors hover:bg-white hover:text-gray-900"
           >
-            <FaLinkedin className="h-5 w-5" />
+            <FaLinkedin className="size-5" />
           </a>
         )}
       </div>

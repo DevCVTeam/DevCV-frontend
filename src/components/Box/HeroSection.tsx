@@ -10,7 +10,7 @@ export default function HeroSection() {
         <div className="absolute -right-20 -top-20 size-[300px] rounded-full bg-main/5 blur-3xl sm:size-[500px]" />
         <div className="absolute -bottom-20 -left-20 size-[300px] rounded-full bg-accent-2/5 blur-3xl sm:size-[500px]" />
         <div className="absolute left-1/2 top-1/2 size-[600px] -translate-x-1/2 -translate-y-1/2 sm:size-[800px]">
-          <div className="bg-grid-pattern absolute inset-0 opacity-5" />
+          <div className="absolute inset-0 bg-grid-pattern opacity-5" />
         </div>
       </div>
 

@@ -46,13 +46,13 @@ const techStack = [
 export default function GettingStartedPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         {/* 헤더 섹션 */}
-        <div className="text-center mb-16">
+        <div className="mb-16 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6"
+            className="mb-6 text-4xl font-bold text-gray-900 sm:text-5xl"
           >
             DevCV 시작하기
           </motion.h1>
@@ -60,7 +60,7 @@ export default function GettingStartedPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-lg text-gray-600 max-w-3xl mx-auto"
+            className="mx-auto max-w-3xl text-lg text-gray-600"
           >
             DevCV는 개발자들의 이력서 공유 플랫폼입니다. 현업 개발자들의 실제
             이력서를 참고하고, 전문가의 리뷰를 받아보세요.
@@ -72,14 +72,14 @@ export default function GettingStartedPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
+          className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-3"
         >
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className="bg-white rounded-xl shadow-sm p-6 border border-gray-100"
+              className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm"
             >
-              <div className="aspect-video relative mb-4 rounded-lg overflow-hidden">
+              <div className="relative mb-4 aspect-video overflow-hidden rounded-lg">
                 <Image
                   src={feature.image}
                   alt={feature.title}
@@ -87,7 +87,7 @@ export default function GettingStartedPage() {
                   className="object-cover"
                 />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
+              <h3 className="mb-2 text-xl font-bold text-gray-900">
                 {feature.title}
               </h3>
               <p className="text-gray-600">{feature.description}</p>
@@ -102,22 +102,22 @@ export default function GettingStartedPage() {
           transition={{ delay: 0.3 }}
           className="mb-16"
         >
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+          <h2 className="mb-8 text-center text-2xl font-bold text-gray-900">
             기술 스택
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {techStack.map((stack) => (
               <div
                 key={stack.category}
-                className="bg-white rounded-xl shadow-sm p-6 border border-gray-100"
+                className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                <h3 className="mb-4 text-xl font-bold text-gray-900">
                   {stack.category}
                 </h3>
                 <ul className="space-y-2">
                   {stack.items.map((item) => (
                     <li key={item} className="flex items-center text-gray-600">
-                      <span className="mr-2 h-1.5 w-1.5 rounded-full bg-blue-500" />
+                      <span className="mr-2 size-1.5 rounded-full bg-blue-500" />
                       {item}
                     </li>
                   ))}
@@ -132,17 +132,17 @@ export default function GettingStartedPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-blue-50 rounded-xl p-8 mb-16"
+          className="mb-16 rounded-xl bg-blue-50 p-8"
         >
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          <h2 className="mb-6 text-2xl font-bold text-gray-900">
             프로젝트 시작하기
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
+              <h3 className="mb-4 text-xl font-bold text-gray-900">
                 프론트엔드
               </h3>
-              <div className="bg-gray-900 rounded-lg p-4 text-white font-mono text-sm">
+              <div className="rounded-lg bg-gray-900 p-4 font-mono text-sm text-white">
                 <p>git clone https://github.com/DevCVTeam/DevCV-frontend.git</p>
                 <p>cd DevCV-frontend</p>
                 <p>npm install</p>
@@ -150,8 +150,8 @@ export default function GettingStartedPage() {
               </div>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">백엔드</h3>
-              <div className="bg-gray-900 rounded-lg p-4 text-white font-mono text-sm">
+              <h3 className="mb-4 text-xl font-bold text-gray-900">백엔드</h3>
+              <div className="rounded-lg bg-gray-900 p-4 font-mono text-sm text-white">
                 <p>git clone https://github.com/DevCVTeam/DevCV-backend.git</p>
                 <p>cd DevCV-backend</p>
                 <p>./gradlew build</p>
@@ -168,23 +168,23 @@ export default function GettingStartedPage() {
           transition={{ delay: 0.5 }}
           className="text-center"
         >
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">다음 단계</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <h2 className="mb-6 text-2xl font-bold text-gray-900">다음 단계</h2>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <Link
               href="/docs/user-guide"
-              className="p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors border border-gray-100"
+              className="rounded-lg border border-gray-100 bg-white p-4 transition-colors hover:bg-gray-50"
             >
               사용자 가이드 보기
             </Link>
             <Link
               href="/docs/contributing"
-              className="p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors border border-gray-100"
+              className="rounded-lg border border-gray-100 bg-white p-4 transition-colors hover:bg-gray-50"
             >
               프로젝트에 기여하기
             </Link>
             <Link
               href="/docs/api"
-              className="p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors border border-gray-100"
+              className="rounded-lg border border-gray-100 bg-white p-4 transition-colors hover:bg-gray-50"
             >
               API 문서 확인하기
             </Link>

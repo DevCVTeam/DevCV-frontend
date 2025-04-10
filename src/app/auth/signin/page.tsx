@@ -141,9 +141,9 @@ const SigninPage = () => {
     <AnimatePresence mode="wait">
       <motion.div
         key="signin"
-        className="relative min-h-screen flex items-center justify-center px-4 py-16 sm:px-6 lg:px-8 xl:px-0 overflow-hidden
-        bg-gradient-to-br from-gray-50 via-white to-gray-50 before:fixed before:z-[1] before:h-1/2 before:w-3/4 before:animate-spin-slower before:rounded-bl-full before:rounded-tr-full before:bg-accent-2 before:blur-3xl 
-        after:fixed after:z-[1] after:size-2/3 after:animate-spin-slow after:rounded-bl-full after:rounded-tr-full after:bg-accent-1/80 after:blur-3xl"
+        className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-50 px-4
+        py-16 before:fixed before:z-[1] before:h-1/2 before:w-3/4 before:animate-spin-slower before:rounded-bl-full before:rounded-tr-full before:bg-accent-2 before:blur-3xl after:fixed after:z-[1] after:size-2/3 
+        after:animate-spin-slow after:rounded-bl-full after:rounded-tr-full after:bg-accent-1/80 after:blur-3xl sm:px-6 lg:px-8 xl:px-0"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -286,47 +286,47 @@ const SigninPage = () => {
                 </div>
               </div>
               <motion.div
-                className="flex flex-col gap-6 items-center mt-2 justify-between text-sm text-gray-600 sm:flex-row sm:gap-2"
+                className="mt-2 flex flex-col items-center justify-between gap-6 text-sm text-gray-600 sm:flex-row sm:gap-2"
                 variants={itemVariants}
               >
                 <div className="flex gap-4">
                   <motion.span
-                    className="cursor-pointer hover:text-gray-900 transition-colors relative group"
+                    className="group relative cursor-pointer transition-colors hover:text-gray-900"
                     onClick={() => setAdminInOpen(true)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     관리자로그인
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                    <span className="absolute bottom-0 left-0 h-0.5 w-full scale-x-0 bg-gray-900 transition-transform duration-300 group-hover:scale-x-100" />
                   </motion.span>
                   <motion.span
-                    className="cursor-pointer hover:text-gray-900 transition-colors relative group"
+                    className="group relative cursor-pointer transition-colors hover:text-gray-900"
                     onClick={() => router.push('/auth/signup')}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     회원가입
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                    <span className="absolute bottom-0 left-0 h-0.5 w-full scale-x-0 bg-gray-900 transition-transform duration-300 group-hover:scale-x-100" />
                   </motion.span>
                 </div>
                 <div className="flex gap-4">
                   <motion.span
-                    className="cursor-pointer hover:text-gray-900 transition-colors relative group"
+                    className="group relative cursor-pointer transition-colors hover:text-gray-900"
                     onClick={() => setIdFindIsOpen(true)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     ID 찾기
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                    <span className="absolute bottom-0 left-0 h-0.5 w-full scale-x-0 bg-gray-900 transition-transform duration-300 group-hover:scale-x-100" />
                   </motion.span>
                   <motion.span
-                    className="cursor-pointer hover:text-gray-900 transition-colors relative group"
+                    className="group relative cursor-pointer transition-colors hover:text-gray-900"
                     onClick={() => setPwdFindIsOpen(true)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     비밀번호 찾기
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                    <span className="absolute bottom-0 left-0 h-0.5 w-full scale-x-0 bg-gray-900 transition-transform duration-300 group-hover:scale-x-100" />
                   </motion.span>
                 </div>
               </motion.div>

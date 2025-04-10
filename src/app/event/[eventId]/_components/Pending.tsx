@@ -40,7 +40,7 @@ const Pending = ({ onClick }: PendingProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="flex flex-col items-center space-y-8 py-10 px-6"
+      className="flex flex-col items-center space-y-8 px-6 py-10"
     >
       <div className="flex flex-col items-center space-y-6">
         <motion.div
@@ -88,7 +88,7 @@ const Pending = ({ onClick }: PendingProps) => {
                 duration: 0.4
               }}
               onClick={() => handleFeedbackSelect(option)}
-              className={`group relative overflow-hidden rounded-xl px-4 py-4 text-sm font-medium shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${
+              className={`group relative overflow-hidden rounded-xl p-4 text-sm font-medium shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${
                 selectedFeedback === option
                   ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white'
                   : 'bg-white text-gray-900 ring-1 ring-gray-200'

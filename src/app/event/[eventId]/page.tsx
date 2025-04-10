@@ -130,14 +130,14 @@ const EventIdPage = ({
         return (
           <div className="flex flex-col gap-8">
             <div className="text-center">
-              <h4 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
+              <h4 className="mb-4 text-xl font-bold text-gray-800 sm:text-2xl">
                 출석 이벤트
               </h4>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="mx-auto max-w-2xl text-gray-600">
                 오늘의 소감을 남기고 출석체크를 완료해주세요!
               </p>
             </div>
-            <div className="transform transition-transform hover:scale-105">
+            <div className="transition-transform hover:scale-105">
               <AttendanceEvent onAttendanceCheck={handleAttend} points={50} />
             </div>
           </div>
@@ -147,14 +147,14 @@ const EventIdPage = ({
         return (
           <div className="flex flex-col gap-8">
             <div className="text-center">
-              <h4 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
+              <h4 className="mb-4 text-xl font-bold text-gray-800 sm:text-2xl">
                 퀴즈 이벤트
               </h4>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="mx-auto max-w-2xl text-gray-600">
                 모든 질문에 답변하신 후 제출 버튼을 클릭해주세요.
               </p>
             </div>
-            <div className="space-y-6 flex flex-col items-center">
+            <div className="flex flex-col items-center space-y-6">
               <QuizEvent
                 questions={questions}
                 onSubmit={handleSubmitAnswers}
@@ -174,7 +174,7 @@ const EventIdPage = ({
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 space-y-8">
+    <div className="container mx-auto space-y-8 px-4 py-8">
       <div className="space-y-6">
         <div className="overflow-hidden rounded-2xl bg-white shadow">
           <div className="px-4 py-5 sm:p-6">

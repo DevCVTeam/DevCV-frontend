@@ -47,7 +47,7 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed left-0 top-0 z-50 mx-auto flex h-20 w-full items-center justify-between border-b bg-white bg-opacity-[0.5] px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 shadow-sm transition-transform duration-300 ${
+      className={`fixed left-0 top-0 z-50 mx-auto flex h-20 w-full items-center justify-between border-b bg-white bg-opacity-[0.5] px-4 shadow-sm transition-transform duration-300 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
@@ -61,7 +61,7 @@ const Header = () => {
             alt="Logo"
             width={30}
             height={50}
-            className="size-auto transform transition-transform duration-300 group-hover:scale-110"
+            className="size-auto transition-transform duration-300 group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-main/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         </div>
@@ -92,7 +92,7 @@ const Header = () => {
           className="group flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-300 hover:text-sub"
         >
           <div className="relative">
-            <div className="transform transition-transform duration-300 group-hover:scale-110">
+            <div className="transition-transform duration-300 group-hover:scale-110">
               <BsCart3 className="size-5" />
             </div>
             {cartItems.length > 0 && (
@@ -101,7 +101,7 @@ const Header = () => {
               </span>
             )}
           </div>
-          <span className="hidden transform transition-transform duration-300 group-hover:scale-105 sm:block">
+          <span className="hidden transition-transform duration-300 group-hover:scale-105 sm:block">
             장바구니
           </span>
         </Link>
@@ -114,14 +114,14 @@ const Header = () => {
               </div>
               <div>
                 <Link href={'/admin'}>
-                  <Button className="transform bg-gradient-to-r from-blue-600 to-main px-4 py-2 text-sm font-medium text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                  <Button className="bg-gradient-to-r from-blue-600 to-main px-4 py-2 text-sm font-medium text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg">
                     관리자 페이지
                   </Button>
                 </Link>
               </div>
               <div>
                 <Button
-                  className="transform bg-red-500 px-4 py-2 text-sm font-medium text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-red-600 hover:shadow-lg"
+                  className="bg-red-500 px-4 py-2 text-sm font-medium text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-red-600 hover:shadow-lg"
                   onClick={() => signOut()}
                 >
                   로그아웃
@@ -216,7 +216,7 @@ const Header = () => {
             <div className="relative h-10 w-[88px]">
               <Link href={'/auth/signin'}>
                 <Button className="group absolute left-0 flex h-10 w-[96px] items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-sm font-medium text-white shadow-lg transition-all duration-300 hover:w-[96px] hover:shadow-blue-500/25 active:scale-95">
-                  <div className="absolute inset-0 flex translate-x-0 items-center justify-center transition-all duration-300 group-hover:translate-x-[88px]">
+                  <div className=" absolute inset-0 flex translate-x-0 items-center justify-center transition-all duration-300 group-hover:translate-x-[88px]">
                     <span className="flex items-center">
                       <svg
                         className="mr-2 size-4"
@@ -234,7 +234,7 @@ const Header = () => {
                       로그인
                     </span>
                   </div>
-                  <div className="absolute inset-0 flex -translate-x-[88px] items-center justify-center transition-all duration-300 group-hover:translate-x-0">
+                  <div className="absolute inset-0 flex translate-x-[-88px] items-center justify-center transition-all duration-300 group-hover:translate-x-0">
                     <svg
                       className="size-4"
                       fill="none"
@@ -249,7 +249,7 @@ const Header = () => {
                       />
                     </svg>
                   </div>
-                  <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-blue-600 to-indigo-700 blur-lg opacity-40 transition-opacity duration-300 group-hover:opacity-60" />
+                  <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-blue-600 to-indigo-700 opacity-40 blur-lg transition-opacity duration-300 group-hover:opacity-60" />
                 </Button>
               </Link>
             </div>

@@ -41,7 +41,7 @@ export default function ResumeSharingGuidePage() {
 
       <div className="mb-12">
         <motion.div
-          className="mx-auto flex h-48 w-48 items-center justify-center rounded-full bg-blue-50"
+          className="mx-auto flex size-48 items-center justify-center rounded-full bg-blue-50"
           animate={{
             scale: [1, 1.1, 1],
             rotate: [0, 360]
@@ -52,7 +52,7 @@ export default function ResumeSharingGuidePage() {
             ease: 'easeInOut'
           }}
         >
-          <FaShareAlt className="h-24 w-24 text-blue-500" />
+          <FaShareAlt className="size-24 text-blue-500" />
         </motion.div>
       </div>
 
@@ -65,7 +65,7 @@ export default function ResumeSharingGuidePage() {
             transition={{ delay: index * 0.2 }}
             className="overflow-hidden rounded-lg bg-white p-6 shadow-md"
           >
-            <div className="mb-4 aspect-video relative overflow-hidden rounded-lg">
+            <div className="relative mb-4 aspect-video overflow-hidden rounded-lg">
               <Image
                 src={step.image}
                 alt={step.title}

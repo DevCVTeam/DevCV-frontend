@@ -121,13 +121,13 @@ export default function FaqPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         {/* 헤더 섹션 */}
-        <div className="text-center mb-16">
+        <div className="mb-16 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6"
+            className="mb-6 text-4xl font-bold text-gray-900 sm:text-5xl"
           >
             자주 묻는 질문
           </motion.h1>
@@ -135,7 +135,7 @@ export default function FaqPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-lg text-gray-600 max-w-3xl mx-auto"
+            className="mx-auto max-w-3xl text-lg text-gray-600"
           >
             DevCV 사용 중 궁금한 점을 확인해보세요. 더 자세한 내용은 사용자
             가이드를 참고해주세요.
@@ -143,12 +143,12 @@ export default function FaqPage() {
         </div>
 
         {/* FAQ 카테고리 탭 */}
-        <div className="flex space-x-4 mb-8 overflow-x-auto">
+        <div className="mb-8 flex space-x-4 overflow-x-auto">
           {faqCategories.map((category) => (
             <button
               key={category.title}
               onClick={() => setActiveCategory(category.title)}
-              className={`px-4 py-2 rounded-lg font-medium whitespace-nowrap ${
+              className={`whitespace-nowrap rounded-lg px-4 py-2 font-medium ${
                 activeCategory === category.title
                   ? 'bg-blue-600 text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-50'
@@ -169,23 +169,23 @@ export default function FaqPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * (index + 1) }}
-                className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
+                className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm"
               >
                 <button
                   onClick={() => toggleQuestion(faq.question)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50"
+                  className="flex w-full items-center justify-between px-6 py-4 text-left hover:bg-gray-50"
                 >
                   <span className="font-medium text-gray-900">
                     {faq.question}
                   </span>
                   <FaChevronDown
-                    className={`w-5 h-5 text-gray-400 transition-transform ${
+                    className={`size-5 text-gray-400 transition-transform ${
                       openQuestions.includes(faq.question) ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
                 {openQuestions.includes(faq.question) && (
-                  <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
+                  <div className="border-t border-gray-100 bg-gray-50 px-6 py-4">
                     <p className="text-gray-600">{faq.answer}</p>
                   </div>
                 )}
@@ -198,9 +198,9 @@ export default function FaqPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="mt-16 p-6 bg-blue-50 rounded-xl text-center"
+          className="mt-16 rounded-xl bg-blue-50 p-6 text-center"
         >
-          <h2 className="text-xl font-bold text-gray-900 mb-4">
+          <h2 className="mb-4 text-xl font-bold text-gray-900">
             원하는 답변을 찾지 못하셨나요?
           </h2>
           <div className="flex justify-center space-x-4">
@@ -208,7 +208,7 @@ export default function FaqPage() {
               href="https://github.com/DevCVTeam/DevCV-frontend/issues"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 bg-white text-gray-600 rounded-lg hover:bg-gray-50 transition-colors"
+              className="rounded-lg bg-white px-6 py-3 text-gray-600 transition-colors hover:bg-gray-50"
             >
               GitHub 이슈 등록
             </a>
@@ -216,7 +216,7 @@ export default function FaqPage() {
               href="https://discord.gg/AhcUF2zB"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 bg-white text-gray-600 rounded-lg hover:bg-gray-50 transition-colors"
+              className="rounded-lg bg-white px-6 py-3 text-gray-600 transition-colors hover:bg-gray-50"
             >
               Discord 문의하기
             </a>

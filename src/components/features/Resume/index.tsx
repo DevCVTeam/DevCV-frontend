@@ -179,18 +179,18 @@ export const CategoryResume: FC<ResumeResponse> = ({
 
   return (
     <motion.div
-      className="w-full relative"
+      className="relative w-full"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       <motion.div
-        className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-30"
+        className="fixed left-0 top-0 z-30 h-1 w-full bg-gray-200"
         style={{ scaleX: scrollYProgress }}
       />
 
       <motion.h4
-        className="mb-2 sm:mb-4 text-base sm:text-lg font-semibold"
+        className="mb-2 text-base font-semibold sm:mb-4 sm:text-lg"
         variants={itemVariants}
       >
         기업 및 기술 선택
@@ -203,10 +203,10 @@ export const CategoryResume: FC<ResumeResponse> = ({
         variants={headerVariants}
         transition={{ duration: 0.3 }}
       >
-        <div className="mb-4 sm:mb-8 w-full rounded-xl sm:rounded-2xl border p-2 sm:p-4">
-          <div className="w-full overflow-x-auto scrollbar-hide">
+        <div className="mb-4 w-full rounded-xl border p-2 sm:mb-8 sm:rounded-2xl sm:p-4">
+          <div className="w-full overflow-x-auto">
             <motion.div
-              className="flex justify-center sm:min-w-full gap-2 sm:gap-3"
+              className="flex justify-center gap-2 sm:min-w-full sm:gap-3"
               variants={containerVariants}
             >
               <CompanyBox
@@ -232,20 +232,20 @@ export const CategoryResume: FC<ResumeResponse> = ({
       </motion.div>
 
       <motion.div
-        className={`relative mt-2 sm:mt-4 flex flex-col gap-4 rounded-xl sm:rounded-2xl bg-subgray p-4 sm:p-8 transition-all duration-300 ${
+        className={`relative mt-2 flex flex-col gap-4 rounded-xl bg-subgray p-4 transition-all duration-300 sm:mt-4 sm:rounded-2xl sm:p-8 ${
           isCompanyVisible ? 'translate-y-0' : 'translate-y-4'
         }`}
         variants={containerVariants}
       >
         <motion.div
-          className="mt-2 sm:mt-4 flex flex-col sm:flex-row gap-2 items-start sm:items-center"
+          className="mt-2 flex flex-col items-start gap-2 sm:mt-4 sm:flex-row sm:items-center"
           variants={itemVariants}
           key={`${company}-${job}`}
         >
-          <h2 className="text-lg sm:text-2xl font-semibold">
+          <h2 className="text-lg font-semibold sm:text-2xl">
             {Company[company!]} {Job[job!]} 이력서
           </h2>
-          <span className="text-xs sm:text-sm text-gray-500">
+          <span className="text-xs text-gray-500 sm:text-sm">
             선택된 기업의 이력서입니다.
           </span>
         </motion.div>
@@ -275,7 +275,7 @@ export const CategoryResume: FC<ResumeResponse> = ({
             <AnimatePresence mode="wait">
               <motion.div
                 key={`${company}-${job}`}
-                className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 gap-3 sm:gap-4"
+                className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
@@ -307,14 +307,14 @@ export const CategoryResume: FC<ResumeResponse> = ({
               </motion.div>
             </AnimatePresence>
 
-            <div ref={loadMoreRef} className="w-full flex justify-center p-4">
+            <div ref={loadMoreRef} className="flex w-full justify-center p-4">
               {isFetchingNextPage ? (
                 <LoaderGrid />
               ) : hasNextPage ? (
                 <div className="h-10" />
               ) : (
                 <motion.p
-                  className="text-gray-500 text-sm"
+                  className="text-sm text-gray-500"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5 }}

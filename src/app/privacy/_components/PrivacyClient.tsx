@@ -108,11 +108,11 @@ export default function PrivacyClient() {
         animate="visible"
       >
         {/* Hero Section */}
-        <motion.section className="text-center mb-16" variants={itemVariants}>
-          <div className="inline-flex items-center justify-center p-3 bg-blue-100 rounded-full mb-6">
-            <FaLock className="text-blue-600 text-3xl" />
+        <motion.section className="mb-16 text-center" variants={itemVariants}>
+          <div className="mb-6 inline-flex items-center justify-center rounded-full bg-blue-100 p-3">
+            <FaLock className="text-3xl text-blue-600" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
             개인정보처리방침
           </h1>
           <p className="text-xl text-gray-600">최종 수정일: 2025년 4월 2일</p>
@@ -120,24 +120,24 @@ export default function PrivacyClient() {
 
         {/* Privacy Policy Content */}
         <motion.div
-          className="max-w-4xl mx-auto space-y-8"
+          className="mx-auto max-w-4xl space-y-8"
           variants={containerVariants}
         >
           {privacyPolicies.map((policy, index) => (
             <motion.div
               key={policy.title}
               variants={itemVariants}
-              className="bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow duration-300"
+              className="rounded-2xl border border-gray-100 bg-gray-50 p-8 transition-shadow duration-300 hover:shadow-lg"
             >
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 p-3 bg-blue-100 rounded-lg">
-                  <policy.icon className="text-blue-600 text-2xl" />
+                <div className="shrink-0 rounded-lg bg-blue-100 p-3">
+                  <policy.icon className="text-2xl text-blue-600" />
                 </div>
                 <div className="space-y-4">
                   <h2 className="text-xl font-bold text-gray-900">
                     {policy.title}
                   </h2>
-                  <div className="text-gray-600 whitespace-pre-line leading-relaxed">
+                  <div className="whitespace-pre-line leading-relaxed text-gray-600">
                     {policy.content}
                   </div>
                 </div>
@@ -148,55 +148,55 @@ export default function PrivacyClient() {
 
         {/* Contact Info */}
         <motion.section
-          className="mt-16 max-w-4xl mx-auto"
+          className="mx-auto mt-16 max-w-4xl"
           variants={itemVariants}
         >
           <motion.div
-            className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8 hover:shadow-lg transition-all duration-300"
+            className="rounded-2xl bg-gradient-to-r from-blue-50 to-blue-100 p-8 transition-all duration-300 hover:shadow-lg"
             whileHover={{ scale: 1.02 }}
           >
-            <div className="flex items-center gap-3 mb-8">
-              <FaUserShield className="text-blue-600 text-2xl" />
+            <div className="mb-8 flex items-center gap-3">
+              <FaUserShield className="text-2xl text-blue-600" />
               <h3 className="text-xl font-bold text-gray-900">
                 개인정보 보호책임자
               </h3>
             </div>
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid gap-8 md:grid-cols-3">
               <motion.div
-                className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                className="rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
                 whileHover={{ y: -5 }}
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <FaUser className="text-blue-500 text-xl" />
+                <div className="mb-4 flex items-center gap-3">
+                  <FaUser className="text-xl text-blue-500" />
                   <div className="text-sm font-medium text-gray-500">이름</div>
                 </div>
-                <div className="text-gray-900 font-medium">유주환</div>
+                <div className="font-medium text-gray-900">유주환</div>
               </motion.div>
               <motion.div
-                className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                className="rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
                 whileHover={{ y: -5 }}
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <FaBriefcase className="text-blue-500 text-xl" />
+                <div className="mb-4 flex items-center gap-3">
+                  <FaBriefcase className="text-xl text-blue-500" />
                   <div className="text-sm font-medium text-gray-500">직위</div>
                 </div>
-                <div className="text-gray-900 font-medium">
+                <div className="font-medium text-gray-900">
                   개인정보 보호책임자
                 </div>
               </motion.div>
               <motion.div
-                className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                className="rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
                 whileHover={{ y: -5 }}
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <FaEnvelope className="text-blue-500 text-xl" />
+                <div className="mb-4 flex items-center gap-3">
+                  <FaEnvelope className="text-xl text-blue-500" />
                   <div className="text-sm font-medium text-gray-500">
                     연락처
                   </div>
                 </div>
                 <motion.a
                   href="mailto:ironjustlikethat@gmail.com"
-                  className="text-gray-900 hover:text-blue-600 transition-colors flex items-center gap-2"
+                  className="flex items-center gap-2 text-gray-900 transition-colors hover:text-blue-600"
                   whileHover={{ scale: 1.05 }}
                 >
                   <span>ironjustlikethat@gmail.com</span>

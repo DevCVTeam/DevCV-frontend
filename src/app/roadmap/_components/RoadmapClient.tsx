@@ -94,51 +94,51 @@ export default function RoadmapClient() {
         initial="hidden"
         animate="visible"
       >
-        <motion.div className="text-center mb-12" variants={itemVariants}>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+        <motion.div className="mb-12 text-center" variants={itemVariants}>
+          <h1 className="mb-4 text-4xl font-bold text-gray-900">
             개발자 로드맵
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-lg text-gray-600">
             단계별 학습 가이드를 통해 원하는 개발자로 성장할 수 있습니다. 각
             경로는 실무에서 검증된 기술 스택으로 구성되어 있습니다.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {roadmaps.map((roadmap) => (
             <motion.div
               key={roadmap.id}
               variants={itemVariants}
-              className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300"
+              className="rounded-xl bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
             >
-              <div className="flex items-center mb-6">
-                <div className="p-3 bg-blue-100 rounded-lg">
-                  <roadmap.icon className="text-blue-600 text-2xl" />
+              <div className="mb-6 flex items-center">
+                <div className="rounded-lg bg-blue-100 p-3">
+                  <roadmap.icon className="text-2xl text-blue-600" />
                 </div>
                 <h2 className="ml-4 text-2xl font-semibold text-gray-900">
                   {roadmap.title}
                 </h2>
               </div>
 
-              <p className="text-gray-600 mb-6">{roadmap.description}</p>
+              <p className="mb-6 text-gray-600">{roadmap.description}</p>
 
               <div className="space-y-6">
                 {roadmap.steps.map((step, index) => (
                   <motion.div
                     key={step.title}
                     variants={stepVariants}
-                    className="relative pl-6 border-l-2 border-blue-200"
+                    className="relative border-l-2 border-blue-200 pl-6"
                   >
-                    <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-blue-200" />
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    <div className="absolute -left-2 top-0 size-4 rounded-full bg-blue-200" />
+                    <h3 className="mb-2 text-lg font-semibold text-gray-900">
                       {step.title}
                     </h3>
-                    <p className="text-gray-600 mb-3">{step.description}</p>
+                    <p className="mb-3 text-gray-600">{step.description}</p>
                     <div className="flex flex-wrap gap-2">
                       {step.items.map((item) => (
                         <span
                           key={item}
-                          className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+                          className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700"
                         >
                           {item}
                         </span>
@@ -151,7 +151,7 @@ export default function RoadmapClient() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="mt-6 w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
+                className="mt-6 w-full rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 font-semibold text-white transition-colors duration-300 hover:from-blue-600 hover:to-blue-700"
               >
                 로드맵 자세히 보기
               </motion.button>

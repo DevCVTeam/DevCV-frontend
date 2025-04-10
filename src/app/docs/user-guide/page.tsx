@@ -15,7 +15,7 @@ const userGuides = [
   {
     id: 'resume-creation',
     title: '이력서 작성',
-    icon: <FaEdit className="w-6 h-6" />,
+    icon: <FaEdit className="size-6" />,
     description: '이력서 작성 방법과 팁',
     sections: [
       {
@@ -38,7 +38,7 @@ const userGuides = [
   {
     id: 'resume-templates',
     title: '템플릿 활용',
-    icon: <FaClipboard className="w-6 h-6" />,
+    icon: <FaClipboard className="size-6" />,
     description: '다양한 이력서 템플릿 활용 방법',
     sections: [
       {
@@ -60,7 +60,7 @@ const userGuides = [
   {
     id: 'resume-sharing',
     title: '이력서 공유',
-    icon: <FaShare className="w-6 h-6" />,
+    icon: <FaShare className="size-6" />,
     description: '작성한 이력서 공유 및 관리',
     sections: [
       {
@@ -80,7 +80,7 @@ const userGuides = [
   {
     id: 'review-system',
     title: '리뷰 시스템',
-    icon: <FaEye className="w-6 h-6" />,
+    icon: <FaEye className="size-6" />,
     description: '이력서 리뷰 요청 및 피드백',
     sections: [
       {
@@ -100,7 +100,7 @@ const userGuides = [
   {
     id: 'search-explore',
     title: '검색과 탐색',
-    icon: <FaSearch className="w-6 h-6" />,
+    icon: <FaSearch className="size-6" />,
     description: '다른 이력서 검색 및 탐색',
     sections: [
       {
@@ -120,7 +120,7 @@ const userGuides = [
   {
     id: 'community',
     title: '커뮤니티',
-    icon: <FaUsers className="w-6 h-6" />,
+    icon: <FaUsers className="size-6" />,
     description: '커뮤니티 활동 및 네트워킹',
     sections: [
       {
@@ -142,13 +142,13 @@ const userGuides = [
 export default function UserGuidePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         {/* 헤더 섹션 */}
-        <div className="text-center mb-16">
+        <div className="mb-16 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6"
+            className="mb-6 text-4xl font-bold text-gray-900 sm:text-5xl"
           >
             사용자 가이드
           </motion.h1>
@@ -156,7 +156,7 @@ export default function UserGuidePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-lg text-gray-600 max-w-3xl mx-auto"
+            className="mx-auto max-w-3xl text-lg text-gray-600"
           >
             DevCV의 주요 기능과 사용 방법을 상세히 안내합니다. 각 섹션별로
             자세한 설명을 확인하세요.
@@ -164,7 +164,7 @@ export default function UserGuidePage() {
         </div>
 
         {/* 가이드 섹션 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {userGuides.map((guide, index) => (
             <motion.div
               key={guide.id}
@@ -173,20 +173,20 @@ export default function UserGuidePage() {
               transition={{ delay: 0.1 * (index + 1) }}
             >
               <Link href={`/docs/user-guide/${guide.id}`}>
-                <div className="h-full bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 border border-gray-100">
-                  <div className="flex items-center mb-4">
-                    <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
+                <div className="h-full rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+                  <div className="mb-4 flex items-center">
+                    <div className="rounded-lg bg-blue-50 p-2 text-blue-600">
                       {guide.icon}
                     </div>
-                    <h2 className="text-xl font-bold text-gray-900 ml-3">
+                    <h2 className="ml-3 text-xl font-bold text-gray-900">
                       {guide.title}
                     </h2>
                   </div>
-                  <p className="text-gray-600 mb-6">{guide.description}</p>
+                  <p className="mb-6 text-gray-600">{guide.description}</p>
                   <div className="space-y-4">
                     {guide.sections.map((section) => (
                       <div key={section.title}>
-                        <h3 className="font-medium text-gray-900 mb-1">
+                        <h3 className="mb-1 font-medium text-gray-900">
                           {section.title}
                         </h3>
                         <p className="text-sm text-gray-600">
@@ -206,27 +206,27 @@ export default function UserGuidePage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="mt-16 p-6 bg-blue-50 rounded-xl"
+          className="mt-16 rounded-xl bg-blue-50 p-6"
         >
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 className="mb-4 text-2xl font-bold text-gray-900">
             추가 도움이 필요하신가요?
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <Link
               href="/docs/faq"
-              className="p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors border border-gray-100"
+              className="rounded-lg border border-gray-100 bg-white p-4 transition-colors hover:bg-gray-50"
             >
               자주 묻는 질문
             </Link>
             <Link
               href="https://github.com/DevCVTeam/DevCV-frontend/issues"
-              className="p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors border border-gray-100"
+              className="rounded-lg border border-gray-100 bg-white p-4 transition-colors hover:bg-gray-50"
             >
               이슈 리포트
             </Link>
             <Link
               href="https://discord.gg/devcv"
-              className="p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors border border-gray-100"
+              className="rounded-lg border border-gray-100 bg-white p-4 transition-colors hover:bg-gray-50"
             >
               Discord 커뮤니티
             </Link>

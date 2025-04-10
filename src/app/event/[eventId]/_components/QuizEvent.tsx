@@ -28,7 +28,7 @@ export const QuizEvent = ({ questions, onSubmit, points }: QuizEventProps) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="w-full max-w-2xl mx-auto p-6 rounded-2xl bg-white shadow-lg"
+      className="mx-auto w-full max-w-2xl rounded-2xl bg-white p-6 shadow-lg"
     >
       <div className="flex flex-col space-y-8">
         <div className="flex items-center justify-center space-x-4">
@@ -37,24 +37,24 @@ export const QuizEvent = ({ questions, onSubmit, points }: QuizEventProps) => {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center"
+              className="flex size-16 items-center justify-center rounded-full bg-blue-100"
             >
-              <FaQuestion className="text-blue-600 text-3xl" />
+              <FaQuestion className="text-3xl text-blue-600" />
             </motion.div>
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.4 }}
-              className="absolute -top-2 -right-2 bg-yellow-400 rounded-full p-2"
+              className="absolute -right-2 -top-2 rounded-full bg-yellow-400 p-2"
             >
-              <BsLightbulb className="text-white text-xl" />
+              <BsLightbulb className="text-xl text-white" />
             </motion.div>
           </div>
           <div>
             <h3 className="text-2xl font-bold text-gray-800">퀴즈 이벤트</h3>
             <p className="text-gray-600">
               모든 질문에 답하고{' '}
-              <span className="text-blue-600 font-bold">{points} 포인트</span>를
+              <span className="font-bold text-blue-600">{points} 포인트</span>를
               획득하세요!
             </p>
           </div>
@@ -67,7 +67,7 @@ export const QuizEvent = ({ questions, onSubmit, points }: QuizEventProps) => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white/50 backdrop-blur-sm p-6 rounded-xl shadow-sm border border-gray-100"
+              className="rounded-xl border border-gray-100 bg-white/50 p-6 shadow-sm backdrop-blur-sm"
             >
               <label className="block space-y-3">
                 <span className="text-lg font-medium text-gray-700">
@@ -80,8 +80,8 @@ export const QuizEvent = ({ questions, onSubmit, points }: QuizEventProps) => {
                     newAnswers[index] = e.target.value;
                     setAnswers(newAnswers);
                   }}
-                  className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400
-                           focus:border-transparent transition-all duration-200"
+                  className="w-full rounded-lg border border-gray-200 p-3 transition-all duration-200
+                           focus:border-transparent focus:ring-2 focus:ring-blue-400"
                   rows={3}
                   placeholder="답변을 입력해주세요..."
                   required
@@ -95,10 +95,10 @@ export const QuizEvent = ({ questions, onSubmit, points }: QuizEventProps) => {
             disabled={answers.some((answer) => !answer.trim())}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full py-4 px-6 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-xl
-                     font-semibold shadow-md hover:shadow-lg transform transition-all duration-200
-                     focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50
-                     disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full rounded-xl bg-gradient-to-r from-blue-400 to-blue-500 px-6 py-4 font-semibold
+                     text-white shadow-md transition-all duration-200 hover:shadow-lg focus:outline-none
+                     focus:ring-2 focus:ring-blue-400/50 disabled:cursor-not-allowed
+                     disabled:opacity-50"
           >
             답변 제출하기
           </motion.button>

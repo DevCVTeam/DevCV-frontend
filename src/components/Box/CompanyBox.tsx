@@ -52,9 +52,9 @@ const CompanyBox: FC<CompanyBoxProps> = ({
   return (
     <div className="w-full space-y-4">
       {/* 버튼 영역 */}
-      <div className="flex gap-4 mb-4">
+      <div className="mb-4 flex gap-4">
         <motion.button
-          className={`px-4 py-2 rounded-lg ${
+          className={`rounded-lg px-4 py-2 ${
             selectedType === 'enterprise'
               ? 'bg-blue-600 text-white'
               : 'bg-gray-100'
@@ -67,7 +67,7 @@ const CompanyBox: FC<CompanyBoxProps> = ({
           기업 분류
         </motion.button>
         <motion.button
-          className={`px-4 py-2 rounded-lg ${
+          className={`rounded-lg px-4 py-2 ${
             selectedType === 'job' ? 'bg-blue-600 text-white' : 'bg-gray-100'
           }`}
           onClick={handleTypeChange('job')}
@@ -105,7 +105,7 @@ const CompanyBox: FC<CompanyBoxProps> = ({
                 <SwiperSlide key={item.type} className="!w-auto">
                   <motion.div
                     className={`flex cursor-pointer items-center justify-center gap-1.5 rounded-xl px-3 py-2 transition-all duration-300
-                      ${isSelected || isHovered ? 'bg-opacity-10 text-blue-600' : 'hover:bg-gray-100'}
+                      ${isSelected || isHovered ? 'bg-blue-600/10 text-blue-600' : 'hover:bg-gray-100'}
                       ${isSelected ? 'border-2 border-blue-600' : 'border border-gray-200'}
                     `}
                     onClick={() => {
@@ -128,7 +128,7 @@ const CompanyBox: FC<CompanyBoxProps> = ({
                           : 'text-gray-600'
                       }
                     />
-                    <span className="whitespace-nowrap text-xs sm:text-sm font-medium">
+                    <span className="whitespace-nowrap text-xs font-medium sm:text-sm">
                       {item.name}
                     </span>
                   </motion.div>

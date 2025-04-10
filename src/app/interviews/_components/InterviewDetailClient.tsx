@@ -95,7 +95,7 @@ export default function InterviewDetailClient({
                     rel="noopener noreferrer"
                     className="text-gray-600 transition-colors hover:text-gray-900"
                   >
-                    <FaGithub className="h-6 w-6" />
+                    <FaGithub className="size-6" />
                   </a>
                 )}
                 {interview.links.linkedin && (
@@ -105,7 +105,7 @@ export default function InterviewDetailClient({
                     rel="noopener noreferrer"
                     className="text-gray-600 transition-colors hover:text-gray-900"
                   >
-                    <FaLinkedin className="h-6 w-6" />
+                    <FaLinkedin className="size-6" />
                   </a>
                 )}
               </div>

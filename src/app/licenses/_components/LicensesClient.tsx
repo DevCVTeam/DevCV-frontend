@@ -77,14 +77,14 @@ export default function LicensesClient() {
         animate="visible"
       >
         {/* Hero Section */}
-        <motion.section className="text-center mb-16" variants={itemVariants}>
-          <div className="inline-flex items-center justify-center p-3 bg-blue-100 rounded-full mb-6">
-            <FaBook className="text-blue-600 text-3xl" />
+        <motion.section className="mb-16 text-center" variants={itemVariants}>
+          <div className="mb-6 inline-flex items-center justify-center rounded-full bg-blue-100 p-3">
+            <FaBook className="text-3xl text-blue-600" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
             오픈소스 라이선스
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-xl text-gray-600">
             DevCV는 다음과 같은 오픈소스 프로젝트들을 기반으로 구축되었습니다.
             <br />각 프로젝트의 라이선스 정보를 확인하실 수 있습니다.
           </p>
@@ -92,14 +92,14 @@ export default function LicensesClient() {
 
         {/* Licenses Grid */}
         <motion.div
-          className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8"
+          className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2"
           variants={containerVariants}
         >
           {licenses.map((lib) => (
             <motion.div
               key={lib.name}
               variants={itemVariants}
-              className="bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow duration-300"
+              className="rounded-2xl border border-gray-100 bg-gray-50 p-8 transition-shadow duration-300 hover:shadow-lg"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -110,16 +110,16 @@ export default function LicensesClient() {
                     href={lib.repository}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                    className="text-gray-400 transition-colors hover:text-gray-600"
                   >
                     <FaGithub className="text-2xl" />
                   </a>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium">
+                  <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-600">
                     v{lib.version}
                   </span>
-                  <span className="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm font-medium">
+                  <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-600">
                     {lib.license}
                   </span>
                 </div>
@@ -131,18 +131,18 @@ export default function LicensesClient() {
 
         {/* YouTube Video Section */}
         <motion.section
-          className="mt-16 max-w-4xl mx-auto"
+          className="mx-auto mt-16 max-w-4xl"
           variants={itemVariants}
         >
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <div className="mb-8 text-center">
+            <h2 className="mb-4 text-2xl font-bold text-gray-900">
               DevCV 소개 영상
             </h2>
             <p className="text-gray-600">
               DevCV의 주요 기능과 사용 방법을 소개하는 영상입니다.
             </p>
           </div>
-          <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-lg">
+          <div className="aspect-h-9 aspect-w-16 overflow-hidden rounded-2xl shadow-lg">
             <iframe
               width="560"
               height="315"
@@ -158,21 +158,21 @@ export default function LicensesClient() {
 
         {/* Additional Info */}
         <motion.section
-          className="mt-16 max-w-4xl mx-auto text-center"
+          className="mx-auto mt-16 max-w-4xl text-center"
           variants={itemVariants}
         >
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">
+          <div className="rounded-2xl bg-gradient-to-r from-blue-50 to-blue-100 p-8">
+            <h3 className="mb-4 text-xl font-bold text-gray-900">
               오픈소스에 기여하기
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="mb-6 text-gray-600">
               DevCV는 오픈소스 커뮤니티를 지원하며, 여러분의 기여를 환영합니다.
             </p>
             <a
               href="https://github.com/DevCVTeam"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+              className="inline-flex items-center gap-2 rounded-lg bg-blue-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-600"
             >
               <FaGithub className="text-xl" />
               GitHub에서 보기

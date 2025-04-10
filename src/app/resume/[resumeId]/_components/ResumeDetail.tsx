@@ -62,19 +62,19 @@ const ResumeDetail = ({
       <div className="relative mb-8">
         {/* 배경 이미지 및 오버레이 */}
         <div className="absolute inset-0 h-[300px] sm:h-[400px] lg:h-[500px]">
-          <div className="absolute inset-0 bg-[url('/thumbnail.png')] bg-cover bg-center bg-no-repeat blur-lg opacity-30">
+          <div className="absolute inset-0 bg-[url('/thumbnail.png')] bg-cover bg-center bg-no-repeat opacity-30 blur-lg">
             <div className="absolute inset-0 bg-gradient-to-b from-sky-100/80 via-white/80 to-indigo-50/80" />
           </div>
         </div>
 
         {/* 메인 콘텐츠 */}
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-12 pt-8 pb-6 sm:py-16">
+        <div className="container mx-auto max-w-7xl px-4">
+          <div className="relative z-10 flex flex-col items-center justify-center gap-6 pb-6 pt-8 sm:gap-12 sm:py-16 lg:flex-row">
             {/* 이미지 섹션 */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="relative w-[240px] sm:w-[280px] lg:w-[300px] aspect-[3/4] rounded-xl overflow-hidden shadow-xl ring-1 ring-black/5"
+              className="relative aspect-[3/4] w-[240px] overflow-hidden rounded-xl shadow-xl ring-1 ring-black/5 sm:w-[280px] lg:w-[300px]"
             >
               <Image
                 src={imageList[currentImageIndex].resumeImgPath}
@@ -86,14 +86,14 @@ const ResumeDetail = ({
               />
               {/* 이미지 썸네일 */}
               {imageList.length > 1 && (
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
                   {imageList.map((_, idx) => (
                     <button
                       key={idx}
                       onClick={() => setCurrentImageIndex(idx)}
-                      className={`w-2 h-2 rounded-full transition-all ${
+                      className={`size-2 rounded-full transition-all ${
                         currentImageIndex === idx
-                          ? 'bg-blue-500 scale-125'
+                          ? 'scale-125 bg-blue-500'
                           : 'bg-white/70 hover:bg-white'
                       }`}
                     />
@@ -106,21 +106,21 @@ const ResumeDetail = ({
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex flex-col gap-4 sm:gap-6 w-full text-center lg:text-left px-2 sm:px-6"
+              className="flex w-full flex-col gap-4 px-2 text-center sm:gap-6 sm:px-6 lg:text-left"
             >
               <div className="space-y-4">
-                <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
-                  <span className="px-4 py-1.5 bg-blue-100 rounded-full text-sm font-medium border border-blue-200 text-blue-700">
+                <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
+                  <span className="rounded-full border border-blue-200 bg-blue-100 px-4 py-1.5 text-sm font-medium text-blue-700">
                     {category.companyType}
                   </span>
-                  <span className="px-4 py-1.5 bg-amber-100 rounded-full text-sm font-medium border border-amber-200 text-amber-700">
+                  <span className="rounded-full border border-amber-200 bg-amber-100 px-4 py-1.5 text-sm font-medium text-amber-700">
                     평점 {averageGrade.toFixed(1)}
                   </span>
                 </div>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600">
+                <h1 className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 bg-clip-text text-3xl font-bold leading-tight text-transparent sm:text-4xl lg:text-5xl">
                   {title}
                 </h1>
-                <div className="flex items-center justify-center lg:justify-start gap-2 text-lg">
+                <div className="flex items-center justify-center gap-2 text-lg lg:justify-start">
                   <span className="text-gray-500">판매자</span>
                   <span className="font-medium text-gray-900">
                     {sellerNickname}
@@ -129,12 +129,12 @@ const ResumeDetail = ({
               </div>
 
               {/* 기술 스택 */}
-              <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+              <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
                 {stack.map((tech) => (
                   <span
                     key={tech}
-                    className="px-4 py-2 rounded-lg bg-gray-50 text-gray-700 text-sm font-medium 
-                    transition-all hover:bg-gray-100 border border-gray-200 hover:border-gray-300"
+                    className="rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 text-sm 
+                    font-medium text-gray-700 transition-all hover:border-gray-300 hover:bg-gray-100"
                   >
                     {tech}
                   </span>
@@ -142,35 +142,35 @@ const ResumeDetail = ({
               </div>
 
               {/* 가격 및 버튼 */}
-              <div className="space-y-6 mt-4">
-                <div className="flex flex-col items-center lg:items-start gap-2">
-                  <span className="text-gray-500 text-sm">판매가</span>
-                  <p className="text-3xl sm:text-4xl font-bold text-gray-900">
+              <div className="mt-4 space-y-6">
+                <div className="flex flex-col items-center gap-2 lg:items-start">
+                  <span className="text-sm text-gray-500">판매가</span>
+                  <p className="text-3xl font-bold text-gray-900 sm:text-4xl">
                     {price.toLocaleString()}{' '}
                     <span className="text-xl text-blue-600">Point</span>
                   </p>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start w-full">
+                <div className="flex w-full flex-col justify-center gap-4 sm:flex-row lg:justify-start">
                   <Button
                     onClick={handleDirectPurchase}
-                    className="w-full sm:w-[240px] h-[56px] bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 
-                    text-white px-8 text-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-blue-200 
-                    hover:-translate-y-0.5 rounded-lg whitespace-nowrap"
+                    className="h-[56px] w-full whitespace-nowrap rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-8 
+                    text-lg font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:from-blue-700 hover:to-indigo-700 
+                    hover:shadow-lg hover:shadow-blue-200 sm:w-[240px]"
                   >
                     결제하기
                   </Button>
                   <button
                     onClick={handleAddToCart}
                     disabled={isInCart}
-                    className={`w-full sm:w-[240px] h-[56px] flex items-center justify-center gap-2 px-8 rounded-lg text-lg font-medium
-                      transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap
+                    className={`flex h-[56px] w-full items-center justify-center gap-2 whitespace-nowrap rounded-lg px-8 text-lg font-medium
+                      transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg sm:w-[240px]
                       ${
                         isInCart
-                          ? 'bg-main text-gray-400 cursor-not-allowed border border-gray-200'
-                          : 'bg-main hover:bg-green-400 text-slate-900 border border-gray-200 hover:border-gray-300 hover:shadow-gray-200'
+                          ? 'cursor-not-allowed border border-gray-200 bg-main text-gray-400'
+                          : 'border border-gray-200 bg-main text-slate-900 hover:border-gray-300 hover:bg-green-400 hover:shadow-gray-200'
                       }`}
                   >
-                    <FiShoppingCart className="text-xl flex-shrink-0" />
+                    <FiShoppingCart className="shrink-0 text-xl" />
                     <span className="truncate">
                       {isInCart ? '장바구니에 있음' : '장바구니 담기'}
                     </span>
@@ -183,9 +183,9 @@ const ResumeDetail = ({
       </div>
 
       {/* 탭 섹션 */}
-      <div className="container mx-auto px-4 max-w-7xl">
+      <div className="container mx-auto max-w-7xl px-4">
         <TabGroup>
-          <TabList className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2 sm:gap-4 mb-6 sm:mb-8">
+          <TabList className="mb-6 flex flex-col items-stretch justify-center gap-2 sm:mb-8 sm:flex-row sm:items-center sm:gap-4">
             {['상품 상세', '구매 후기', '상품 문의'].map((tab) => (
               <Tab
                 key={tab}
@@ -203,7 +203,7 @@ const ResumeDetail = ({
             ))}
           </TabList>
           <TabPanels>
-            <TabPanel className="rounded-xl bg-white p-4 sm:p-6 lg:p-8 shadow-lg ring-1 ring-black/5">
+            <TabPanel className="rounded-xl bg-white p-4 shadow-lg ring-1 ring-black/5 sm:p-6 lg:p-8">
               <Detail
                 content={content}
                 stack={stack}
@@ -211,14 +211,14 @@ const ResumeDetail = ({
                 sellerNickname={sellerNickname}
               />
             </TabPanel>
-            <TabPanel className="rounded-xl bg-white p-4 sm:p-6 lg:p-8 shadow-lg ring-1 ring-black/5">
+            <TabPanel className="rounded-xl bg-white p-4 shadow-lg ring-1 ring-black/5 sm:p-6 lg:p-8">
               <Reviews
                 resumeId={resumeId}
                 reviewCount={reviewCount}
                 averageGrade={averageGrade}
               />
             </TabPanel>
-            <TabPanel className="rounded-xl bg-white p-4 sm:p-6 lg:p-8 shadow-lg ring-1 ring-black/5">
+            <TabPanel className="rounded-xl bg-white p-4 shadow-lg ring-1 ring-black/5 sm:p-6 lg:p-8">
               <ProductInquiry sellerEmail={sellerEmail} />
             </TabPanel>
           </TabPanels>

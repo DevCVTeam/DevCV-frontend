@@ -22,31 +22,31 @@ const SignupPage = () => {
 
   return (
     <motion.div
-      className="relative min-h-screen flex items-center justify-center px-4 py-16 sm:px-6 lg:px-8 xl:px-0 overflow-hidden
-      bg-gradient-to-br from-gray-50 via-white to-gray-50 before:fixed before:z-[1] before:h-1/2 before:w-3/4 before:animate-spin-slower before:rounded-bl-full before:rounded-tr-full before:bg-accent-2 before:blur-3xl 
-      after:fixed after:z-[1] after:size-2/3 after:animate-spin-slow after:rounded-bl-full after:rounded-tr-full after:bg-accent-1/80 after:blur-3xl"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-50 px-4
+      py-16 before:fixed before:z-[1] before:h-1/2 before:w-3/4 before:animate-spin-slower before:rounded-bl-full before:rounded-tr-full before:bg-accent-2 before:blur-3xl after:fixed after:z-[1] after:size-2/3 
+      after:animate-spin-slow after:rounded-bl-full after:rounded-tr-full after:bg-accent-1/80 after:blur-3xl sm:px-6 lg:px-8 xl:px-0"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       {/* 배경 장식 요소들 */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-gradient-to-br from-blue-100/30 to-purple-100/30 rounded-full blur-3xl animate-float" />
-        <div className="absolute -bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-gradient-to-br from-green-100/30 to-blue-100/30 rounded-full blur-3xl animate-float-delay" />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -left-1/4 -top-1/4 size-1/2 animate-float rounded-full bg-gradient-to-br from-blue-100/30 to-purple-100/30 blur-3xl" />
+        <div className="absolute -bottom-1/4 -right-1/4 size-1/2 animate-float-delay rounded-full bg-gradient-to-br from-green-100/30 to-blue-100/30 blur-3xl" />
       </div>
 
       <motion.div
-        className="w-full max-w-[360px] xs:max-w-[400px] sm:max-w-[520px] md:max-w-[640px]
-        relative z-10
-        flex flex-col items-center justify-center gap-4 
-        rounded-2xl sm:rounded-3xl
-        border border-gray-100
-        bg-white/80 backdrop-blur-xl
-        p-6 sm:p-8 lg:p-10
-        shadow-xl hover:shadow-2xl transition-all duration-300"
+        className="relative z-10 flex w-full max-w-screen-sm
+        flex-col items-center
+        justify-center gap-4 rounded-2xl border border-gray-100 
+        bg-white/80 p-6
+        shadow-xl backdrop-blur-xl
+        transition-all duration-300
+        hover:shadow-2xl xs:max-w-screen-fold sm:max-w-[520px]
+        sm:rounded-3xl sm:p-8 md:max-w-[640px] lg:p-10"
       >
         <motion.div
-          className="flex flex-col items-center gap-4 sm:gap-6 mb-6"
+          className="mb-6 flex flex-col items-center gap-4 sm:gap-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -61,11 +61,11 @@ const SignupPage = () => {
               height={48}
               src="/logo.png"
               alt="logoImage"
-              className="sm:w-12 sm:h-12 drop-shadow-md"
+              className="drop-shadow-md sm:size-12"
             />
           </motion.div>
           <motion.h2
-            className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent text-center"
+            className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-center text-2xl font-bold text-transparent sm:text-3xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}

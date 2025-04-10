@@ -73,8 +73,8 @@ export default function TermsClient() {
         animate="visible"
       >
         {/* Hero Section */}
-        <motion.section className="text-center mb-16" variants={itemVariants}>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        <motion.section className="mb-16 text-center" variants={itemVariants}>
+          <h1 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
             이용약관
           </h1>
           <p className="text-xl text-gray-600">최종 수정일: 2024년 3월 15일</p>
@@ -82,24 +82,24 @@ export default function TermsClient() {
 
         {/* Terms Content */}
         <motion.div
-          className="max-w-4xl mx-auto space-y-8"
+          className="mx-auto max-w-4xl space-y-8"
           variants={containerVariants}
         >
           {terms.map((term, index) => (
             <motion.div
               key={term.title}
               variants={itemVariants}
-              className="bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow duration-300"
+              className="rounded-2xl border border-gray-100 bg-gray-50 p-8 transition-shadow duration-300 hover:shadow-lg"
             >
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-semibold">
+                <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-blue-100 font-semibold text-blue-600">
                   {index + 1}
                 </div>
                 <div className="space-y-4">
                   <h2 className="text-xl font-bold text-gray-900">
                     {term.title}
                   </h2>
-                  <div className="text-gray-600 whitespace-pre-line leading-relaxed">
+                  <div className="whitespace-pre-line leading-relaxed text-gray-600">
                     {term.content}
                   </div>
                 </div>
@@ -110,19 +110,19 @@ export default function TermsClient() {
 
         {/* Contact Section */}
         <motion.section
-          className="mt-16 max-w-4xl mx-auto"
+          className="mx-auto mt-16 max-w-4xl"
           variants={itemVariants}
         >
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8 text-center">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">
+          <div className="rounded-2xl bg-gradient-to-r from-blue-50 to-blue-100 p-8 text-center">
+            <h3 className="mb-4 text-xl font-bold text-gray-900">
               추가 문의사항이 있으신가요?
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="mb-6 text-gray-600">
               이용약관에 대해 궁금한 점이 있다면 언제든 문의해주세요.
             </p>
             <a
               href="/contact"
-              className="inline-flex items-center gap-2 bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+              className="inline-flex items-center gap-2 rounded-lg bg-blue-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-600"
             >
               문의하기
               <FaChevronRight className="text-sm" />

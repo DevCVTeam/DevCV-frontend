@@ -31,10 +31,22 @@ const config: Config = {
         'screen-x': 'var(--screen-x, 1rem)',
         'screen-y': 'var(--screen-y, 1rem)'
       },
-      backgroundImage: {},
       animation: {
         'spin-slower': 'spin 35s ease infinite',
-        'spin-slow': 'spin 25s ease-in-out infinite reverse'
+        'spin-slow': 'spin 25s ease-in-out infinite reverse',
+        float: 'float 3s ease-in-out infinite',
+        'float-delay': 'float 3s ease-in-out infinite 1s',
+        gradient: 'gradient 3s ease infinite'
+      },
+      keyframes: {
+        gradient: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' }
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' }
+        }
       },
       colors: {
         accent: {
@@ -52,6 +64,28 @@ const config: Config = {
       },
       fontFamily: {
         Tenada: 'Tenada'
+      },
+      backgroundSize: {
+        'size-200': '200%'
+      },
+      aspectRatio: {
+        square: '1 / 1',
+        video: '16 / 9'
+      },
+      ringOpacity: {
+        '50': '0.5'
+      },
+      backgroundOpacity: {
+        '10': '0.1'
+      },
+      backgroundImage: {
+        'grid-pattern': 'url(/path/to/grid-pattern.png)'
+      },
+      height: {
+        '35': '8.75rem'
+      },
+      scrollbar: {
+        hide: 'none'
       }
     }
   },

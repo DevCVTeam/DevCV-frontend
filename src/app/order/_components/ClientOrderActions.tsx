@@ -49,9 +49,9 @@ const ClientOrderActions = ({ user, userPoint }: ClientOrderActionsProps) => {
   return (
     <div>
       <div className="flex justify-around gap-4">
-        <div className="flex gap-4 flex-col w-3/5">
+        <div className="flex w-3/5 flex-col gap-4">
           {orderItems.length === 0 ? (
-            <div className="flex flex-col items-center justify-center w-full h-64 text-gray-500">
+            <div className="flex h-64 w-full flex-col items-center justify-center text-gray-500">
               <p>결제할 상품이 없습니다.</p>
               <button
                 onClick={() => router.push('/resume')}

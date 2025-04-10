@@ -62,7 +62,7 @@ export default function CartPage() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <motion.div
-          className="h-32 w-32 border-t-2 border-b-2 border-main"
+          className="size-32 border-y-2 border-main"
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
         />
@@ -109,7 +109,7 @@ export default function CartPage() {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
                 href="/"
-                className="rounded-lg bg-main px-6 py-2.5 text-white hover:bg-hover transition-colors"
+                className="rounded-lg bg-main px-6 py-2.5 text-white transition-colors hover:bg-hover"
               >
                 이력서 구경하기
               </Link>
@@ -135,7 +135,7 @@ export default function CartPage() {
                       layout
                     >
                       <motion.div
-                        className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg sm:h-24 sm:w-24"
+                        className="relative size-20 shrink-0 overflow-hidden rounded-lg sm:size-24"
                         whileHover={{ scale: 1.05 }}
                       >
                         <Image
@@ -146,7 +146,7 @@ export default function CartPage() {
                         />
                       </motion.div>
                       <div className="flex flex-1 flex-col justify-between">
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                           <div>
                             <h3 className="text-base font-medium sm:text-lg">
                               {resume.title}
@@ -161,11 +161,11 @@ export default function CartPage() {
                         </div>
                         <motion.button
                           onClick={() => removeResume(resume.resumeId)}
-                          className="self-end flex items-center gap-1 text-red-500 hover:text-red-600"
+                          className="flex items-center gap-1 self-end text-red-500 hover:text-red-600"
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                         >
-                          <BsTrash className="h-4 w-4 sm:h-5 sm:w-5" />
+                          <BsTrash className="size-4 sm:size-5" />
                           <span className="text-sm">삭제</span>
                         </motion.button>
                       </div>
@@ -216,7 +216,7 @@ export default function CartPage() {
                 >
                   <Link
                     href="/order"
-                    className="block w-full rounded-lg bg-main py-3 text-center text-white hover:bg-hover transition-colors"
+                    className="block w-full rounded-lg bg-main py-3 text-center text-white transition-colors hover:bg-hover"
                   >
                     결제하기
                   </Link>

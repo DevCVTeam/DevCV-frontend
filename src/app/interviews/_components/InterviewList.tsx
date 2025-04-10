@@ -52,7 +52,7 @@ export default function InterviewList({ interviews }: InterviewListProps) {
     <div className="space-y-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative">
-          <FaSearch className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+          <FaSearch className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="이름, 역할, 회사 또는 키워드로 검색"
