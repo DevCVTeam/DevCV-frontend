@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { FaEnvelope, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 const contactInfo = [
@@ -70,6 +71,13 @@ const itemVariants = {
 };
 
 export default function ContactClient() {
+  const router = useRouter();
+
+  // Direct GitHub login and comment
+  const handleDirectGitHub = () => {
+    window.open('https://github.com/orgs/DevCVTeam/discussions/1', '_blank');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-12">
       <motion.div
@@ -86,81 +94,80 @@ export default function ContactClient() {
           <p className="mx-auto max-w-2xl text-xl text-gray-600">
             궁금한 점이나 제안사항이 있으시다면
             <br />
-            언제든지 문의해주세요.
+            GitHub 토론 페이지에서 직접 문의해주세요.
           </p>
+          <motion.div
+            className="mt-10 flex flex-col items-center justify-center gap-6"
+            variants={itemVariants}
+          >
+            <div className="rounded-xl bg-white p-6 shadow-lg transition-transform hover:scale-105">
+              <p className="mb-4 text-lg text-gray-600">
+                GitHub 계정으로 로그인하여 문의를 남기시면
+                <br />
+                빠르게 답변해 드리겠습니다.
+              </p>
+              <button
+                onClick={handleDirectGitHub}
+                className="flex w-full items-center justify-center gap-3 rounded-lg bg-gray-800 px-10 py-4 font-semibold text-white transition-colors hover:bg-gray-700"
+              >
+                <FaGithub className="text-2xl" />
+                <span className="text-lg">GitHub에서 문의하기</span>
+              </button>
+            </div>
+          </motion.div>
         </motion.section>
 
         <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
-          {/* Contact Form */}
+          {/* Instructions */}
           <motion.section variants={itemVariants}>
             <div className="rounded-xl bg-white p-8 shadow-lg">
               <h2 className="mb-6 text-2xl font-bold text-gray-900">
-                메시지 보내기
+                GitHub 토론으로 문의하는 방법
               </h2>
-              <form className="space-y-6">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="mb-2 block text-sm font-medium text-gray-700"
-                  >
-                    이름
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="mb-2 block text-sm font-medium text-gray-700"
-                  >
-                    이메일
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="subject"
-                    className="mb-2 block text-sm font-medium text-gray-700"
-                  >
-                    제목
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="mb-2 block text-sm font-medium text-gray-700"
-                  >
-                    메시지
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500"
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full rounded-lg bg-blue-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-600"
-                >
-                  보내기
-                </button>
-              </form>
+              <ol className="space-y-4 text-gray-700">
+                <li className="flex items-start gap-3">
+                  <span className="flex size-6 items-center justify-center rounded-full bg-blue-500 text-sm font-bold text-white">
+                    1
+                  </span>
+                  <span>
+                    &apos;GitHub에서 문의하기&apos; 버튼을 클릭하여 GitHub 토론
+                    페이지로 이동합니다.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="flex size-6 items-center justify-center rounded-full bg-blue-500 text-sm font-bold text-white">
+                    2
+                  </span>
+                  <span>
+                    GitHub 계정으로 로그인합니다. 계정이 없다면 무료로 가입할 수
+                    있습니다.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="flex size-6 items-center justify-center rounded-full bg-blue-500 text-sm font-bold text-white">
+                    3
+                  </span>
+                  <span>
+                    토론 페이지 하단에 있는 댓글 창에 문의 내용을 작성합니다.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="flex size-6 items-center justify-center rounded-full bg-blue-500 text-sm font-bold text-white">
+                    4
+                  </span>
+                  <span>
+                    &apos;Comment&apos; 버튼을 클릭하여 문의를 등록합니다.
+                  </span>
+                </li>
+              </ol>
+              <div className="mt-6 rounded-lg bg-blue-50 p-4 text-blue-800">
+                <p className="font-medium">문의 작성 팁</p>
+                <p className="mt-1 text-sm">
+                  문의 시 가능한 자세한 내용을 포함해 주시면 더 빠르고 정확한
+                  답변을 받으실 수 있습니다. 특히 버그 신고의 경우, 발생 환경과
+                  재현 방법을 알려주시면 큰 도움이 됩니다.
+                </p>
+              </div>
             </div>
           </motion.section>
 

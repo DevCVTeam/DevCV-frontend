@@ -70,22 +70,6 @@ const Header = () => {
         </b>
       </Link>
 
-      <div className="flex items-center justify-between gap-6 font-Tenada">
-        <div className="group hidden cursor-pointer whitespace-nowrap px-3 md:block">
-          <span className="relative">
-            기업 분류
-            <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sub transition-all duration-300 group-hover:w-full" />
-          </span>
-        </div>
-
-        <div className="group hidden cursor-pointer whitespace-nowrap px-3 md:block">
-          <span className="relative">
-            기술 분류
-            <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sub transition-all duration-300 group-hover:w-full" />
-          </span>
-        </div>
-      </div>
-
       <nav className="flex items-center gap-4">
         <Link
           href="/cart"

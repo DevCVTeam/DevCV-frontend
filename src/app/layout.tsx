@@ -97,7 +97,7 @@ export default function RootLayout({
         {process.env.GOOGLE_ADSENSE_CLIENT_ID && (
           <Script
             async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.GOOGLE_ADSENSE_CLIENT_ID}}`}
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.GOOGLE_ADSENSE_CLIENT_ID}`}
             crossOrigin="anonymous"
             strategy="lazyOnload"
           />

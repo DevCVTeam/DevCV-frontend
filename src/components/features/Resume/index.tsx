@@ -283,24 +283,51 @@ export const CategoryResume: FC<ResumeResponse> = ({
               >
                 {data.pages.map((group, i) => (
                   <React.Fragment key={i}>
-                    {group.content?.map((resume) => (
-                      <motion.div
-                        key={resume.resumeId}
-                        variants={itemVariants}
-                        className="flex justify-center"
-                        // layout 속성 제거
-                      >
-                        <ResumeBox
-                          resumeId={resume.resumeId}
-                          thumbnail={
-                            resume.imageList?.[0]?.resumeImgPath ||
-                            '/default-thumbnail.png'
-                          }
-                          title={resume.title}
-                          userId={resume.sellerNickname}
-                          price={resume.price}
-                        />
-                      </motion.div>
+                    {group.content?.map((resume, index) => (
+                      <React.Fragment key={resume.resumeId}>
+                        <motion.div
+                          variants={itemVariants}
+                          className="flex justify-center"
+                        >
+                          <ResumeBox
+                            resumeId={resume.resumeId}
+                            thumbnail={
+                              resume.imageList?.[0]?.resumeImgPath ||
+                              '/default-thumbnail.png'
+                            }
+                            title={resume.title}
+                            userId={resume.sellerNickname}
+                            price={resume.price}
+                          />
+                        </motion.div>
+                        {(index + 1) % 10 === 0 && (
+                          <motion.div
+                            variants={itemVariants}
+                            className="col-span-1 flex justify-center xl:col-span-3 2xl:col-span-4 3xl:col-span-5"
+                          >
+                            <div className="w-full">
+                              <script
+                                async
+                                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3004906966180197"
+                                crossOrigin="anonymous"
+                              ></script>
+                              <ins
+                                className="adsbygoogle"
+                                style={{ display: 'block' }}
+                                data-ad-format="fluid"
+                                data-ad-layout-key="-7f+ey-3-5f+9u"
+                                data-ad-client="ca-pub-3004906966180197"
+                                data-ad-slot="7851122160"
+                              ></ins>
+                              <script
+                                dangerouslySetInnerHTML={{
+                                  __html: `(adsbygoogle = window.adsbygoogle || []).push({});`
+                                }}
+                              ></script>
+                            </div>
+                          </motion.div>
+                        )}
+                      </React.Fragment>
                     ))}
                   </React.Fragment>
                 ))}
