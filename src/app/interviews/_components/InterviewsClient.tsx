@@ -1,5 +1,6 @@
 'use client';
 
+import { EventCategory } from '@/utils/type';
 import { motion } from 'framer-motion';
 import InterviewList from './InterviewList';
 
@@ -16,6 +17,8 @@ interface Interview {
     github?: string;
     linkedin?: string;
   };
+  isEventInterview?: boolean;
+  eventCategory?: EventCategory;
 }
 
 interface InterviewsClientProps {

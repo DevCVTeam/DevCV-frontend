@@ -57,15 +57,18 @@ export const authOptions: NextAuthOptions = {
           }
           const { memberId, role, social, memberName, emailRes, exp } =
             decodeJwtResponse(user.accessToken);
+
+          // 관리자 접근 검증은 미들웨어에서 처리하도록 변경
           return {
+            id: memberId,
+            name: memberName,
+            email: emailRes || user.email,
+            memberName: memberName,
+            role: role,
+            social: social,
             accessToken: user.accessToken,
             refreshToken: user.refreshToken,
-            id: memberId,
-            email: user.email,
-            memberName: memberName,
-            role,
-            social,
-            exp
+            exp: exp
           };
         } catch (e: any) {
           throw new Error(e.response);

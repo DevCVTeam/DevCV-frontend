@@ -13,10 +13,6 @@ interface Props {
   children?: React.ReactNode;
 }
 
-interface Props {
-  children?: React.ReactNode;
-}
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

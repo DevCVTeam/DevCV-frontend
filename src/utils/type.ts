@@ -132,13 +132,22 @@ export type EventList = {
 export type TEvent = {
   eventId: number;
   name: string;
-  eventCategory: string;
+  eventCategory: EventCategory;
   startDate: string;
   endDate: string;
   point: number;
   errorCode?: string;
   message?: string;
 };
+
+export type EventCategory =
+  | 'INTERVIEW'
+  | 'PROMOTION'
+  | 'CONTEST'
+  | 'SEMINAR'
+  | 'WEBINAR'
+  | 'WORKSHOP'
+  | 'OTHER';
 
 export type PendingModifiedResumeListResponse = {
   content: PendingModifiedResumeList[];

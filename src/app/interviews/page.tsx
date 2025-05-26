@@ -1,3 +1,4 @@
+import { EventCategory } from '@/utils/type';
 import { Metadata } from 'next';
 import InterviewsClient from './_components/InterviewsClient';
 
@@ -6,6 +7,62 @@ export const metadata: Metadata = {
   description:
     '프론트엔드, 백엔드, 데이터베이스 등 다양한 기술 면접 질문과 모범 답안을 제공합니다.'
 };
+
+// 이벤트 인터뷰 데이터 가져오기 함수
+async function getEventInterviews() {
+  try {
+    // 실제로는 API 호출
+    // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/events/interviews`, {
+    //   headers: {
+    //     Cookie: cookies().toString()
+    //   },
+    //   cache: 'no-store'
+    // });
+    // if (!res.ok) throw new Error('이벤트 인터뷰 데이터를 불러오는 중 오류가 발생했습니다.');
+    // const data = await res.json();
+    // return data.interviews;
+
+    // 임시 데이터
+    return [
+      {
+        id: '5',
+        name: '장인터뷰',
+        role: 'Spring 백엔드 개발자',
+        company: 'DevCV',
+        image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a',
+        summary:
+          'Spring 백엔드 개발자로서 MSA 아키텍처 설계와 구현 경험, 대용량 트래픽 처리 방법에 대해 공유합니다.',
+        date: '2024-05-22',
+        tags: ['Spring', 'MSA', 'Backend', 'JPA'],
+        links: {
+          github: 'https://github.com/janginterview'
+        },
+        isEventInterview: true,
+        eventCategory: 'INTERVIEW' as EventCategory
+      },
+      {
+        id: '6',
+        name: '김코딩',
+        role: 'DevOps 엔지니어',
+        company: 'CodeLab',
+        image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2',
+        summary:
+          'CI/CD 파이프라인 구축 및 컨테이너화 경험, Kubernetes 클러스터 운영 노하우를 전달합니다.',
+        date: '2024-05-18',
+        tags: ['Docker', 'Kubernetes', 'DevOps', 'CI/CD'],
+        links: {
+          github: 'https://github.com/kimcoding',
+          linkedin: 'https://linkedin.com/in/kimcoding'
+        },
+        isEventInterview: true,
+        eventCategory: 'INTERVIEW' as EventCategory
+      }
+    ];
+  } catch (error) {
+    console.error('이벤트 인터뷰 데이터 로드 오류:', error);
+    return [];
+  }
+}
 
 // Sample interview data (실제로는 API나 데이터베이스에서 가져와야 함)
 const sampleInterviews = [
@@ -70,5 +127,14 @@ const sampleInterviews = [
 ];
 
 export default async function InterviewsPage() {
-  return <InterviewsClient interviews={sampleInterviews} />;
+  // 이벤트 인터뷰와 일반 인터뷰 데이터 결합
+  const eventInterviews = await getEventInterviews();
+  const combinedInterviews = [...eventInterviews, ...sampleInterviews];
+
+  // 날짜 순으로 정렬 (최신 인터뷰가 먼저 나오도록)
+  combinedInterviews.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
+  return <InterviewsClient interviews={combinedInterviews} />;
 }

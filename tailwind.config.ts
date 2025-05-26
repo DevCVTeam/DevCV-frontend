@@ -36,7 +36,8 @@ const config: Config = {
         'spin-slow': 'spin 25s ease-in-out infinite reverse',
         float: 'float 3s ease-in-out infinite',
         'float-delay': 'float 3s ease-in-out infinite 1s',
-        gradient: 'gradient 3s ease infinite'
+        gradient: 'gradient 3s ease infinite',
+        'progress-bar': 'progress 2s linear forwards'
       },
       keyframes: {
         gradient: {
@@ -46,6 +47,10 @@ const config: Config = {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' }
+        },
+        progress: {
+          '0%': { width: '0%' },
+          '100%': { width: '100%' }
         }
       },
       colors: {
