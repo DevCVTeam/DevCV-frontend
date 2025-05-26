@@ -36,6 +36,8 @@ const sampleEvents: TEvent[] = [
 
 const getCategoryColor = (category: EventCategory) => {
   const colors = {
+    ATTENDANCE: 'bg-orange-100 text-orange-800',
+    QUIZ: 'bg-teal-100 text-teal-800',
     INTERVIEW: 'bg-blue-100 text-blue-800',
     PROMOTION: 'bg-green-100 text-green-800',
     CONTEST: 'bg-purple-100 text-purple-800',

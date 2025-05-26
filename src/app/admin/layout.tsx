@@ -26,11 +26,12 @@ const menuItems = [
   { title: '설정', icon: <AiOutlineSetting />, href: '/admin/settings' }
 ];
 
-export default function AdminLayout({
-  children
-}: Readonly<{
+interface LayoutProps {
   children: React.ReactNode;
-}>) {
+  modal: React.ReactNode;
+}
+
+export default function AdminLayout({ children, modal }: LayoutProps) {
   const pathname = usePathname();
   const router = useRouter();
   const { data: session, status } = useSession();
@@ -92,7 +93,10 @@ export default function AdminLayout({
       </div>
 
       {/* 메인 콘텐츠 */}
-      <main className="flex-1 p-4 md:p-8">{children}</main>
+      <main className="flex-1 p-4 md:p-8">
+        {children}
+        {modal}
+      </main>
     </div>
   );
 }

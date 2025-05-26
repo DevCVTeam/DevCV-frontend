@@ -49,7 +49,6 @@ export default function SalesResumePage({
   } = useForm<TResumeModified>({ mode: 'onChange' });
   const resumefile = watch('resumefile');
   const { data: user } = useSession();
-  console.log(user);
   useEffect(() => {
     if (user) {
       (async () => {

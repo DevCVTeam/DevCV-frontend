@@ -114,11 +114,7 @@ const Begin = () => {
     ) {
       return toast.error('이메일 인증에 실패하였습니다.');
     }
-    console.log(
-      verificationRef.current?.value,
-      verification,
-      verification.length
-    );
+
     setEmailCheck(true);
     return toast.success('이메일 인증에 성공하셨습니다.');
   };

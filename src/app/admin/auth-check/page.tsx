@@ -85,7 +85,7 @@ export default function AdminAuthCheckPage() {
             <p className="mt-2 text-gray-600">관리자 페이지로 이동합니다.</p>
             <div className="mt-4">
               <div className="h-2 overflow-hidden rounded-full bg-gray-200">
-                <div className="duration-2000 h-full animate-progress-bar bg-green-500 transition-all"></div>
+                <div className="h-full animate-progress-bar bg-green-500 transition-all duration-2000"></div>
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@ export default function AdminAuthCheckPage() {
             <p className="mt-2 text-gray-600">{errorMessage}</p>
             <div className="mt-4">
               <div className="h-2 overflow-hidden rounded-full bg-gray-200">
-                <div className="duration-4000 h-full animate-progress-bar bg-red-500 transition-all"></div>
+                <div className="h-full animate-progress-bar bg-red-500 transition-all duration-4000"></div>
               </div>
             </div>
           </div>

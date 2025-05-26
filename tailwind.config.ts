@@ -91,6 +91,10 @@ const config: Config = {
       },
       scrollbar: {
         hide: 'none'
+      },
+      transitionDuration: {
+        '2000': '2000ms',
+        '4000': '4000ms'
       }
     }
   },
@@ -136,7 +140,8 @@ const config: Config = {
         }
       });
     }
-  ]
+  ],
+  safelist: ['adsbygoogle']
 };
 
 export default config;

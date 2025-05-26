@@ -66,7 +66,6 @@ const SigninPage = () => {
       }
       const email = emailRef.current?.value;
       const password = pwdRef.current?.value;
-      console.log(email, password);
       if (!email || !validateEmail(email)) {
         return toast.error('유효한 이메일을 입력해주세요.');
       }

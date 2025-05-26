@@ -141,6 +141,8 @@ export type TEvent = {
 };
 
 export type EventCategory =
+  | 'ATTENDANCE'
+  | 'QUIZ'
   | 'INTERVIEW'
   | 'PROMOTION'
   | 'CONTEST'
